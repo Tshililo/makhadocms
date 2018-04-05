@@ -38,7 +38,7 @@
 
     infoGroupItem1.Items.Add(i => i.Attention, itemSettings =>
     {
-        itemSettings.Caption = "Attention";
+        itemSettings.Caption = "Organization";
         itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
         itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
         TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
@@ -47,8 +47,6 @@
         textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
 
     });
-
-
 
     var ButtonsGroupItem = formSettings.Items.AddGroupItem(Buttonsettings =>
     {

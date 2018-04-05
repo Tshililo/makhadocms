@@ -21,7 +21,7 @@ namespace cms
             string ForAttention = Attention.Value.ToString();
 
             var orgSrc = GetReportDto(toCompay, ForAttention);
-			//this.srcMakhadocms.DataSource = orgSrc;
+			this.srcOrganization.DataSource = orgSrc;
 		}
 
         private List<Models.SummaryDto.SummaryLineDto> GetApplicationsDto(string toCompany, string forAttention)
