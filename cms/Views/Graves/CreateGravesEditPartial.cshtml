@@ -1,0 +1,147 @@
+
+@model cms.Grave
+
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+
+@Html.HiddenFor(e => e.ObjId)
+
+@Html.DevExpress().FormLayout(formSettings =>
+{
+    @Html.AntiForgeryToken();
+
+    formSettings.Name = "GravesFeatureLayout";
+    formSettings.AlignItemCaptionsInAllGroups = true;
+    formSettings.ColCount = 1;
+
+    var infoGroupItem1 = formSettings.Items.AddGroupItem(settings =>
+    {
+        settings.Caption = "Graves Information";
+        //settings.RowSpan = 2;
+        settings.ShowCaption = DefaultBoolean.True;
+        settings.ColCount = 1;
+
+    });
+
+    infoGroupItem1.Items.Add(e => e.CemeteryId, itemSettings =>
+    {
+        //  itemSettings.FieldName = "DeedGenderDropDown";
+        itemSettings.Caption = "Cemetery";
+        itemSettings.SetNestedContent(() =>
+        {
+
+
+            @Html.DevExpress().ComboBox(ComboBoxsettings =>
+            {
+                //  Gsettings.Name = "Id";
+                ComboBoxsettings.Name = "CemeteryId";
+               // ComboBoxsettings.Width = 500;
+               // ComboBoxsettings.SelectedIndex = 1;
+                ComboBoxsettings.Properties.TextField = "Name";
+                ComboBoxsettings.Properties.ValueField = "ObjId";
+                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                ComboBoxsettings.ShowModelErrors = true;
+            }
+        ).BindList(ViewData["Cemetery"]).Render();
+        });
+    });
+
+
+    infoGroupItem1.Items.Add(i => i.Name, itemSettings =>
+    {
+        itemSettings.Caption = "Plot";
+        //settings.FieldName = "LoadReference";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.Longitude, itemSettings =>
+    {
+        //settings.Caption = "Load Reference";
+        //settings.FieldName = "LoadReference";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.Latitude, itemSettings =>
+    {
+        //settings.Caption = "Load Reference";
+        //settings.FieldName = "LoadReference";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+
+    infoGroupItem1.Items.Add(e => e.Status, itemSettings =>
+    {
+        //  itemSettings.FieldName = "DeedGenderDropDown";
+        itemSettings.Caption = "Status";
+        itemSettings.SetNestedContent(() =>
+        {
+
+            @Html.DevExpress().ComboBox(ComboBoxsettings =>
+            {
+                ComboBoxsettings.Name = "Status";
+                ComboBoxsettings.Properties.Items.Add("Used Space");
+                ComboBoxsettings.Properties.Items.Add("Open Space");
+                ComboBoxsettings.Properties.Items.Add("Reserved Space");
+                ComboBoxsettings.Properties.Items.Add("Used - N/A");
+                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                ComboBoxsettings.ShowModelErrors = true;
+            }).Bind(Model.Status).Render();
+        });
+    });
+
+
+    var ButtonsGroupItem = formSettings.Items.AddGroupItem(Buttonsettings =>
+    {
+        // Buttonsettings.Caption = "";
+        //settings.RowSpan = 2;
+        // Buttonsettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.ColCount = 1;
+    });
+
+    ButtonsGroupItem.Items.Add(Buttonsettings =>
+    {
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.SetNestedContent(() =>
+        {
+            Html.ViewContext.Writer.Write("<div style='float:right'>");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnSave";
+                btnSettings.Text = "Save";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {GravesGridViewPartial.UpdateEdit();}";
+            }).Render();
+
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.Text = "Cancel";
+                btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {GravesGridViewPartial.CancelEdit();}";
+                btnSettings.UseSubmitBehavior = true;
+            }).Render();
+
+            Html.ViewContext.Writer.Write("</div>");
+
+        });
+    });
+
+}).Bind(Model).GetHtml();

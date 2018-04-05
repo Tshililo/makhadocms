@@ -1,0 +1,90 @@
+﻿
+@model cms.ReportOtion
+
+@{
+    Html.EnableClientValidation();
+}
+
+@Html.DevExpress().FormLayout(formSettings =>
+{
+    @Html.AntiForgeryToken();
+
+    formSettings.Name = "ReportformLayout";
+    formSettings.AlignItemCaptionsInAllGroups = true;
+    formSettings.ColCount = 1;
+
+    var infoGroupItem1 = formSettings.Items.AddGroupItem(settings =>
+    {
+        settings.Caption = "Please Provide the following";
+        //settings.RowSpan = 2;
+        settings.ShowCaption = DefaultBoolean.True;
+        settings.ColCount = 1;
+
+
+    });
+
+
+    infoGroupItem1.Items.Add(i => i.To, itemSettings =>
+    {
+        itemSettings.Caption = "To";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.Attention, itemSettings =>
+    {
+        itemSettings.Caption = "Attention";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+
+
+    var ButtonsGroupItem = formSettings.Items.AddGroupItem(Buttonsettings =>
+    {
+        // Buttonsettings.Caption = "";
+        //settings.RowSpan = 2;
+        Buttonsettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.ColCount = 1;
+    });
+
+    ButtonsGroupItem.Items.Add(Buttonsettings =>
+    {
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.SetNestedContent(() =>
+        {
+            Html.ViewContext.Writer.Write("<div style='float:right'>");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnPrint";
+                btnSettings.Text = "Print";
+                btnSettings.ClientSideEvents.Click = "PrintReport";
+            }).Render();
+
+            //Html.DevExpress().Button(btnSettings =>
+            //{
+            //    btnSettings.Name = "btnCancel";
+            //    btnSettings.Text = "Cancel";
+            //    btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+            //    btnSettings.ClientSideEvents.Click = "function (s,e) {Q67ReportOptions.Hide();}";
+            //    btnSettings.UseSubmitBehavior = true;
+            //}).Render();
+
+            Html.ViewContext.Writer.Write("</div>");
+
+        });
+    });
+
+}).GetHtml()
+

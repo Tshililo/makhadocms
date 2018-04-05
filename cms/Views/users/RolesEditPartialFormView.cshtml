@@ -1,0 +1,77 @@
+﻿@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+@using cms.Models;
+
+@model cms.Models.UserRolesDto
+
+@Html.HiddenFor(e => e.ObjId)
+@*@Html.HiddenFor(e => e.RoleId)*@
+
+
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    // Get Fields
+    settings.Name = "form1";
+
+    var infoGroupItem = settings.Items.AddGroupItem(Gsettings =>
+    {
+        Gsettings.Caption = "User Roles Section";
+        Gsettings.RowSpan = 4;
+        Gsettings.ShowCaption = DefaultBoolean.True;
+        Gsettings.ColCount = 1;
+        Gsettings.Items.Add(e => e.RoleId,itemSettings =>
+        {
+            itemSettings.FieldName = "RoleDropDown";
+            itemSettings.Caption = "";
+            itemSettings.SetNestedContent(() =>
+            {
+
+                @Html.DevExpress().ComboBox(ComboBoxsettings =>
+                {
+                    Gsettings.Name = "Id";
+                    ComboBoxsettings.Name = "RoleId";
+                    ComboBoxsettings.Width = 500;
+                    ComboBoxsettings.SelectedIndex = 1;
+                    ComboBoxsettings.Properties.TextField = "Name";
+                    ComboBoxsettings.Properties.ValueField = "Id";
+                    ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                    ComboBoxsettings.ShowModelErrors = true;
+                }
+          ).BindList(ViewData["Roles"]).Render();
+            });
+
+        });
+
+
+        Gsettings.Items.Add(itemSettings =>
+        {
+            itemSettings.ShowCaption = DefaultBoolean.False;
+            itemSettings.SetNestedContent(() =>
+            {
+                Html.ViewContext.Writer.Write("<div style='float:right'>");
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnSave";
+                    btnSettings.Text = "Save";
+                    btnSettings.ClientSideEvents.Click = "function (s,e) {UserRoles_GridView.UpdateEdit();}";
+                }).Render();
+
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnCancel";
+                    btnSettings.Text = "Cancel";
+                    btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                    btnSettings.ClientSideEvents.Click = "function (s,e) {UserRoles_GridView.CancelEdit();}";
+                }).Render();
+
+                Html.ViewContext.Writer.Write("</div>");
+
+            });
+
+        });
+    });
+
+}).GetHtml()
+
+

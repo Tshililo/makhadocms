@@ -1,0 +1,271 @@
+
+@model cms.Application
+
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+
+@Html.HiddenFor(e => e.ObjId)
+
+@Html.DevExpress().FormLayout(formSettings =>
+{
+    @Html.AntiForgeryToken();
+
+    formSettings.Name = "ApplicationsFeatureLayout";
+    formSettings.AlignItemCaptionsInAllGroups = true;
+    formSettings.ColCount = 1;
+
+    var infoGroupItem1 = formSettings.Items.AddGroupItem(settings =>
+    {
+        settings.Caption = "Applicant Information";
+        //settings.RowSpan = 2;
+        settings.ShowCaption = DefaultBoolean.True;
+        settings.ColCount = 2;
+
+    });
+
+    #region GeneralInfo
+    infoGroupItem1.Items.Add(i => i.IdNo, itemSettings =>
+    {
+        //settings.Caption = "Load Reference";
+        //settings.FieldName = "LoadReference";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.DeedName, itemSettings =>
+    {
+        //settings.Caption = "Load Reference";
+        //settings.FieldName = "LoadReference";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.DateOfBirth, itemSettings =>
+    {
+        itemSettings.Caption = "Date Of Birth";
+        itemSettings.Name = "DateOfBirth";
+    });
+
+    infoGroupItem1.Items.Add(e => e.DeedGender, itemSettings =>
+    {
+        //  itemSettings.FieldName = "DeedGenderDropDown";
+        itemSettings.Caption = "Deed Gender";
+        itemSettings.SetNestedContent(() =>
+        {
+
+            @Html.DevExpress().ComboBox(ComboBoxsettings =>
+            {
+                ComboBoxsettings.Name = "DeedGender";
+                //  ComboBoxsettings.SelectedIndex = 0;
+                ComboBoxsettings.Properties.Items.Add("Male");
+                ComboBoxsettings.Properties.Items.Add("Female");
+                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                ComboBoxsettings.ShowModelErrors = true;
+            }).Bind(Model.DeedGender).Render();
+        });
+    });
+
+    infoGroupItem1.Items.Add(i => i.UsualResidence, itemSettings =>
+    {
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.Address, itemSettings =>
+    {
+
+
+    });
+    #endregion
+
+    #region GraveDetails
+    infoGroupItem1.Items.Add(i => i.Burial_Status, item =>
+    {
+        item.NestedExtensionType = FormLayoutNestedExtensionItemType.CheckBox;
+        item.Caption = "Buried?";
+        CheckBoxSettings checkBoxSettings = (CheckBoxSettings)item.NestedExtensionSettings;
+        checkBoxSettings.Name = "Burial_Status";
+        checkBoxSettings.Checked = true;
+    });
+
+    infoGroupItem1.Items.Add(i => i.DateOfBurial, itemSettings =>
+    {
+        itemSettings.Caption = "Date Of Burial";
+        itemSettings.Name = "DateOfBurial";
+    });
+
+    infoGroupItem1.Items.Add(i => i.CapturedDate, itemSettings =>
+    {
+        itemSettings.Caption = "Captured Date";
+        itemSettings.Name = "CapturedDate";
+    });
+
+    infoGroupItem1.Items.Add(e => e.Mortuary, itemSettings =>
+    {
+        //  itemSettings.FieldName = "DeedGenderDropDown";
+        itemSettings.Caption = "Mortuary";
+        itemSettings.SetNestedContent(() =>
+        {
+
+
+            @Html.DevExpress().ComboBox(ComboBoxsettings =>
+            {
+                //  Gsettings.Name = "Id";
+                ComboBoxsettings.Name = "Mortuary";
+                // ComboBoxsettings.Width = 500;
+                // ComboBoxsettings.SelectedIndex = 1;
+                ComboBoxsettings.Properties.TextField = "Name";
+                ComboBoxsettings.Properties.ValueField = "ObjId";
+                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                ComboBoxsettings.ShowModelErrors = true;
+            }
+        ).BindList(ViewData["Mortuaries"]).Render();
+        });
+    });
+
+    infoGroupItem1.Items.Add(i => i.PlaceOfIssue, itemSettings =>
+    {
+
+    });
+
+    infoGroupItem1.Items.Add(e => e.AgeGroup, itemSettings =>
+    {
+        // itemSettings.FieldName = "AgeGroupDropDown";
+        itemSettings.Caption = "Age Group";
+        itemSettings.SetNestedContent(() =>
+        {
+
+            @Html.DevExpress().ComboBox(ComboBoxsettings =>
+            {
+                ComboBoxsettings.Name = "AgeGroup";
+                //  ComboBoxsettings.SelectedIndex = 0;
+                ComboBoxsettings.Properties.Items.Add("Adult");
+                ComboBoxsettings.Properties.Items.Add("Children");
+                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                ComboBoxsettings.ShowModelErrors = true;
+            }).Bind(Model.AgeGroup).Render();
+        });
+    });
+
+    infoGroupItem1.Items.Add(i => i.PlaceOfBurial, itemSettings =>
+    {
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.DeathAge, itemSettings =>
+    {
+        itemSettings.Caption = "Death Age";
+
+    });
+    infoGroupItem1.Items.Add(i => i.CauseOfDeath, itemSettings =>
+    {
+        itemSettings.Caption = "Cause Of Death";
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.CareTaker, itemSettings =>
+    {
+        itemSettings.Caption = "Capturer";
+
+    });
+    #endregion
+
+    #region Payments
+    infoGroupItem1.Items.Add(e => e.ReligionId, itemSettings =>
+    {
+        // itemSettings.FieldName = "ReligionIdDropDown";
+        itemSettings.Caption = "Race";
+        itemSettings.SetNestedContent(() =>
+        {
+
+            @Html.DevExpress().ComboBox(ComboBoxsettings =>
+            {
+                ComboBoxsettings.Name = "ReligionId";
+                //  ComboBoxsettings.SelectedIndex = 0;
+                ComboBoxsettings.Properties.Items.Add("African");
+                ComboBoxsettings.Properties.Items.Add("Indian");
+                ComboBoxsettings.Properties.Items.Add("White");
+                ComboBoxsettings.Properties.Items.Add("Colored");
+                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                ComboBoxsettings.ShowModelErrors = true;
+            }).Bind(Model.ReligionId).Render();
+        });
+    });
+    var Purchaseinfo = formSettings.Items.AddGroupItem(settings =>
+    {
+        settings.Caption = "Purchase Information";
+        //settings.RowSpan = 2;
+        settings.ShowCaption = DefaultBoolean.True;
+        settings.ColCount = 2;
+
+    });
+
+    Purchaseinfo.Items.Add(i => i.GrafNumber, itemSettings =>
+    {
+        itemSettings.Caption = "Grave Number";
+
+    });
+    Purchaseinfo.Items.Add(i => i.ReceiptNo, itemSettings =>
+    {
+    });
+
+    Purchaseinfo.Items.Add(i => i.Amount, itemSettings =>
+    {
+
+    });
+
+    Purchaseinfo.Items.Add(i => i.PurchaseCapturedDate, itemSettings =>
+    {
+        itemSettings.Caption = "Captured Date";
+        itemSettings.Name = "PurchaseCapturedDate";
+    });
+    #endregion
+
+    #region Buttons
+    var ButtonsGroupItem = formSettings.Items.AddGroupItem(Buttonsettings =>
+    {
+        // Buttonsettings.Caption = "";
+        //settings.RowSpan = 2;
+        // Buttonsettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.ColCount = 1;
+    });
+
+    ButtonsGroupItem.Items.Add(Buttonsettings =>
+    {
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.SetNestedContent(() =>
+        {
+            Html.ViewContext.Writer.Write("<div style='float:right'>");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnSave";
+                btnSettings.Text = "Save";
+                btnSettings.ClientSideEvents.Click = "SaveApplication";
+            }).Render();
+
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.Text = "Cancel";
+                btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {ApplicationGridViewPartial.CancelEdit();}";
+                btnSettings.UseSubmitBehavior = true;
+            }).Render();
+
+            Html.ViewContext.Writer.Write("</div>");
+
+        });
+    });
+    #endregion
+
+}).Bind(Model).GetHtml();

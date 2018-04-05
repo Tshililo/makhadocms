@@ -1,0 +1,19 @@
+@* Menu Header *@
+<div style="padding-bottom: 10px; float: right;">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "ApplicationMenu";
+    settings.ShowAsToolbar = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Items.Add("New", "btnHeaderNew");
+    settings.Items.Add("Edit", "btnHeaderEdit");
+    settings.Items.Add("Delete", "btnHeaderAttachment");
+    settings.Items.Add("Dual Record", "btnHeaderDualRecordPopUp");
+    settings.Items.Add("Link To Grave", "btnLinkToGrave");
+    settings.Items.Add("Import", "btnHeaderImport");
+    settings.Items.Add("Export", "btnHeaderExport");
+    settings.Items.Add("Print", "btnPrintReport");
+    settings.ClientSideEvents.ItemClick = "OnApplicationMenuClick";
+}).GetHtml()
+
+</div>

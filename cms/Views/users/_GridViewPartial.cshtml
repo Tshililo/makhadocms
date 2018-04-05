@@ -1,0 +1,97 @@
+@{
+
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "UsersGrid";
+
+        settings.CallbackRouteValues = new { Controller = "users", Action = "GridViewPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "users", Action = "GridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "users", Action = "GridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "users", Action = "GridViewPartialDelete" };
+        settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "users", Action = "GridViewPartialDelete" };
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+
+        settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "users", Action = "GridViewPartialUpdate" };
+
+        settings.Width = Unit.Percentage(100);
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+
+            ViewContext.Writer.Write((Html.Action("EditHeaderFormPartial", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
+        });
+
+
+        settings.BeforeGetCallbackResult = (s, e) =>
+
+        {
+            var gridView = s as MVCxGridView;
+            gridView.FocusedRowIndex = gridView.FindVisibleIndexByKeyValue(ViewData["newKey"]);
+            var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "UserName").ToString() : "";
+            gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+
+            if (gridView.IsNewRowEditing)
+            {
+                gridView.SettingsText.PopupEditFormCaption = "New User";
+
+            }
+
+
+        };
+
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.Beige;
+
+        settings.KeyFieldName = "Id";
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+
+
+        settings.ClientSideEvents.FocusedRowChanged = "OnUsersHeaderGridFocusedRowChanged";
+        settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+        settings.ClientSideEvents.EndCallback = "InitialSetFocus";
+
+        //settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        //settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        //settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        //settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        //settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+       // settings.Columns.Add("OrganisationGuid", "Organisation");
+        settings.Columns.Add("Email");
+        settings.Columns.Add("EmailConfirmed").Settings.AllowHeaderFilter = DefaultBoolean.True;
+        //settings.Columns.Add("PhoneNumberConfirmed");
+        //settings.Columns.Add("TwoFactorEnabled");
+        //settings.Columns.Add("LockoutEndDateUtc");
+        //settings.Columns.Add("LockoutEnabled");
+        //settings.Columns.Add("AccessFailedCount");
+        settings.Columns.Add("UserName");
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+
+
+    }
+}
+@grid.Bind(Model).GetHtml()

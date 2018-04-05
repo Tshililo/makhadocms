@@ -1,0 +1,62 @@
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+@using cms.Helpers;
+@Html.DevExpress().GridView(
+    settings =>
+    {
+
+        settings.Name = "GravesGridViewPartial";
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "GravesGridViewPartial" };
+
+        settings.KeyFieldName = "ObjId";
+        #region Properties
+        settings.Width = Unit.Percentage(100);
+        Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "GravesGridViewPartial");
+        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+        settings.SettingsPager.PageSize = 15;
+      //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        //   settings.CommandColumn.Width = 40;
+        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+
+        //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+        settings.Settings.VerticalScrollableHeight = 190;
+
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.AlwaysShowPager = true;
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsBehavior.ConfirmDelete = false;
+
+
+        //settings.SettingsPopup.EditForm.Width = Unit.Pixel(700);
+        //settings.SettingsPopup.EditForm.Height = Unit.Pixel(1500);
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = false; // radio button when true checkbox hen false
+                                                                    //settings.SettingsBehavior.AllowSelectByRowClick = false;
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        //  settings.ClientSideEvents.ColumnResized = "HighlightEllipsis";
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+        #endregion
+
+
+        settings.Columns.Add(column => { column.FieldName = "CemeteryId"; column.Caption = "Cemetery"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Plot"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "Longitude"; column.Caption = "Longitude"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "Latitude"; column.Caption = "Latitude"; column.Width = Unit.Pixel(100); });
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 250;
+        var headerFilterMode = GridHeaderFilterMode.CheckedList;
+        foreach (GridViewDataColumn column in settings.Columns)
+            column.SettingsHeaderFilter.Mode = headerFilterMode;
+
+    }).SetEditErrorText(ViewData["EditError"] != null ? (string)ViewData["EditError"] : string.Empty).Bind(Model).GetHtml()

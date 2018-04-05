@@ -1,0 +1,45 @@
+<div class="leftPanel">
+    @* DXCOMMENT: Configure the left panel's menu *@
+    @Html.DevExpress().NavBar(settings =>
+{
+    settings.Name = "LeftNavBar";
+    settings.AutoCollapse = true;
+    settings.EnableAnimation = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.ControlStyle.Border.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(0);
+    settings.ControlStyle.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(0);
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Cemetery Information";
+        group.Items.Add("Cemetery", "", "~/Content/Images/Cemetery.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Cemeteries", Action = "index" });
+        group.Items.Add("Graves", "", "~/Content/Images/graves.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Graves", Action = "index" });
+        group.Items.Add("Burial Records", "", "~/Content/Images/records.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Home", Action = "index" });
+        //       group.Items.Add("Grave Ownership", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "CemeteryOwnership", Action = "index" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Administration";
+        group.Items.Add("Mortuary", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Mortuary", Action = "index" });
+
+        //   group.Items.Add("Cemetery", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Cemeteries", Action = "index" });
+        group.Items.Add("Drop Box", "", "~/Content/Images/dropbox.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "DropBox", Action = "index" });
+        //       group.Items.Add("Grave Ownership", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "CemeteryOwnership", Action = "index" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = "User Management";
+        group.Items.Add("Users", "", "~/Content/Images/users.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Users", Action = "index" });
+        group.Items.Add("Roles", "", "~/Content/Images/roles.png").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Roles", Action = "index" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = "System Settings";
+        group.Items.Add("LogOut", "", "~/Content/Images/logout.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Account", Action = "LogOff" });
+    });
+
+}).GetHtml()
+</div>

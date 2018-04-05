@@ -1,0 +1,100 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+
+        settings.Name = "ApplicationGridViewPartial";
+        settings.CallbackRouteValues = new { Controller = "Graves", Action = "ApplicationsGridViewPartial" };
+
+
+        settings.KeyFieldName = "ObjId";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 32;
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
+        settings.Settings.VerticalScrollableHeight = 200;
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        settings.Settings.ShowFilterRowMenu = true;
+
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.AlwaysShowPager = true;
+
+        //transform header filter to check list for multiple selection
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 250;
+
+
+        settings.BeforeGetCallbackResult = (s, e) =>
+
+        {
+            var gridView = s as MVCxGridView;
+
+            var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
+            gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+
+            if (gridView.IsNewRowEditing)
+            {
+                gridView.SettingsText.PopupEditFormCaption = "New Applicant";
+
+            }
+        };
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+
+            ViewContext.Writer.Write((Html.Action("ApplicationsUpdateEntryToForm", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
+        });
+
+        settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+        settings.ClientSideEvents.FocusedRowChanged = "OnApplicationHeaderGridFocusedRowChanged";
+
+        // DXCOMMENT: Configure grid's columns in accordance with data model fields
+        //  settings.Columns.Add("IdNo").Settings.AllowHeaderFilter = DefaultBoolean.True;
+        settings.Columns.Add(column => { column.FieldName = "IdNo"; column.Caption = "Id No."; column.Width = Unit.Pixel(120); });
+        settings.Columns.Add(column => { column.FieldName = "DeedName"; column.Caption = "Deed Name"; column.Width = Unit.Pixel(120); });
+        settings.Columns.Add(column => { column.FieldName = "Address"; column.Caption = "Address"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "DateOfBirth"; column.Caption = "Date Of Birth"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "PlaceOfIssue"; column.Caption = "Place Of Issue"; column.Width = Unit.Pixel(130); });
+        settings.Columns.Add(column => { column.FieldName = "AgeGroup"; column.Caption = "Age Group"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "DeedGender"; column.Caption = "Deed Gender"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "DeathAge"; column.Caption = "Death Age"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "CauseOfDeath"; column.Caption = "Cause Of Death"; column.Width = Unit.Pixel(130); });
+
+        settings.Columns.Add(column => { column.FieldName = "ReceiptNo"; column.Caption = "Receipt No"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "CareTaker"; column.Caption = "Care Taker"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "ReligionId"; column.Caption = "Religion"; column.Width = Unit.Pixel(100); });
+        //  settings.Columns.Add(column => { column.FieldName = "PurchaseOfGrave"; column.Caption = "Purchase Of Grave"; column.Width = Unit.Pixel(100); });
+        //   settings.Columns.Add(column => { column.FieldName = "ReservationOfGrave"; column.Caption = "Reservation Of Grave"; column.Width = Unit.Pixel(100); });
+        //  settings.Columns.Add(column => { column.FieldName = "OpenCloseGrave"; column.Caption = "Death Age"; column.Width = Unit.Pixel(100); });
+        //  settings.Columns.Add(column => { column.FieldName = "PlaceOfBurial"; column.Caption = "Death Age"; column.Width = Unit.Pixel(100); });
+
+        //  settings.Columns.Add(column => { column.FieldName = "UseOfANiche"; column.Caption = "Use Of ANiche"; column.Width = Unit.Pixel(100); });
+        //  settings.Columns.Add(column => { column.FieldName = "BurialOfPauper"; column.Caption = "Burial Of Pauper"; column.Width = Unit.Pixel(100); });
+        //   settings.Columns.Add(column => { column.FieldName = "Amount"; column.Caption = "Amount"; column.Width = Unit.Pixel(100); });
+        //   settings.Columns.Add(column => { column.FieldName = "AmountPaidDate"; column.Caption = "Amount Paid Date"; column.Width = Unit.Pixel(100); });
+
+
+        //   settings.Columns.Add("DeedName").Settings.AllowHeaderFilter = DefaultBoolean.True;
+    });
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+
+
+    }
+}
+@grid.Bind(Model).GetHtml()

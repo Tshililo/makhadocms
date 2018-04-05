@@ -1,0 +1,15 @@
+@* Menu Header *@
+<div style="padding-bottom: 10px; float: right;">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "GravesMenu";
+    settings.ShowAsToolbar = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Items.Add("New", "btnHeaderNew");
+    settings.Items.Add("Edit", "btnHeaderEdit");
+    settings.Items.Add("Delete", "btnHeaderDelete");
+   // settings.Items.Add("Link to Profile", "btnLinkProfile");
+    settings.ClientSideEvents.ItemClick = "OnGravesMenuClick";
+}).GetHtml()
+
+</div>

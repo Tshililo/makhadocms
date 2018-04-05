@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CmsModelStoreContainer" CdmEntityContainer="CmsEntities">
+    <EntitySetMapping Name="AgeGroups">
+      <EntityTypeMapping TypeName="CmsModel.AgeGroup">
+        <MappingFragment StoreEntitySet="AgeGroup">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cemeteries">
+      <EntityTypeMapping TypeName="CmsModel.Cemetery">
+        <MappingFragment StoreEntitySet="Cemetery">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Graves">
+      <EntityTypeMapping TypeName="CmsModel.Grave">
+        <MappingFragment StoreEntitySet="Grave">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="CemeteryId" ColumnName="CemeteryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Religions">
+      <EntityTypeMapping TypeName="CmsModel.Religion">
+        <MappingFragment StoreEntitySet="Religion">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="CmsModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="CmsModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="CmsModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="TempPassword" ColumnName="TempPassword" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GraveOwners">
+      <EntityTypeMapping TypeName="CmsModel.GraveOwner">
+        <MappingFragment StoreEntitySet="GraveOwners">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="GraveId" ColumnName="GraveId" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Applications">
+      <EntityTypeMapping TypeName="CmsModel.Application">
+        <MappingFragment StoreEntitySet="Application">
+          <ScalarProperty Name="Burial_Status" ColumnName="Burial Status" />
+          <ScalarProperty Name="DeedName" ColumnName="DeedName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CauseOfDeath" ColumnName="CauseOfDeath" />
+          <ScalarProperty Name="DeathAge" ColumnName="DeathAge" />
+          <ScalarProperty Name="DeedGender" ColumnName="DeedGender" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="ReligionId" ColumnName="ReligionId" />
+          <ScalarProperty Name="GrafNumber" ColumnName="GrafNumber" />
+          <ScalarProperty Name="CareTaker" ColumnName="CareTaker" />
+          <ScalarProperty Name="PlaceOfBurial" ColumnName="PlaceOfBurial" />
+          <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+          <ScalarProperty Name="AmountPaidDate" ColumnName="AmountPaidDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="BurialOfPauper" ColumnName="BurialOfPauper" />
+          <ScalarProperty Name="UseOfANiche" ColumnName="UseOfANiche" />
+          <ScalarProperty Name="WideningOfGrave" ColumnName="WideningOfGrave" />
+          <ScalarProperty Name="OpenCloseGrave" ColumnName="OpenCloseGrave" />
+          <ScalarProperty Name="ReservationOfGrave" ColumnName="ReservationOfGrave" />
+          <ScalarProperty Name="PurchaseOfGrave" ColumnName="PurchaseOfGrave" />
+          <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+          <ScalarProperty Name="PlaceOfIssue" ColumnName="PlaceOfIssue" />
+          <ScalarProperty Name="DateOfBurial" ColumnName="DateOfBurial" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="IdNo" ColumnName="IdNo" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DualApplications">
+      <EntityTypeMapping TypeName="CmsModel.DualApplication">
+        <MappingFragment StoreEntitySet="DualApplication">
+          <ScalarProperty Name="Burial_Status" ColumnName="Burial Status" />
+          <ScalarProperty Name="HeaderApplicationId" ColumnName="HeaderApplicationId" />
+          <ScalarProperty Name="DeedName" ColumnName="DeedName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CauseOfDeath" ColumnName="CauseOfDeath" />
+          <ScalarProperty Name="DeathAge" ColumnName="DeathAge" />
+          <ScalarProperty Name="DeedGender" ColumnName="DeedGender" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="ReligionId" ColumnName="ReligionId" />
+          <ScalarProperty Name="GrafNumber" ColumnName="GrafNumber" />
+          <ScalarProperty Name="CareTaker" ColumnName="CareTaker" />
+          <ScalarProperty Name="PlaceOfBurial" ColumnName="PlaceOfBurial" />
+          <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+          <ScalarProperty Name="AmountPaidDate" ColumnName="AmountPaidDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="BurialOfPauper" ColumnName="BurialOfPauper" />
+          <ScalarProperty Name="UseOfANiche" ColumnName="UseOfANiche" />
+          <ScalarProperty Name="WideningOfGrave" ColumnName="WideningOfGrave" />
+          <ScalarProperty Name="OpenCloseGrave" ColumnName="OpenCloseGrave" />
+          <ScalarProperty Name="ReservationOfGrave" ColumnName="ReservationOfGrave" />
+          <ScalarProperty Name="PurchaseOfGrave" ColumnName="PurchaseOfGrave" />
+          <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+          <ScalarProperty Name="PlaceOfIssue" ColumnName="PlaceOfIssue" />
+          <ScalarProperty Name="DateOfBurial" ColumnName="DateOfBurial" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="IdNo" ColumnName="IdNo" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

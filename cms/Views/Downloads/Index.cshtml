@@ -1,0 +1,30 @@
+﻿@{ Layout = "~/Views/Shared/_lightLayout.cshtml"; }
+@model cms.Models.LoginModel
+
+
+<style>
+    #outPopUp {
+        position:relative;
+        /*z-index: 15;*/
+        top: 0%;
+        left: 10%;
+        /*margin: -100px 0 0 -150px;*/
+    }
+</style>
+
+
+
+<div id="outPopUp">
+    @using (Html.BeginForm())
+    {
+     
+        <iframe width='1200' height='800' style="position:center" src='~/Content/Downloads/ApplicationForm.pdf' frameborder='0' allowfullscreen></iframe>
+        <a href="~/Content/Downloads/ApplicationForm.pdf">Application Form</a>
+    }
+</div>
+
+
+
+
+
+

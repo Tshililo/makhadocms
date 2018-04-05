@@ -1,0 +1,13 @@
+@* Menu Header *@
+<div style="padding-bottom: 10px; float: right;">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "LinkToGraveMenu";
+    settings.ShowAsToolbar = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Items.Add("Link", "btnHeaderLink");
+
+    settings.ClientSideEvents.ItemClick = "OnLinkToGraveMenuClick";
+}).GetHtml()
+
+</div>

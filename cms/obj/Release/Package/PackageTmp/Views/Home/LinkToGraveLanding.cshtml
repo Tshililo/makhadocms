@@ -1,0 +1,41 @@
+@using (Html.BeginForm())
+{
+    @Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "LinkToGraveFeaturesFormLayout";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    var groupMain = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = string.Format("Link To Grave Features");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.ColCount = 1;
+    });
+    groupMain.Items.Add(itemSettings =>
+    {
+        itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.ColSpan = 1;
+        itemSettings.SetNestedContent(() =>
+        {
+            @Html.RenderAction("GravesGridViewPartial");
+        });
+    });
+    groupMain.Items.Add(itemSettings =>
+    {
+        itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.ColSpan = 1;
+        itemSettings.SetNestedContent(() =>
+        {
+            //return form
+            @Html.RenderPartial("LinkToGraveMenu");
+        });
+    });
+
+
+}).GetHtml()
+
+}

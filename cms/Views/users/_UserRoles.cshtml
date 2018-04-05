@@ -1,0 +1,68 @@
+
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "UserRoles_GridView";
+        settings.CallbackRouteValues = new { Controller = "users", Action = "UserRolesPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "users", Action = "UserRolesPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "users", Action = "UserRolesGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "users", Action = "UserRolesGridViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+        settings.SettingsBehavior.AllowFocusedRow = true;
+
+        settings.Width = Unit.Percentage(100);
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+            //ViewBag["UserId]"] = 
+            ViewContext.Writer.Write((Html.Action("UserRolesEditHeaderFormPartial", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
+
+        });
+
+        settings.BeforeGetCallbackResult = (s, e) =>
+
+        {
+            var gridView = s as MVCxGridView;
+            gridView.FocusedRowIndex = gridView.FindVisibleIndexByKeyValue(ViewData["newKey"]);
+            var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "RoleName").ToString() : "";
+            gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+
+            if (gridView.IsNewRowEditing)
+            {
+                gridView.SettingsText.PopupEditFormCaption = "New User Role";
+            }
+        };
+
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+
+        settings.KeyFieldName = "ObjId";
+
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+
+
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+
+        settings.Columns.Add("RoleName");
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

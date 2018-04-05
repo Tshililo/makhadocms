@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AgeGroup">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Application">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IdNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="DateOfBurial" Type="datetime" />
+    <Property Name="PlaceOfIssue" Type="nvarchar" MaxLength="50" />
+    <Property Name="AgeGroup" Type="nvarchar" MaxLength="50" />
+    <Property Name="PurchaseOfGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ReservationOfGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="OpenCloseGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="WideningOfGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="UseOfANiche" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="BurialOfPauper" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="AmountPaidDate" Type="datetime" />
+    <Property Name="ReceiptNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="PlaceOfBurial" Type="nvarchar" MaxLength="50" />
+    <Property Name="CareTaker" Type="nvarchar" MaxLength="50" />
+    <Property Name="GrafNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReligionId" Type="nvarchar" MaxLength="50" />
+    <Property Name="AgeGroupId" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeedGender" Type="nchar" MaxLength="10" />
+    <Property Name="DeathAge" Type="nchar" MaxLength="10" />
+    <Property Name="CauseOfDeath" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeedName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Cemetery">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DualApplication">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="HeaderObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IdNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="DateOfBurial" Type="datetime" />
+    <Property Name="PlaceOfIssue" Type="nvarchar" MaxLength="50" />
+    <Property Name="AgeGroup" Type="nvarchar" MaxLength="50" />
+    <Property Name="PurchaseOfGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ReservationOfGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="OpenCloseGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="WideningOfGrave" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="UseOfANiche" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="BurialOfPauper" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="AmountPaidDate" Type="datetime" />
+    <Property Name="ReceiptNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="PlaceOfBurial" Type="nvarchar" MaxLength="50" />
+    <Property Name="CareTaker" Type="nvarchar" MaxLength="50" />
+    <Property Name="GrafNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReligionId" Type="nvarchar" MaxLength="50" />
+    <Property Name="AgeGroupId" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeedGender" Type="nchar" MaxLength="10" />
+    <Property Name="DeathAge" Type="nchar" MaxLength="10" />
+    <Property Name="CauseOfDeath" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeedName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Grave">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="Latitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="CemeteryId" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Religion">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailConfirmed" Type="bit" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="TempPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="CmsModelStoreContainer">
+    <EntitySet Name="AgeGroup" EntityType="Self.AgeGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cemetery" EntityType="Self.Cemetery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DualApplication" EntityType="Self.DualApplication" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grave" EntityType="Self.Grave" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Religion" EntityType="Self.Religion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

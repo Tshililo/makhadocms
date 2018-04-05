@@ -1,0 +1,14 @@
+@* Menu Header *@
+<div style="padding-bottom: 10px; float: right;">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "GraveOwnerMenu";
+    settings.ShowAsToolbar = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Items.Add("Delete", "btnHeaderDelete");
+  //  settings.Items.Add("Add Fineral Cover", "btnFineralCover");
+  //  settings.Items.Add("Add Relatives", "btnLinkRelative");
+    settings.ClientSideEvents.ItemClick = "OnGraveOwnerMenuClick";
+}).GetHtml()
+
+</div>

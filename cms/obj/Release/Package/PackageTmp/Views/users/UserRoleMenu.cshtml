@@ -1,0 +1,16 @@
+﻿
+
+@* User Role Menu Header *@
+<div style="padding-bottom: 10px; float: right;">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "UserRoleMenu";
+    settings.ShowAsToolbar = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Items.Add("New", "btnHeaderNew");
+    settings.Items.Add("Edit", "btnHeaderEdit");
+    settings.Items.Add("Delete", "btnHeaderDelete");
+    settings.ClientSideEvents.ItemClick = "OnUserRoleHeaderMenuItemClick";
+}).GetHtml()
+</div>
+

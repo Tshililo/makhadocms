@@ -1,0 +1,90 @@
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+@using cms.Helpers;
+@Html.DevExpress().GridView(
+    settings =>
+    {
+
+
+        settings.Name = "MortuaryGridViewPartial";
+        settings.CallbackRouteValues = new { Controller = "Mortuary", Action = "MortuaryGridViewPartial" };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Mortuary", Action = "MortuaryEdit" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Mortuary", Action = "MortuaryEdit" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Mortuary", Action = "MortuaryDelete" };
+
+        #region Properties
+        settings.Width = Unit.Percentage(100);
+        Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "MortuaryGridViewPartial");
+        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+        settings.SettingsPager.PageSize = 15;
+        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        //   settings.CommandColumn.Width = 40;
+        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+
+        //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+        settings.Settings.VerticalScrollableHeight = 220;
+
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.AlwaysShowPager = true;
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsBehavior.ConfirmDelete = false;
+
+
+        settings.SettingsPopup.EditForm.Width = Unit.Pixel(700);
+        //settings.SettingsPopup.EditForm.Height = Unit.Pixel(1500);
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = false; // radio button when true checkbox hen false
+                                                                    //settings.SettingsBehavior.AllowSelectByRowClick = false;
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        //  settings.ClientSideEvents.ColumnResized = "HighlightEllipsis";
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+        #endregion
+
+
+        settings.KeyFieldName = "ObjId";
+
+
+        settings.BeforeGetCallbackResult = (s, e) =>
+
+        {
+            var gridView = s as MVCxGridView;
+
+            var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
+            gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+
+            if (gridView.IsNewRowEditing)
+            {
+                gridView.SettingsText.PopupEditFormCaption = "New Mortuary";
+
+            }
+        };
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+
+            ViewContext.Writer.Write((Html.Action("MortuaryUpdateEntryToForm", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
+        });
+
+        settings.ClientSideEvents.FocusedRowChanged = "OnMortuaryHeaderGridFocusedRowChanged";
+        settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+        settings.ClientSideEvents.EndCallback = "InitialSetFocus";
+
+        settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Name"; column.Width = Unit.Pixel(500); });
+
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 250;
+        var headerFilterMode = GridHeaderFilterMode.CheckedList;
+        foreach (GridViewDataColumn column in settings.Columns)
+            column.SettingsHeaderFilter.Mode = headerFilterMode;
+
+    }).SetEditErrorText(ViewData["EditError"] != null ? (string)ViewData["EditError"] : string.Empty).Bind(Model).GetHtml()

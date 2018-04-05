@@ -1,0 +1,77 @@
+
+@model cms.Cemetery
+
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+
+@Html.HiddenFor(e => e.ObjId)
+
+@Html.DevExpress().FormLayout(formSettings =>
+{
+    @Html.AntiForgeryToken();
+
+    formSettings.Name = "CemeteryFeatureLayout";
+    formSettings.AlignItemCaptionsInAllGroups = true;
+    formSettings.ColCount = 1;
+
+    var infoGroupItem1 = formSettings.Items.AddGroupItem(settings =>
+    {
+        settings.Caption = "Cemetery Information";
+        //settings.RowSpan = 2;
+        settings.ShowCaption = DefaultBoolean.True;
+        settings.ColCount = 2;
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.Name, itemSettings =>
+    {
+        //settings.Caption = "Load Reference";
+        //settings.FieldName = "LoadReference";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+
+
+    var ButtonsGroupItem = formSettings.Items.AddGroupItem(Buttonsettings =>
+    {
+        // Buttonsettings.Caption = "";
+        //settings.RowSpan = 2;
+        // Buttonsettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.ColCount = 1;
+    });
+
+    ButtonsGroupItem.Items.Add(Buttonsettings =>
+    {
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.SetNestedContent(() =>
+        {
+            Html.ViewContext.Writer.Write("<div style='float:right'>");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnSave";
+                btnSettings.Text = "Save";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {CemeteryGridViewPartial.UpdateEdit();}";
+            }).Render();
+
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.Text = "Cancel";
+                btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {CemeteryGridViewPartial.CancelEdit();}";
+                btnSettings.UseSubmitBehavior = true;
+            }).Render();
+
+            Html.ViewContext.Writer.Write("</div>");
+
+        });
+    });
+
+}).Bind(Model).GetHtml();

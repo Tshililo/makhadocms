@@ -1,0 +1,81 @@
+﻿@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "UsersLandingFormLayout";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    var groupMain = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = string.Format("Users");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.ColCount = 1;
+    });
+
+    //Header Partial View of Users
+    groupMain.Items.Add(itemSettings =>
+    {
+        itemSettings.Caption = "Users";
+        itemSettings.Name = "Users";
+        itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.ColSpan = 1;
+        itemSettings.SetNestedContent(() =>
+        {
+            //return method
+            @Html.RenderAction("GridViewPartial");
+        });
+    });
+
+    groupMain.Items.Add(itemSettings =>
+    {
+        itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.ColSpan = 1;
+        itemSettings.SetNestedContent(() =>
+        {
+            //return form
+            @Html.RenderPartial("UserMenu");
+        });
+    });
+
+    // Detail Partial View of UserRoles
+    var UserRoleGroup = settings.Items.AddGroupItem(URSettings =>
+    {
+        URSettings.Caption = "User Roles";
+        URSettings.RowSpan = 4;
+        URSettings.ShowCaption = DefaultBoolean.True;
+        URSettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+        URSettings.ColCount = 1;
+
+
+        //load UserRoles
+        URSettings.Items.Add(itemSettings =>
+        {
+            itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            itemSettings.ShowCaption = DefaultBoolean.False;
+            itemSettings.ColSpan = 1;
+            itemSettings.SetNestedContent(() =>
+            {
+                //return method
+                @Html.RenderAction("UserRolesPartial");
+            });
+        });
+
+        URSettings.Items.Add(itemSettings =>
+        {
+            itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            itemSettings.ShowCaption = DefaultBoolean.False;
+            itemSettings.ColSpan = 1;
+            itemSettings.SetNestedContent(() =>
+            {
+                //return form
+                @Html.RenderPartial("UserRoleMenu");
+            });
+        });
+
+    });
+
+ 
+}).GetHtml()

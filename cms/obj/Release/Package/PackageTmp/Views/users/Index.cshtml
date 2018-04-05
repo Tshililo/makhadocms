@@ -1,0 +1,135 @@
+﻿@using (Html.BeginForm())
+{
+<script type="text/javascript">
+
+
+    function OnUsersHeaderGridFocusedRowChanged(s, e) {
+
+        //Get the User's Id from the selected row
+        s.GetRowValues(s.GetFocusedRowIndex(), 'Id', OnGetRowValues);
+    }
+
+    function OnGetRowValues(values) {
+        //return the selected value
+        UsersGrid_ObjId = values;
+        UserRoles_ObjId = values;
+
+        UserRoles_GridView.PerformCallback();
+    }
+    function OnBeginCallback(s, e) {
+        // alert('OnBeginCallback e:  ' + e);
+        e.customArgs["UserId"] = UsersGrid_ObjId;
+
+    }
+    function InitialSetFocus(s, e) {
+        if (s.GetFocusedRowIndex() < 0)
+            s.SetFocusedRowIndex(0);
+    }
+    //User Roles
+    function OnUsersHeaderHeaderGridFocusedRowChanged(s, e) {
+
+        //Get the User's Id from the selected row
+        s.GetRowValues(s.GetFocusedRowIndex(), 'Id', OnGetRowValues);
+    }
+
+    function OnUserRoleHeaderMenuItemClick(s, e) {
+
+        if (e.item.name == "btnHeaderNew") {
+
+            var index = UserRoles_GridView.GetFocusedRowIndex();
+
+            //UserRoles_GridView is the name of the gridview
+            UserRoles_GridView.AddNewRow(index);
+            // call edit funtion from custom button
+        }
+
+        if (e.item.name == "btnHeaderEdit") {
+
+            var index = UserRoles_GridView.GetFocusedRowIndex();
+            //  alert('index : ' + index);
+            UserRoles_GridView.StartEditRow(index);
+            // call edit funtion from custom button
+        }
+
+        if (e.item.name == "btnHeaderDelete") {
+            if (confirm("Confirm Delete?")) {
+                var index = UserRoles_GridView.GetFocusedRowIndex();
+                UserRoles_GridView.DeleteRow(index);
+            }
+        }
+    }
+   
+  
+    //Users Menu Buttons
+    function OnUsersHeaderMenuItemClick(s, e) {
+        //alert("I am here: So ya clicked he button over yonder then: " + e.item.name)
+        //https://documentation.devexpress.com/#AspNet/DevExpressWebScriptsASPxClientGridView_UpdateEdittopic
+        if (e.item.name == "btnHeaderNew") {
+
+            var index = UsersGrid.GetFocusedRowIndex();
+
+            UsersGrid.AddNewRow(index);
+            // call edit funtion from custom button
+        }
+
+        if (e.item.name == "btnHeaderEdit") {
+
+            var index = UsersGrid.GetFocusedRowIndex();
+            //  alert('index : ' + index);
+
+            UsersGrid.StartEditRow(index);
+            // call edit funtion from custom button
+
+        }
+
+        // 1. get userId
+        var userId = UsersGrid.GetRowKey(UsersGrid.GetFocusedRowIndex());
+      
+
+        if (userId == null || userId == "") {
+            alert("No User Selected");
+            return;
+        }
+
+        if (e.item.name == "btnHeaderReset") {
+                  $.ajax({
+                url: '@Url.Action("ForgotPassword", "users")',
+                type: "POST",
+                dataType: "text",
+                traditional: true,
+                data: { userId: userId },
+                success: function (data) {
+                    //UserCommodity_GridView.Refresh();
+                    alert("Mail Sent");
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Request Status: ' + xhr.status + '; Status Text: ' + textStatus + '; Error: ' + errorThrown);
+                }
+            });
+        }
+
+        if (e.item.name == "btnHeaderDelete") {
+            if (confirm("Confirm Delete?")) {
+                var index = UsersGrid.GetFocusedRowIndex();
+                UsersGrid.DeleteRow(index);
+            }
+        }
+        // 1. get userId
+        var userId = UsersGrid.GetRowKey(UsersGrid.GetFocusedRowIndex());
+        //   alert("UserId : " + userId);
+        if (userId == null || userId == "") {
+            alert("No User Selected");
+            return;
+        }
+
+    }
+</script>
+
+
+@Html.Partial("UsersLandingFormView");
+
+}
+
+
+

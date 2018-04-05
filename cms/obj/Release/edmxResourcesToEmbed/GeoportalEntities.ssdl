@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GeoPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AssignmentFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OriginalOwnershipId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NewOwnershipId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DateAssigned" Type="uniqueidentifier" />
+    <Property Name="OwnershipId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BlockSectionFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BlockSectionName" Type="nvarchar" MaxLength="70" />
+    <Property Name="DivisionName" Type="nvarchar" MaxLength="70" />
+    <Property Name="DivisionId" Type="uniqueidentifier" />
+    <Property Name="CemeteryName" Type="nvarchar" MaxLength="70" />
+    <Property Name="CemeteryId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="BurialRecord">
+    <Key>
+      <PropertyRef Name="ObjId1" />
+    </Key>
+    <Property Name="ObjId1" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BurialId" Type="uniqueidentifier" />
+    <Property Name="SpaceId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="CemeteryFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Cemetery_Name" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="DivisionFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Division_Name" Type="nvarchar" MaxLength="70" />
+    <Property Name="CemeteryId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="OwnershipRecords">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DeedNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeedType" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateOfPurchase" Type="datetime" />
+    <Property Name="AmountPaid" Type="decimal" Precision="7" Scale="3" />
+    <Property Name="OwnerName" Type="nvarchar" MaxLength="50" />
+    <Property Name="OwnerAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeedName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="OwnerSpace">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SpaceId" Type="uniqueidentifier" />
+    <Property Name="AssignmentId" Type="uniqueidentifier" />
+    <Property Name="AssignmentDeedNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateAssigned" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Relative">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BurialId" Type="uniqueidentifier" />
+    <Property Name="SpaceId" Type="uniqueidentifier" />
+    <Property Name="Name" Type="nchar" MaxLength="10" />
+    <Property Name="Relationship" Type="nchar" MaxLength="10" />
+    <Property Name="BirthDate" Type="nchar" MaxLength="10" />
+    <Property Name="DeathDate" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SpaceFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SpaceFeatures" Type="nvarchar" MaxLength="50" />
+    <Property Name="Lot_Row_Id" Type="uniqueidentifier" />
+    <Property Name="LotRowName" Type="nvarchar" MaxLength="50" />
+    <Property Name="BlockSectionId" Type="uniqueidentifier" />
+    <Property Name="BlockSectionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DivisionId" Type="uniqueidentifier" />
+    <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CemeteryId" Type="uniqueidentifier" />
+    <Property Name="CemeteryName" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" />
+    <Property Name="TwoFactorEnabled" Type="bit" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" />
+    <Property Name="AccessFailedCount" Type="int" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="OrganisationGuid" Type="nvarchar(max)" />
+    <Property Name="TempPassword" Type="nvarchar" MaxLength="256" />
+    <Property Name="SALT" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <Association Name="FK_UserRoles_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GeoPortalModelStoreContainer">
+    <EntitySet Name="AssignmentFeature" EntityType="Self.AssignmentFeature" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BlockSectionFeature" EntityType="Self.BlockSectionFeature" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BurialRecord" EntityType="Self.BurialRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CemeteryFeature" EntityType="Self.CemeteryFeature" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DivisionFeature" EntityType="Self.DivisionFeature" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OwnershipRecords" EntityType="Self.OwnershipRecords" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OwnerSpace" EntityType="Self.OwnerSpace" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Relative" EntityType="Self.Relative" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SpaceFeature" EntityType="Self.SpaceFeature" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users" Association="Self.FK_UserRoles_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

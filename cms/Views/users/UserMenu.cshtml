@@ -1,0 +1,20 @@
+﻿
+@* User's Menu Header *@
+<div style="padding-bottom: 10px; float: right;">
+    @Html.DevExpress().Menu(settings =>
+{
+settings.Name = "UsersMenu";
+settings.ShowAsToolbar = true;
+settings.ShowPopOutImages = DefaultBoolean.True;
+settings.Items.Add("New", "btnHeaderNew");
+    settings.Items.Add("Reset Password", "btnHeaderReset");
+    settings.Items.Add("Edit", "btnHeaderEdit");
+    settings.Items.Add("Delete", "btnHeaderDelete");
+    settings.ClientSideEvents.ItemClick = "OnUsersHeaderMenuItemClick";
+}).GetHtml()
+
+
+
+
+
+

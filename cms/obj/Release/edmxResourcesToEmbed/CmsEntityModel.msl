@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MakhadocmsModelStoreContainer" CdmEntityContainer="CMSEntityModel">
+    <EntitySetMapping Name="Applications">
+      <EntityTypeMapping TypeName="MakhadocmsModel.Application">
+        <MappingFragment StoreEntitySet="Application">
+          <ScalarProperty Name="Burial_Status" ColumnName="Burial Status" />
+          <ScalarProperty Name="PurchaseCapturedDate" ColumnName="PurchaseCapturedDate" />
+          <ScalarProperty Name="CapturedDate" ColumnName="CapturedDate" />
+          <ScalarProperty Name="UsualResidence" ColumnName="UsualResidence" />
+          <ScalarProperty Name="DateOfDeath" ColumnName="DateOfDeath" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CauseOfDeath" ColumnName="CauseOfDeath" />
+          <ScalarProperty Name="DeathAge" ColumnName="DeathAge" />
+          <ScalarProperty Name="DeedGender" ColumnName="DeedGender" />
+          <ScalarProperty Name="Mortuary" ColumnName="Mortuary" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="ReligionId" ColumnName="ReligionId" />
+          <ScalarProperty Name="GrafNumber" ColumnName="GrafNumber" />
+          <ScalarProperty Name="CareTaker" ColumnName="CareTaker" />
+          <ScalarProperty Name="PlaceOfBurial" ColumnName="PlaceOfBurial" />
+          <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+          <ScalarProperty Name="AmountPaidDate" ColumnName="AmountPaidDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="BurialOfPauper" ColumnName="BurialOfPauper" />
+          <ScalarProperty Name="UseOfANiche" ColumnName="UseOfANiche" />
+          <ScalarProperty Name="WideningOfGrave" ColumnName="WideningOfGrave" />
+          <ScalarProperty Name="OpenCloseGrave" ColumnName="OpenCloseGrave" />
+          <ScalarProperty Name="ReservationOfGrave" ColumnName="ReservationOfGrave" />
+          <ScalarProperty Name="PurchaseOfGrave" ColumnName="PurchaseOfGrave" />
+          <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+          <ScalarProperty Name="PlaceOfIssue" ColumnName="PlaceOfIssue" />
+          <ScalarProperty Name="DateOfBurial" ColumnName="DateOfBurial" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="DeedName" ColumnName="DeedName" />
+          <ScalarProperty Name="IdNo" ColumnName="IdNo" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cemeteries">
+      <EntityTypeMapping TypeName="MakhadocmsModel.Cemetery">
+        <MappingFragment StoreEntitySet="Cemetery">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DualApplications">
+      <EntityTypeMapping TypeName="MakhadocmsModel.DualApplication">
+        <MappingFragment StoreEntitySet="DualApplication">
+          <ScalarProperty Name="Burial_Status" ColumnName="Burial Status" />
+          <ScalarProperty Name="HeaderApplicationId" ColumnName="HeaderApplicationId" />
+          <ScalarProperty Name="PurchaseCapturedDate" ColumnName="PurchaseCapturedDate" />
+          <ScalarProperty Name="CapturedDate" ColumnName="CapturedDate" />
+          <ScalarProperty Name="UsualResidence" ColumnName="UsualResidence" />
+          <ScalarProperty Name="DeedName" ColumnName="DeedName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CauseOfDeath" ColumnName="CauseOfDeath" />
+          <ScalarProperty Name="DeathAge" ColumnName="DeathAge" />
+          <ScalarProperty Name="DeedGender" ColumnName="DeedGender" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="ReligionId" ColumnName="ReligionId" />
+          <ScalarProperty Name="GrafNumber" ColumnName="GrafNumber" />
+          <ScalarProperty Name="CareTaker" ColumnName="CareTaker" />
+          <ScalarProperty Name="PlaceOfBurial" ColumnName="PlaceOfBurial" />
+          <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+          <ScalarProperty Name="AmountPaidDate" ColumnName="AmountPaidDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="BurialOfPauper" ColumnName="BurialOfPauper" />
+          <ScalarProperty Name="UseOfANiche" ColumnName="UseOfANiche" />
+          <ScalarProperty Name="WideningOfGrave" ColumnName="WideningOfGrave" />
+          <ScalarProperty Name="OpenCloseGrave" ColumnName="OpenCloseGrave" />
+          <ScalarProperty Name="ReservationOfGrave" ColumnName="ReservationOfGrave" />
+          <ScalarProperty Name="PurchaseOfGrave" ColumnName="PurchaseOfGrave" />
+          <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+          <ScalarProperty Name="PlaceOfIssue" ColumnName="PlaceOfIssue" />
+          <ScalarProperty Name="DateOfBurial" ColumnName="DateOfBurial" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="IdNo" ColumnName="IdNo" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FileUploads">
+      <EntityTypeMapping TypeName="MakhadocmsModel.FileUpload">
+        <MappingFragment StoreEntitySet="FileUpload">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="File" ColumnName="File" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Graves">
+      <EntityTypeMapping TypeName="MakhadocmsModel.Grave">
+        <MappingFragment StoreEntitySet="Grave">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CemeteryId" ColumnName="CemeteryId" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GraveOwners">
+      <EntityTypeMapping TypeName="MakhadocmsModel.GraveOwner">
+        <MappingFragment StoreEntitySet="GraveOwners">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="GraveId" ColumnName="GraveId" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mortuaries">
+      <EntityTypeMapping TypeName="MakhadocmsModel.Mortuary">
+        <MappingFragment StoreEntitySet="Mortuary">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="MakhadocmsModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="MakhadocmsModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MakhadocmsModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="TempPassword" ColumnName="TempPassword" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,113 @@
+﻿@model System.Collections.IEnumerable
+
+
+
+<script>
+
+    function OnMortuaryHeaderGridFocusedRowChanged(s, e) {
+
+        //Get the User's Id from the selected row
+        s.GetRowValues(s.GetFocusedRowIndex(), 'ObjId', OnGetRowValues);
+    }
+
+    function OnGetRowValues(values) {
+        //return the selected value
+        MortuaryGrid_ObjId = values;
+
+    }
+    function OnBeginCallback(s, e) {
+
+        e.customArgs["ObjId"] = MortuaryGrid_ObjId;
+        // alert('OnBeginCallback e:  ' + e);
+    }
+    function InitialSetFocus(s, e) {
+        if (s.GetFocusedRowIndex() < 0)
+            s.SetFocusedRowIndex(0);
+    }
+
+    function OnMortuaryMenuClick(s, e) {
+
+      if (e.item.name == "btnHeaderNew") {
+
+          var index = MortuaryGridViewPartial.GetFocusedRowIndex();
+          MortuaryGridViewPartial.AddNewRow(index);
+      }
+
+      if (e.item.name == "btnHeaderEdit") {
+
+          var index = MortuaryGridViewPartial.GetFocusedRowIndex();
+          // alert('index : ' + index);
+
+          MortuaryGridViewPartial.StartEditRow(index);
+          // call edit funtion from custom button
+      }
+
+
+      if (e.item.name == "btnHeaderDelete") {
+          if (confirm("Confirm Delete?")) {
+              var index = MortuaryGridViewPartial.GetFocusedRowIndex();
+              MortuaryGridViewPartial.DeleteRow(index);
+          }
+      }
+    }
+
+    function HighlightEllipsis() {
+        $('.dxgv.dx-ellipsis').each(function (i, elem) {
+            var color = elem.offsetWidth < elem.scrollWidth ? '#FFF2C0' : 'white';
+            elem.style.transition = 'background 1s';
+            elem.style['background-color'] = color;
+        });
+    }
+
+    //for exports on grids
+    function OnToolbarItemClick(s, e) {
+    }
+    function IsExportToolbarCommand(command) {
+        return command == "Pdf" || command == "Xlsx" || command == "Xls";
+    }
+</script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "MortuaryFeaturesFormLayout";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    var groupMain = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = string.Format("Mortuary Features");
+        groupSettings.ShowCaption = DefaultBoolean.True;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        groupSettings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        groupSettings.ColCount = 1;
+    });
+    groupMain.Items.Add(itemSettings =>
+    {
+        itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.ColSpan = 1;
+        itemSettings.SetNestedContent(() =>
+        {
+            @Html.RenderAction("MortuaryGridViewPartial");
+        });
+    });
+    groupMain.Items.Add(itemSettings =>
+    {
+        itemSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.ColSpan = 1;
+        itemSettings.SetNestedContent(() =>
+        {
+            //return form
+            @Html.RenderPartial("MortuaryMenu");
+        });
+    });
+
+}).GetHtml()
+
+}
+
+
+

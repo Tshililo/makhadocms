@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+  <group Text="Records">
+    <item Text="Cemetery" />
+    <item Text="Block" />
+    <item Text="Division" />
+    <item Text="Owner Space" />
+  </group>
+  <group Text="GIs">
+    <item Text="Google Maps" />
+    <item Text="Manual Plots" />
+  </group>
+  <group Text="Burial Records">
+    <item Text="Burial History" />
+  </group>
+</menu>
+

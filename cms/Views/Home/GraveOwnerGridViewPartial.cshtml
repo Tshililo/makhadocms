@@ -1,0 +1,42 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+
+        settings.Name = "GVGraveOwner";
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "GraveOwnerPartial" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "GraveOwnerDelete" };
+
+        settings.KeyFieldName = "ObjId";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.SettingsPager.PageSize = 32;
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
+        settings.Settings.VerticalScrollableHeight = 100;
+
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        settings.Settings.ShowFilterRowMenu = true;
+
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.AlwaysShowPager = true;
+
+        //transform header filter to check list for multiple selection
+        settings.Settings.ShowHeaderFilterButton = true;
+
+        settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+
+
+        settings.Columns.Add(column => { column.FieldName = "CemeteryId"; column.Caption = "Cemetery"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "GraveName"; column.Caption = "Grave"; column.Width = Unit.Pixel(100); });
+
+
+
+    });
+
+}
+@grid.Bind(Model).GetHtml()

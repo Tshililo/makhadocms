@@ -1,0 +1,80 @@
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+@using cms.Helpers;
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "GravesGridViewPartial";
+        settings.CallbackRouteValues = new { Controller = "Graves", Action = "GravesGridViewPartial" };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Graves", Action = "GravesEdit" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Graves", Action = "GravesEdit" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Graves", Action = "GravesDelete" };
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "GravesGridViewPartial");
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+
+        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+
+        //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+        settings.Settings.VerticalScrollableHeight = 500;
+
+        settings.Width = Unit.Percentage(100);
+
+        settings.KeyFieldName = "ObjId";
+
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+
+            ViewContext.Writer.Write((Html.Action("GravesUpdateEntryToForm", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
+        });
+
+        settings.BeforeGetCallbackResult = (s, e) =>
+
+        {
+            var gridView = s as MVCxGridView;
+
+            var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
+            gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+
+            if (gridView.IsNewRowEditing)
+            {
+                gridView.SettingsText.PopupEditFormCaption = "New Grave";
+
+            }
+        };
+
+        settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Plot"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "Longitude"; column.Caption = "Longitude"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "Latitude"; column.Caption = "Latitude"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "Status"; column.Caption = "Status"; column.Width = Unit.Pixel(100); });
+        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.Beige;
+
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsPopup.HeaderFilter.Height = 250;
+        var headerFilterMode = GridHeaderFilterMode.CheckedList;
+        foreach (GridViewDataColumn column in settings.Columns)
+            column.SettingsHeaderFilter.Mode = headerFilterMode;
+
+    }).SetEditErrorText(ViewData["EditError"] != null ? (string)ViewData["EditError"] : string.Empty).Bind(Model).GetHtml()

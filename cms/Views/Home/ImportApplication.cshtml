@@ -1,0 +1,14 @@
+
+@using (Html.BeginForm("UploadControlUpload", "PriceMatrix", FormMethod.Post))
+{
+    @Html.DevExpress().UploadControl(settings =>
+{
+    settings.Name = "UploadControl";
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "UploadControlUpload" };
+    settings.ShowUploadButton = true;
+    settings.ShowProgressPanel = true;
+    settings.ProgressBarSettings.DisplayFormatString = "Please wait";
+    settings.ClientSideEvents.FileUploadComplete = "function(s,e){alert(e.callbackData)}";
+  //  settings.ValidationSettings.Assign(PalBroker.MVC.Areas.Logistics.Controllers.FileLoadingControllerUploadControlSettings.UploadValidationSettings);
+}).GetHtml()
+}

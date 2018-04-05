@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GeoPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AssignmentFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="OriginalOwnershipId" Type="Guid" Nullable="false" />
+    <Property Name="NewOwnershipId" Type="Guid" Nullable="false" />
+    <Property Name="DateAssigned" Type="Guid" />
+    <Property Name="OwnershipId" Type="Guid" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BlockSectionFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="BlockSectionName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="DivisionName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="DivisionId" Type="Guid" />
+    <Property Name="CemeteryName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="CemeteryId" Type="Guid" />
+  </EntityType>
+  <EntityType Name="CemeteryFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="Cemetery_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DivisionFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="Division_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="CemeteryId" Type="Guid" />
+  </EntityType>
+  <EntityType Name="OwnerSpace">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="SpaceId" Type="Guid" />
+    <Property Name="AssignmentId" Type="Guid" />
+    <Property Name="AssignmentDeedNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateAssigned" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Relative">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="BurialId" Type="Guid" />
+    <Property Name="SpaceId" Type="Guid" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Relationship" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="BirthDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DeathDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRoles_Roles" FromRole="Roles" ToRole="UserRoles" />
+  </EntityType>
+  <EntityType Name="SpaceFeature">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="SpaceFeatures" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Lot_Row_Id" Type="Guid" />
+    <Property Name="LotRowName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BlockSectionId" Type="Guid" />
+    <Property Name="BlockSectionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DivisionId" Type="Guid" />
+    <Property Name="DivisionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CemeteryId" Type="Guid" />
+    <Property Name="CemeteryName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_UserRoles_Roles" FromRole="UserRoles" ToRole="Roles" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserRoles_Users" FromRole="UserRoles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" />
+    <Property Name="AccessFailedCount" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OrganisationGuid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TempPassword" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="SALT" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRoles_Users" FromRole="Users" ToRole="UserRoles" />
+  </EntityType>
+  <Association Name="FK_UserRoles_Roles">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GeoPortalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AssignmentFeatures" EntityType="Self.AssignmentFeature" />
+    <EntitySet Name="BlockSectionFeatures" EntityType="Self.BlockSectionFeature" />
+    <EntitySet Name="CemeteryFeatures" EntityType="Self.CemeteryFeature" />
+    <EntitySet Name="DivisionFeatures" EntityType="Self.DivisionFeature" />
+    <EntitySet Name="OwnerSpaces" EntityType="Self.OwnerSpace" />
+    <EntitySet Name="Relatives" EntityType="Self.Relative" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="SpaceFeatures" EntityType="Self.SpaceFeature" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users" Association="Self.FK_UserRoles_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <EntitySet Name="BurialRecords" EntityType="GeoPortalModel.BurialRecord" />
+    <EntitySet Name="OwnershipRecords" EntityType="GeoPortalModel.OwnershipRecord" />
+  </EntityContainer>
+  <EntityType Name="BurialRecord">
+    <Key>
+      <PropertyRef Name="ObjId1" />
+    </Key>
+    <Property Name="ObjId1" Type="Guid" Nullable="false" />
+    <Property Name="BurialId" Type="Guid" />
+    <Property Name="SpaceId" Type="Guid" />
+  </EntityType>
+  <EntityType Name="OwnershipRecord">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="DeedNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DeedType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfPurchase" Type="DateTime" Precision="3" />
+    <Property Name="AmountPaid" Type="Decimal" Precision="7" Scale="3" />
+    <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OwnerAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DeedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

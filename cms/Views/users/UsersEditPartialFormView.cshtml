@@ -1,0 +1,139 @@
+
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+@using cms.Models;
+
+@model cms.User
+
+    @Html.DevExpress().ValidationSummary(settings =>
+{
+    settings.ValidationGroup = "Model";
+}).GetHtml()
+
+    @Html.AntiForgeryToken()
+
+
+    @Html.DevExpress().FormLayout(settings =>
+{
+    @Html.EnableClientValidation();
+    // Get Fields
+    settings.Name = "UserEditPartialForm";
+    settings.Width = Unit.Percentage(100);
+
+    var infoGroupItem = settings.Items.AddGroupItem(Gsettings =>
+    {
+        Gsettings.Caption = "General";
+        Gsettings.RowSpan = 4;
+        Gsettings.ShowCaption = DefaultBoolean.True;
+        Gsettings.ColCount = 1;
+        Gsettings.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
+
+        Gsettings.Items.Add(TextFieldSettings =>
+        {
+            TextFieldSettings.ShowCaption = DefaultBoolean.True;
+            TextFieldSettings.Caption = "User Name";
+            TextFieldSettings.SetNestedContent(() =>
+            {
+                @Html.DevExpress().TextBox(
+                    textboxsettings =>
+                    {
+                        //textboxsettings.Properties.Caption = "UserName        ";
+                        textboxsettings.Name = "UserName";
+                        textboxsettings.ShowModelErrors = true;
+                        textboxsettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        textboxsettings.Properties.NullText = "Enter UserName...";
+                    }).Bind(Model.UserName).Render();
+            });
+
+        });
+        Gsettings.Items.Add(TextFieldSettings =>
+        {
+            TextFieldSettings.ShowCaption = DefaultBoolean.True;
+            TextFieldSettings.Caption = "Email";
+            TextFieldSettings.SetNestedContent(() =>
+            {
+                @Html.DevExpress().TextBox(
+               textboxsettings =>
+               {
+                   //textboxsettings.Properties.Caption = "Email";
+                   textboxsettings.Name = "Email";
+                   textboxsettings.ShowModelErrors = true;
+                   textboxsettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                   textboxsettings.Properties.NullText = "Enter Email Address...";
+               }).Bind(Model.Email).Render();
+            });
+
+        });
+
+        Gsettings.Items.Add(i => i.EmailConfirmed);
+        Gsettings.Items.Add(i => i.PhoneNumber);
+
+
+    });
+
+
+    var infoGroupPassword = settings.Items.AddGroupItem(Psettings =>
+    {
+        Psettings.Caption = "User Password";
+        Psettings.ShowCaption = DefaultBoolean.True; Psettings.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+
+        Psettings.Items.Add(TextFieldSettings =>
+        {
+            TextFieldSettings.ShowCaption = DefaultBoolean.True;
+            TextFieldSettings.Caption = "Password";
+            TextFieldSettings.SetNestedContent(() =>
+            {
+                @Html.DevExpress().TextBox(
+                    textboxsettings =>
+                    {
+                        //textboxsettings.Properties.Caption = "UserName        ";
+                        textboxsettings.Name = "TempPassword";
+                        textboxsettings.ShowModelErrors = true;
+                        textboxsettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        textboxsettings.Properties.NullText = "Enter TempPassword...";
+                        textboxsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        textboxsettings.Properties.ValidationSettings.RequiredField.ErrorText = "Password is Required..";
+                        textboxsettings.Properties.Password = true;
+                    }).Bind(Model.TempPassword).Render();
+            });
+
+        });
+    });
+
+    var ButtonsGroupItem = settings.Items.AddGroupItem(Buttonsettings =>
+    {
+        // Buttonsettings.Caption = "";
+        //settings.RowSpan = 2;
+        // Buttonsettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.ColCount = 1;
+    });
+    ButtonsGroupItem.Items.Add(Buttonsettings =>
+    {
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.SetNestedContent(() =>
+        {
+            Html.ViewContext.Writer.Write("<div style='float:right'>");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnSave";
+                btnSettings.Text = "Save";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {UsersGrid.UpdateEdit();}";
+            }).Render();
+
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.Text = "Cancel";
+                btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {UsersGrid.CancelEdit();}";
+                btnSettings.UseSubmitBehavior = true;
+            }).Render();
+
+            Html.ViewContext.Writer.Write("</div>");
+
+        });
+    });
+
+}).GetHtml()
+
