@@ -11,14 +11,24 @@ namespace cms
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Application
     {
         public System.Guid ObjId { get; set; }
+
+        [Required(ErrorMessage = "ID no is required.")]
+        [MaxLength(13, ErrorMessage = "ID no cannot be longer than 40 characters.")]
         public string IdNo { get; set; }
         public string DeedName { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public Nullable<System.DateTime> DateOfBurial { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime? DateOfBurial { get; set; }
         public string PlaceOfIssue { get; set; }
         public string AgeGroup { get; set; }
         public Nullable<decimal> PurchaseOfGrave { get; set; }
@@ -40,11 +50,21 @@ namespace cms
         public string DeathAge { get; set; }
         public string CauseOfDeath { get; set; }
         public string Address { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DateOfDeath { get; set; }
         public string UsualResidence { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> CapturedDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> PurchaseCapturedDate { get; set; }
         public Nullable<bool> Burial_Status { get; set; }
+        public string MortuaryName { get; internal set; }
     }
 
     public class ReportOtion
@@ -52,5 +72,9 @@ namespace cms
         public string To { get; set; }
 
         public string Attention { get; set; }
+
+        public DateTime? DateFrom { get; set; }
+
+        public DateTime? DateTo { get; set; }
     }
 }

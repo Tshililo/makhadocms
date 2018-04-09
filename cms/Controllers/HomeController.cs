@@ -9,6 +9,7 @@ using DevExpress.XtraReports.UI;
 using DevExpress.Web.Mvc;
 using System.Data;
 using System.IO;
+using System.Text;
 
 namespace cms.Controllers
 {
@@ -169,11 +170,25 @@ namespace cms.Controllers
             var rep = new AppReportXrMvc();
             rep.ObjId.Value = p[0];
             rep.Attention.Value = p[1];
-            rep.ToCompany.Value = p[2];
+            rep.FromDate.Value = p[2];
+            rep.ToDate.Value = p[4];
             return rep;
         }
         #endregion
 
+        #region DropBox
+        [ValidateInput(false)]
+        public ActionResult FileManagerPartial()
+        {
+            var RootFolder = @"~\Content\DropBox";
+            return PartialView("_FileManagerPartial", RootFolder);
+        }
+
+        public FileStreamResult FileManagerPartialDownload()
+        {
+            return null;
+        } 
+        #endregion
 
         #region GraveOwners
         [ValidateInput(false)]

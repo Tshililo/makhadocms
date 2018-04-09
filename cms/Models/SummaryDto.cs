@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,6 +10,7 @@ namespace cms.Models
 {
     public class SummaryDto : ReportBaseDto
     {
+
         public SummaryDto()
         {
             Lines = new List<SummaryLineDto>();
@@ -18,8 +20,13 @@ namespace cms.Models
         {
             public string IdNo { get; set; }
             public string DeedName { get; set; }
+            [DataType(DataType.Date)]
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
             public Nullable<System.DateTime> DateOfBirth { get; set; }
-            public Nullable<System.DateTime> DateOfBurial { get; set; }
+
+            [DataType(DataType.Date)]
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+            public DateTime? DateOfBurial { get; set; }
             public string PlaceOfIssue { get; set; }
             public string AgeGroup { get; set; }
             public Nullable<decimal> Amount { get; set; }
@@ -41,6 +48,8 @@ namespace cms.Models
             public Nullable<System.DateTime> PurchaseCapturedDate { get; set; }
             public string toCompany { get; internal set; }
             public string forAttention { get; internal set; }
+            public string MortuaryName { get; internal set; }
+            public bool? Burial_Status { get; internal set; }
         }
 
         public List<SummaryLineDto> Lines
@@ -59,6 +68,11 @@ namespace cms.Models
         public string VatRegistrationNumber { get; set; }
         public string CompanyName { get; set; }
         public string PhysicalAddress1 { get; set; }
-  
+        public string ToCompany { get; set; }
+        public string ForAttention { get; set; }
+
+        public DateTime? DateFrom { get; set; }
+        public DateTime? dateTo { get; set; }
+
     }
 }

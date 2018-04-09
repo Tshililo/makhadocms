@@ -23,28 +23,28 @@
 
     });
 
-
-    infoGroupItem1.Items.Add(i => i.To, itemSettings =>
+    infoGroupItem1.Items.Add(i => i.Attention, itemSettings =>
     {
-        itemSettings.Caption = "To";
-        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
-        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
-        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
-        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
-        textBoxSettings.ShowModelErrors = true;
-        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
 
     });
 
-    infoGroupItem1.Items.Add(i => i.Attention, itemSettings =>
+    var infoGroupItem2 = formSettings.Items.AddGroupItem(settings =>
     {
-        itemSettings.Caption = "Organization";
-        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
-        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
-        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
-        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
-        textBoxSettings.ShowModelErrors = true;
-        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        settings.Caption = "Date of Burial";
+        //settings.RowSpan = 2;
+        settings.ShowCaption = DefaultBoolean.True;
+        settings.ColCount = 1;
+
+
+    });
+
+    infoGroupItem2.Items.Add(i => i.DateFrom, itemSettings =>
+    {
+    });
+
+    infoGroupItem2.Items.Add(i => i.DateTo, itemSettings =>
+    {
+
 
     });
 

@@ -336,6 +336,7 @@
     <Content Include="Views\Home\ApplicationMenu.cshtml" />
     <Content Include="Views\Home\CreateApplicationsEditPartial.cshtml" />
     <Content Include="Web.config" />
+    <Content Include="Views\Home\_FileManagerPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -490,6 +491,7 @@
     <Compile Include="Models\PalBrokerHtmlHelper.cs" />
     <Compile Include="Models\ApplicationModel.cs" />
     <Compile Include="Models\PasswordHelper.cs" />
+    <Compile Include="Models\ApplicationDTO.cs" />
     <Compile Include="Models\UserRolesDto.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Mortuary.cs">

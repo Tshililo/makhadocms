@@ -18,7 +18,8 @@ namespace cms.Controllers
         [ValidateInput(false)]
         public ActionResult FileManagerPartial()
         {
-            return PartialView("_FileManagerPartial", DropBoxControllerDropBoxSettings.Model);
+            var  RootFolder = @"~\Content\DropBox";
+            return PartialView("_FileManagerPartial", RootFolder);
         }
 
         public FileStreamResult FileManagerPartialDownload()
@@ -27,11 +28,11 @@ namespace cms.Controllers
             return null;
         }
     }
-    public class DropBoxControllerDropBoxSettings
-    {
-        public const string RootFolder = @"~\Content\DropBox";
+    //public class DropBoxControllerDropBoxSettings
+    //{
+    //    public const string RootFolder = @"~\Content\DropBox";
 
-        public static string Model { get { return RootFolder; } }
-    }
+    //    public static string Model { get { return RootFolder; } }
+    //}
 
 }

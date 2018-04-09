@@ -78,10 +78,35 @@
         //Get Header
         var ObjId = ApplicationGridViewPartial.GetRowKey(ApplicationGridViewPartial.GetFocusedRowIndex());
         //Get values
-        var to = To.GetValue();
         var attention = Attention.GetValue();
-        var passed_params = ObjId + "," + attention + "," + to;
+        var datefrom = DateFrom.GetValue();
+        var dateto = DateTo.GetValue();
 
+        var myDate = new Date(datefrom);
+        var from = myDate.toLocaleString()
+
+        var myDate1 = new Date(dateto);
+        var to = myDate1.toLocaleString()
+
+        var passed_params = ObjId + "," + attention + "," + from + "," + to;
+
+        if (attention == null) {
+            alert('Please Enter Attention to!');
+            return;
+        }
+
+        if (datefrom == null)
+        {
+            alert('Please enter Date From');
+            return;
+        }
+        if (dateto == null) {
+            alert('Please enter Date To');
+            return;
+        }
+
+
+        alert(passed_params);
 
         var link = '@Url.Action("ReportViewPartial", "Home", new { reportParams = "_reportParams_" })';
 
@@ -187,6 +212,12 @@
         if (e.item.name == "btnLinkToGrave") {
 
             LinkToGravePopUp.Show();
+
+        }
+
+        if (e.item.name == "btnLinkToDropBox") {
+
+            LinkToDropBox.Show();
 
         }
 
@@ -408,6 +439,37 @@
     });
 
 }).GetHtml()
+
+    @Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "LinkToDropBox";
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Width = Unit.Pixel(900);
+    settings.Height = Unit.Pixel(250);
+    settings.ShowCloseButton = true;
+    settings.ShowHeader = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.AllowDragging = true;
+    settings.DragElement = DragElement.Header;
+    settings.AllowResize = true;
+    settings.Modal = true;
+    settings.ResizingMode = ResizingMode.Live;
+    settings.ShowSizeGrip = ShowSizeGrip.True;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+    settings.HeaderText = "DropBox";
+    settings.ShowCloseButton = true;
+
+    settings.SetContent(() =>
+    {
+
+        @Html.RenderAction("FileManagerPartial");
+
+    });
+
+}).GetHtml()
+
 }
 
 
