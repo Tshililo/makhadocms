@@ -337,6 +337,10 @@
     <Content Include="Views\Home\CreateApplicationsEditPartial.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\_FileManagerPartial.cshtml" />
+    <Content Include="Views\ReportHeaders\Index.cshtml" />
+    <Content Include="Views\ReportHeaders\ReportHeaderLandingFormView.cshtml" />
+    <Content Include="Views\ReportHeaders\ReportHeaderMenu.cshtml" />
+    <Content Include="Views\ReportHeaders\_ReportHeaderGridViewPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -453,6 +457,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MortuaryController.cs" />
+    <Compile Include="Controllers\ReportHeadersController.cs" />
     <Compile Include="Controllers\TandCsController.cs" />
     <Compile Include="Controllers\GraveOwnerController.cs" />
     <Compile Include="Controllers\DropBoxController.cs" />
@@ -477,6 +482,7 @@
       <DependentUpon>CMSEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ReportOptionDTO.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\SummaryDto.cs" />
     <Compile Include="Models\GridHelper.cs" />
@@ -498,6 +504,9 @@
       <DependentUpon>CMSEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportHeader.cs">
+      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>CMSEntityModel.tt</DependentUpon>
     </Compile>

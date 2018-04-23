@@ -11,6 +11,7 @@
     <EntitySet Name="Roles" EntityType="MakhadocmsModel.Role" />
     <EntitySet Name="UserRoles" EntityType="MakhadocmsModel.UserRole" />
     <EntitySet Name="Users" EntityType="MakhadocmsModel.User" />
+    <EntitySet Name="ReportHeaders" EntityType="MakhadocmsModel.ReportHeader" />
   </EntityContainer>
   <EntityType Name="Application">
     <Key>
@@ -151,5 +152,17 @@
     <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TempPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ReportHeader">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="Guid" Nullable="false" />
+    <Property Name="OrganisationName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TeNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Vat" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Fax" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
   </EntityType>
 </Schema>

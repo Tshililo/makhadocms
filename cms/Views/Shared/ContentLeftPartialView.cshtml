@@ -38,6 +38,7 @@
     settings.Groups.Add(group =>
     {
         group.Text = "System Settings";
+        group.Items.Add("Report Header", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ReportHeaders", Action = "index" });
         group.Items.Add("LogOut", "", "~/Content/Images/logout.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Account", Action = "LogOff" });
     });
 

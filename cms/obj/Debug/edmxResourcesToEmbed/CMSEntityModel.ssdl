@@ -113,6 +113,18 @@
     <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="ReportHeaders">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrganisationName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="50" />
+    <Property Name="TeNo" Type="nchar" MaxLength="50" />
+    <Property Name="Vat" Type="nchar" MaxLength="50" />
+    <Property Name="Fax" Type="nchar" MaxLength="50" />
+    <Property Name="Email" Type="nchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Roles">
     <Key>
       <PropertyRef Name="Id" />
@@ -148,6 +160,7 @@
     <EntitySet Name="Grave" EntityType="Self.Grave" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GraveOwners" EntityType="Self.GraveOwners" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Mortuary" EntityType="Self.Mortuary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportHeaders" EntityType="Self.ReportHeaders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />

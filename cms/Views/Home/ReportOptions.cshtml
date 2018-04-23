@@ -1,14 +1,10 @@
 ﻿
-@model cms.ReportOtion
+@model cms.Models.ReportOtion
 
-@{
-    Html.EnableClientValidation();
-}
+
 
 @Html.DevExpress().FormLayout(formSettings =>
 {
-    @Html.AntiForgeryToken();
-
     formSettings.Name = "ReportformLayout";
     formSettings.AlignItemCaptionsInAllGroups = true;
     formSettings.ColCount = 1;

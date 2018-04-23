@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="MakhadocmsModel.Role" Width="1.5" PointX="4.75" PointY="6.75" />
         <EntityTypeShape EntityType="MakhadocmsModel.UserRole" Width="1.5" PointX="6.75" PointY="6.75" />
         <EntityTypeShape EntityType="MakhadocmsModel.User" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MakhadocmsModel.ReportHeader" Width="1.5" PointX="9.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

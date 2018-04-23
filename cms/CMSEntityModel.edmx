@@ -118,6 +118,18 @@
           <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ReportHeaders">
+          <Key>
+            <PropertyRef Name="ObjId" />
+          </Key>
+          <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganisationName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nchar" MaxLength="50" />
+          <Property Name="TeNo" Type="nchar" MaxLength="50" />
+          <Property Name="Vat" Type="nchar" MaxLength="50" />
+          <Property Name="Fax" Type="nchar" MaxLength="50" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="Id" />
@@ -153,6 +165,7 @@
           <EntitySet Name="Grave" EntityType="Self.Grave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GraveOwners" EntityType="Self.GraveOwners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mortuary" EntityType="Self.Mortuary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportHeaders" EntityType="Self.ReportHeaders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -172,6 +185,7 @@
           <EntitySet Name="Roles" EntityType="MakhadocmsModel.Role" />
           <EntitySet Name="UserRoles" EntityType="MakhadocmsModel.UserRole" />
           <EntitySet Name="Users" EntityType="MakhadocmsModel.User" />
+          <EntitySet Name="ReportHeaders" EntityType="MakhadocmsModel.ReportHeader" />
         </EntityContainer>
         <EntityType Name="Application">
           <Key>
@@ -312,6 +326,18 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TempPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ReportHeader">
+          <Key>
+            <PropertyRef Name="ObjId" />
+          </Key>
+          <Property Name="ObjId" Type="Guid" Nullable="false" />
+          <Property Name="OrganisationName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="TeNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Vat" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -466,6 +492,19 @@
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportHeaders">
+            <EntityTypeMapping TypeName="MakhadocmsModel.ReportHeader">
+              <MappingFragment StoreEntitySet="ReportHeaders">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Vat" ColumnName="Vat" />
+                <ScalarProperty Name="TeNo" ColumnName="TeNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="OrganisationName" ColumnName="OrganisationName" />
+                <ScalarProperty Name="ObjId" ColumnName="ObjId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
