@@ -62,12 +62,12 @@ namespace cms.Models
 
     public class ReportBaseDto
     {
-        public string EmailAddress { get; set; }
-        public string FaxNumber { get; set; }
-        public string TelephoneNumber { get; set; }
-        public string VatRegistrationNumber { get; set; }
-        public string CompanyName { get; set; }
-        public string PhysicalAddress1 { get; set; }
+        public string OrganisationName { get; set; }
+        public string Address { get; set; }
+        public string TeNo { get; set; }
+        public string Vat { get; set; }
+        public string Fax { get; set; }
+        public string Email { get; set; }
         public string ToCompany { get; set; }
         public string ForAttention { get; set; }
 

@@ -21,5 +21,6 @@ namespace cms
         public string Vat { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
+        public Nullable<bool> Active { get; set; }
     }
 }

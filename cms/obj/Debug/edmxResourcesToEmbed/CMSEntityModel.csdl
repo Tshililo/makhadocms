@@ -158,11 +158,12 @@
       <PropertyRef Name="ObjId" />
     </Key>
     <Property Name="ObjId" Type="Guid" Nullable="false" />
-    <Property Name="OrganisationName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-    <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="OrganisationName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
     <Property Name="TeNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="Vat" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="Fax" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
   </EntityType>
 </Schema>

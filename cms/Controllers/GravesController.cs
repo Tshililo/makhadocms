@@ -32,6 +32,8 @@ namespace cms.Controllers
         {
             var GravesInfo = db.Graves.Where(s => s.ObjId == ObjId).FirstOrDefault();
 
+            ViewData["GetCemeteries"] = GetCemeteries();
+
             Grave model = new Grave();
 
             if (GravesInfo == null)

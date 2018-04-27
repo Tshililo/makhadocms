@@ -55,13 +55,20 @@ namespace cms
 
         public Models.SummaryDto GetReportDto(string forAttention, DateTime? dateFrom, DateTime? dateTo)
         {
+            var ReportHead = db.ReportHeaders.FirstOrDefault();
             var dto = new Models.SummaryDto();
             dto.ForAttention = forAttention;
             dto.DateFrom = dateFrom;
             dto.dateTo = dateTo;
-
+            dto.OrganisationName = ReportHead.OrganisationName;
+            dto.Fax = ReportHead.Fax;
+            dto.TeNo = ReportHead.TeNo;
+            dto.Vat = ReportHead.Vat;
+            dto.Address = ReportHead.Address;
             var grouping =  GetApplicationsDto(forAttention, dateFrom, dateTo);
             dto.Lines.AddRange(grouping);
+
+
 
             return dto;
         }

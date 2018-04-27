@@ -154,6 +154,7 @@
     <EntitySetMapping Name="ReportHeaders">
       <EntityTypeMapping TypeName="MakhadocmsModel.ReportHeader">
         <MappingFragment StoreEntitySet="ReportHeaders">
+          <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Fax" ColumnName="Fax" />
           <ScalarProperty Name="Vat" ColumnName="Vat" />

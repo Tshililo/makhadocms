@@ -118,12 +118,13 @@
       <PropertyRef Name="ObjId" />
     </Key>
     <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="OrganisationName" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="Address" Type="nchar" MaxLength="50" />
+    <Property Name="OrganisationName" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="250" />
     <Property Name="TeNo" Type="nchar" MaxLength="50" />
     <Property Name="Vat" Type="nchar" MaxLength="50" />
     <Property Name="Fax" Type="nchar" MaxLength="50" />
     <Property Name="Email" Type="nchar" MaxLength="50" />
+    <Property Name="Active" Type="bit" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>

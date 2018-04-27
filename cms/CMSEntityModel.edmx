@@ -123,12 +123,13 @@
             <PropertyRef Name="ObjId" />
           </Key>
           <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OrganisationName" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="nchar" MaxLength="50" />
+          <Property Name="OrganisationName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nchar" MaxLength="250" />
           <Property Name="TeNo" Type="nchar" MaxLength="50" />
           <Property Name="Vat" Type="nchar" MaxLength="50" />
           <Property Name="Fax" Type="nchar" MaxLength="50" />
           <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -332,12 +333,13 @@
             <PropertyRef Name="ObjId" />
           </Key>
           <Property Name="ObjId" Type="Guid" Nullable="false" />
-          <Property Name="OrganisationName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="OrganisationName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="TeNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Vat" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Fax" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -498,6 +500,7 @@
           <EntitySetMapping Name="ReportHeaders">
             <EntityTypeMapping TypeName="MakhadocmsModel.ReportHeader">
               <MappingFragment StoreEntitySet="ReportHeaders">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Fax" ColumnName="Fax" />
                 <ScalarProperty Name="Vat" ColumnName="Vat" />

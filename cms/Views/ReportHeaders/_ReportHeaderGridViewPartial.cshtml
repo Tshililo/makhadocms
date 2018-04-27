@@ -24,18 +24,6 @@
         settings.CommandColumn.ShowDeleteButton = false;
         settings.CommandColumn.ShowEditButton = false;
 
-        settings.Width = Unit.Percentage(100);
-
-        settings.KeyFieldName = "ObjId";
-
-        settings.Columns.Add("OrganisationName");
-        settings.Columns.Add("Address");
-        settings.Columns.Add("TeNo");
-        settings.Columns.Add("Vat");
-        settings.Columns.Add("Fax");
-        settings.Columns.Add("Email");
-
-        settings.KeyFieldName = "ObjId";
         settings.SettingsBehavior.AllowFocusedRow = true;
         settings.SettingsPager.Visible = true;
         settings.Settings.ShowGroupPanel = true;
@@ -44,12 +32,18 @@
         settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
         settings.CommandColumn.ShowSelectCheckbox = true;
 
+        settings.Width = Unit.Percentage(100);
 
-        //settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
-        //settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
-        //settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
-        //settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
-        //settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+        settings.KeyFieldName = "ObjId";
+
+        settings.Columns.Add(column => { column.FieldName = "OrganisationName"; column.Caption = "Title"; column.Width = Unit.Pixel(300); });
+        settings.Columns.Add("Address");
+        settings.Columns.Add("TeNo");
+        settings.Columns.Add("Vat");
+        settings.Columns.Add("Fax");
+        settings.Columns.Add("Email");
+
+        settings.KeyFieldName = "ObjId";
 
     });
     if (ViewData["EditError"] != null){
