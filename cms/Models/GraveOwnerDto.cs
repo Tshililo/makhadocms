@@ -14,7 +14,7 @@ namespace cms.Models
         public Guid GraveId { get; set; }
         public Guid ApplicationId { get; set; }
         public string GraveName { get; set; }
-        public string CemeteryId { get; set; }
+        public Guid? CemeteryId { get; set; }
         public string ReceiptNo { get; set; }
 
         public string CareTaker { get; set; }

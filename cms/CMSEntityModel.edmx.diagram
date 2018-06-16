@@ -4,18 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bb17be81d0744e68b3f07128d3f19589" Name="Diagram1" ZoomLevel="68">
-        <EntityTypeShape EntityType="MakhadocmsModel.Application" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.Cemetery" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.DualApplication" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.FileUpload" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.Grave" Width="1.5" PointX="4.75" PointY="3.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.GraveOwner" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.Mortuary" Width="1.5" PointX="6.75" PointY="3.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.Role" Width="1.5" PointX="4.75" PointY="6.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.UserRole" Width="1.5" PointX="6.75" PointY="6.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.User" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MakhadocmsModel.ReportHeader" Width="1.5" PointX="9.375" PointY="4.75" />
+      <Diagram DiagramId="076a2ffd9d734aecb0c2750e2e7de128" Name="Diagram1">
+        <EntityTypeShape EntityType="cmsModel.Application" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.Cemetery" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.DualApplication" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.Grave" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.GraveOwner" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.Mortuary" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.ReportHeader" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.Role" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.User" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsModel.UserRole" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

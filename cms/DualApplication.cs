@@ -16,6 +16,7 @@ namespace cms
     {
         public System.Guid ObjId { get; set; }
         public string IdNo { get; set; }
+        public string DeedName { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public Nullable<System.DateTime> DateOfBurial { get; set; }
         public string PlaceOfIssue { get; set; }
@@ -34,15 +35,15 @@ namespace cms
         public string GrafNumber { get; set; }
         public string ReligionId { get; set; }
         public string AgeGroupId { get; set; }
+        public System.Guid HeaderApplicationId { get; set; }
+        public Nullable<System.Guid> Mortuary { get; set; }
         public string DeedGender { get; set; }
         public string DeathAge { get; set; }
         public string CauseOfDeath { get; set; }
         public string Address { get; set; }
-        public string DeedName { get; set; }
         public string UsualResidence { get; set; }
         public Nullable<System.DateTime> CapturedDate { get; set; }
         public Nullable<System.DateTime> PurchaseCapturedDate { get; set; }
-        public Nullable<System.Guid> HeaderApplicationId { get; set; }
         public Nullable<bool> Burial_Status { get; set; }
     }
 }

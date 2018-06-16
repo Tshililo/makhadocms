@@ -10,6 +10,7 @@
         ApplicationGridViewPartial_ObjiId = values;
         GVDualApplication.PerformCallback();
         GVGraveOwner.PerformCallback();
+  
     }
 
     function InitialSetFocus(s, e) {
@@ -37,8 +38,6 @@
 
             //get id of grave  table
             var GraveId = GravesGridViewPartial.GetRowKey(GravesGridViewPartial.GetFocusedRowIndex());
-
-
             $.ajax({
                 url: '@Url.Action("LinkToGraveAdd", "Home")',
                 type: "POST",
@@ -60,11 +59,6 @@
         }
     }
 
-    @*function ApproveLinking() {
-
-
-       // alert(OwnershipObjId);
-    }*@
     function InitialSetFocus(s, e) {
         if (s.GetFocusedRowIndex() < 0)
             s.SetFocusedRowIndex(0);
@@ -216,9 +210,7 @@
         }
 
         if (e.item.name == "btnLinkToDropBox") {
-
-            LinkToDropBox.Show();
-
+            LinkToDropBox.Show();   
         }
 
         if (e.item.name == "btnHeaderDelete") {
@@ -442,31 +434,31 @@
 
     @Html.DevExpress().PopupControl(settings =>
 {
-    settings.Name = "LinkToDropBox";
-    settings.CloseAction = CloseAction.CloseButton;
-    settings.Width = Unit.Pixel(900);
-    settings.Height = Unit.Pixel(250);
-    settings.ShowCloseButton = true;
-    settings.ShowHeader = true;
-    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
-    settings.AllowDragging = true;
-    settings.DragElement = DragElement.Header;
-    settings.AllowResize = true;
-    settings.Modal = true;
-    settings.ResizingMode = ResizingMode.Live;
-    settings.ShowSizeGrip = ShowSizeGrip.True;
-    settings.CloseAction = CloseAction.CloseButton;
-    settings.PopupAction = PopupAction.LeftMouseClick;
-    settings.HeaderText = "DropBox";
-    settings.ShowCloseButton = true;
+	settings.Name = "LinkToDropBox";
+	settings.CloseAction = CloseAction.CloseButton;
+	settings.CallbackRouteValues = new { Controller = "Home", Action = "FileManagerPartial" };
+	settings.LoadContentViaCallback = LoadContentViaCallback.OnPageLoad;
+	settings.Width = Unit.Pixel(900);
+	settings.Height = Unit.Pixel(250);
+	settings.ShowCloseButton = true;
+	settings.ShowHeader = true;
+	settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+	settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+	settings.AllowDragging = true;
+	settings.DragElement = DragElement.Header;
+	settings.AllowResize = true;
+	settings.Modal = true;
+	settings.ResizingMode = ResizingMode.Live;
+	settings.ShowSizeGrip = ShowSizeGrip.True;
+	settings.CloseAction = CloseAction.CloseButton;
+	settings.PopupAction = PopupAction.LeftMouseClick;
+	settings.HeaderText = "DropBox";
+	settings.ShowCloseButton = true;
 
-    settings.SetContent(() =>
-    {
-
-        @Html.RenderAction("FileManagerPartial");
-
-    });
+	settings.SetContent(() =>
+	{
+	//	@Html.RenderAction("FileManagerPartial");
+	});
 
 }).GetHtml()
 

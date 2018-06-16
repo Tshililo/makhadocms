@@ -10,12 +10,13 @@ using DevExpress.Web.Mvc;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Web.UI.WebControls;
 
 namespace cms.Controllers
 {
     public class HomeController : Controller
     {
-        CMSEntityModel db = new CMSEntityModel();
+        cmsEntities1 db = new cmsEntities1();
         public ActionResult Index()
         {
             return View();
@@ -178,11 +179,23 @@ namespace cms.Controllers
 
         #region DropBox
         [ValidateInput(false)]
-        public ActionResult FileManagerPartial()
+        public ActionResult FileManagerPartial(string headerObjId)
         {
-            var RootFolder = @"~\Content\DropBox";
-            return PartialView("_FileManagerPartial", RootFolder);
-        }
+			if (headerObjId == null)
+			{
+				return null;
+			}
+			var model = db.Applications.Where(c => c.ObjId.ToString() == headerObjId).FirstOrDefault();
+			var RootFolder = @"~\Content\DropBox" + model.IdNo;
+			// Determine whether the directory exists.
+			if (Directory.Exists(RootFolder))
+			{
+				return PartialView("_FileManagerPartial", RootFolder);
+			}
+			Directory.CreateDirectory(RootFolder);
+
+			return PartialView("_FileManagerPartial", RootFolder);
+		}
 
         public FileStreamResult FileManagerPartialDownload()
         {

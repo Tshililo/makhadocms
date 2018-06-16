@@ -35,12 +35,11 @@ namespace cms
         public string GrafNumber { get; set; }
         public string ReligionId { get; set; }
         public string AgeGroupId { get; set; }
-        public string Mortuary { get; set; }
+        public Nullable<System.Guid> Mortuary { get; set; }
         public string DeedGender { get; set; }
         public string DeathAge { get; set; }
         public string CauseOfDeath { get; set; }
         public string Address { get; set; }
-        public Nullable<System.DateTime> DateOfDeath { get; set; }
         public string UsualResidence { get; set; }
         public Nullable<System.DateTime> CapturedDate { get; set; }
         public Nullable<System.DateTime> PurchaseCapturedDate { get; set; }

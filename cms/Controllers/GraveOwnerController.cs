@@ -14,7 +14,7 @@ namespace cms.Controllers
   //  [Authorize]
     public class GraveOwnerController : Controller
     {
-        private CMSEntityModel db = new CMSEntityModel();
+        private cmsEntities1 db = new cmsEntities1();
 
         // GET: Cemeteries
         public ActionResult Index()

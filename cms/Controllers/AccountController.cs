@@ -13,7 +13,7 @@ using Microsoft.Owin.Security;
 
 namespace cms.Controllers {
     public class AccountController : Controller {
-        CMSEntityModel db = new CMSEntityModel();
+        cmsEntities1 db = new cmsEntities1();
 
         ApplicationSignInManager _signInManager;
         public ApplicationSignInManager SignInManager {

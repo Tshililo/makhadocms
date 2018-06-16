@@ -12,7 +12,7 @@ namespace cms.Controllers
             return View();
         }
 
-        CMSEntityModel db = new CMSEntityModel();
+		cmsEntities1 db = new cmsEntities1();
 
         [ValidateInput(false)]
         public ActionResult ReportHeadersGridViewPartial()

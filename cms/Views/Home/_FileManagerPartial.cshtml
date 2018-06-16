@@ -2,9 +2,9 @@
 
 @Html.DevExpress().FileManager(settings => {
     settings.Name = "DropBox";
-    settings.CallbackRouteValues = new { Controller = "DropBox", Action = "FileManagerPartial" };
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "FileManagerPartial" };
 
-        settings.DownloadRouteValues = new { Controller = "DropBox", Action = "FileManagerPartialDownload" };
+        settings.DownloadRouteValues = new { Controller = "Home", Action = "FileManagerPartialDownload" };
     settings.SettingsEditing.AllowDownload = true;
 
     settings.Settings.ThumbnailFolder = Url.Content("~/Content/FileManager/Thumbnails");

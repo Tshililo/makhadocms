@@ -7,7 +7,7 @@ namespace cms
 
     public partial class AppReportXrMvc : DevExpress.XtraReports.UI.XtraReport
     {
-        CMSEntityModel db = new CMSEntityModel();
+		cmsEntities1 db = new cmsEntities1();
         public AppReportXrMvc()
 		{
             InitializeComponent();
@@ -32,7 +32,7 @@ namespace cms
         private List<Models.SummaryDto.SummaryLineDto> GetApplicationsDto(string forAttention, DateTime? dateFrom, DateTime? dateTo)
         {
             var model = (from ur in db.Applications
-                         from mor in db.Mortuaries.Where(c => c.ObjId.ToString() == ur.Mortuary)
+                         from mor in db.Mortuaries.Where(c => c.ObjId == ur.Mortuary)
                          select new Models.SummaryDto.SummaryLineDto
                          {
                              IdNo = ur.IdNo,

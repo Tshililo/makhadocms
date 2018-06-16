@@ -469,9 +469,6 @@
     <Compile Include="DualApplication.cs">
       <DependentUpon>CMSEntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FileUpload.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

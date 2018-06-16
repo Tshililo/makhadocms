@@ -107,7 +107,7 @@ namespace cms
 
         //}
 
-        //CmsEntityModel db = new CmsEntityModel();
+        //cmsEntities1 db = new cmsEntities1();
     }
 
     public class SmsService : IIdentityMessageService

@@ -15,7 +15,7 @@ namespace cms
     public partial class GraveOwner
     {
         public System.Guid ObjId { get; set; }
-        public System.Guid GraveId { get; set; }
-        public System.Guid ApplicationId { get; set; }
+        public Nullable<System.Guid> GraveId { get; set; }
+        public Nullable<System.Guid> ApplicationId { get; set; }
     }
 }
