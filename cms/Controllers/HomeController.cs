@@ -22,9 +22,6 @@ namespace cms.Controllers
             return View();
         }
 
-
-        #region Applications
-
         private List<Mortuary> GetMortuary()
         {
             return db.Mortuaries.ToList();
@@ -60,103 +57,202 @@ namespace cms.Controllers
 
             return PartialView("EditFileUploadPopUp", data);
         }
-        public ActionResult ApplicationsUpdateEntryToForm(Guid ObjId, Application model)
-        {
-            ViewData["Mortuaries"] = GetMortuary();
-            var ApplicationsInfo = db.Applications.Where(s => s.ObjId == ObjId).FirstOrDefault();
 
-            if (ApplicationsInfo == null)
-            {
-                model.ObjId = ObjId;
-                model.IdNo = "0000000000000";
-                return PartialView("CreateApplicationsEditPartial", model);
-            }
+		#region BurialRecordApplication
+		public ActionResult ApplicationsUpdateEntryToForm(Guid ObjId, Application model)
+		{
+			ViewData["Mortuaries"] = GetMortuary();
 
-            if (ApplicationsInfo != null)
-            {
-                return PartialView("CreateApplicationsEditPartial", ApplicationsInfo);
-            }
+			var mymodel = GetBurialRecords();
+			var ApplicationsInfo = mymodel.Where(s => s.ObjId == ObjId).FirstOrDefault();
 
-            return null;
+			if (ApplicationsInfo == null)
+			{
+				model.ObjId = ObjId;
+				return PartialView("CreateApplicationsEditPartial", model);
+			}
 
-        }
+			if (ApplicationsInfo != null)
+			{
+				model.ObjId = ApplicationsInfo.ObjId;
+				model.IdNo = ApplicationsInfo.IdNo;
+				model.DeedName = ApplicationsInfo.DeedName;
+				model.DateOfBirth = ApplicationsInfo.DateOfBirth;
+				model.DateOfBurial = ApplicationsInfo.DateOfBurial;
+				model.PlaceOfIssue = ApplicationsInfo.PlaceOfIssue;
+				model.PlaceOfBurial = ApplicationsInfo.PlaceOfBurial;
+				model.ReligionId = ApplicationsInfo.ReligionId;
+				model.AgeGroupId = ApplicationsInfo.AgeGroupId;
+				model.AgeGroup = ApplicationsInfo.AgeGroup;
+				model.ReceiptNo = ApplicationsInfo.ReceiptNo;
+				model.GrafNumber = ApplicationsInfo.GrafNumber;
+				model.Address = ApplicationsInfo.Address;
+				model.Burial_Status = ApplicationsInfo.Burial_Status;
+				model.UsualResidence = ApplicationsInfo.UsualResidence;
+				model.DeathAge = ApplicationsInfo.DeathAge;
+				model.Mortuary = ApplicationsInfo.Mortuary;
+				model.DeedGender = ApplicationsInfo.DeedGender;
+				model.CareTaker = ApplicationsInfo.CareTaker;
+				model.PurchaseOfGrave = ApplicationsInfo.PurchaseOfGrave;
+				model.ReservationOfGrave = ApplicationsInfo.ReservationOfGrave;
+				model.OpenCloseGrave = ApplicationsInfo.OpenCloseGrave;
+				model.WideningOfGrave = ApplicationsInfo.WideningOfGrave;
+				model.UseOfANiche = ApplicationsInfo.WideningOfGrave;
+				model.BurialOfPauper = ApplicationsInfo.BurialOfPauper;
+				model.Amount = ApplicationsInfo.Amount;
+				model.AmountPaidDate = ApplicationsInfo.AmountPaidDate;
 
-        public ActionResult ApplicationsGridViewPartial()
-        {
-            var BurialRecords = db.Applications.ToList().OrderBy(r => r.DateOfBurial).ThenBy(r => r.DeathAge);
-            // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
-            return PartialView("GridViewPartialView", BurialRecords);
-        }
+				return PartialView("CreateApplicationsEditPartial", model);
+			}
 
-        public ActionResult ApplicationsEdit(Application item)
-        {
-            var model = db.Applications;
-            var exists = model.Where(c => c.ObjId == item.ObjId).SingleOrDefault();
+			return null;
 
-            if (exists == null)
-            {
-                model.Add(item);
-                db.SaveChanges();
-            }
-            if (exists != null)
-            {
+		}
 
-                this.UpdateModel(exists);
-                // model.Attach(userRole);
-                db.SaveChanges();
+		private List<ApplicationsDTO> GetBurialRecords()
+		{
+			//var Appication = db.Applications.ToList();
 
-            }
-            var BurialRecords = db.Applications.ToList();
-            // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
-            return PartialView("GridViewPartialView", BurialRecords);
+			var model = (from app in db.Applications
+						 from gr in db.Mortuaries.Where(c => c.ObjId == app.Mortuary)
+						 select new ApplicationsDTO
+						 {
+							 ObjId = app.ObjId,
+							 IdNo = app.IdNo,
+							 DeedName = app.DeedName,
+							 DateOfBirth = app.DateOfBirth,
+							 DateOfBurial = app.DateOfBurial,
+							 PlaceOfIssue = app.PlaceOfIssue,
+							 PlaceOfBurial = app.PlaceOfBurial,
+							 ReligionId = app.ReligionId,
+							 AgeGroupId = app.AgeGroupId,
+							 AgeGroup = app.AgeGroup,
+							 ReceiptNo = app.ReceiptNo,
+							 GrafNumber = app.GrafNumber,
+							 Address = app.Address,
+							 Burial_Status = app.Burial_Status,
+							 UsualResidence = app.UsualResidence,
+							 DeathAge = app.DeathAge,
+							 DeedGender = app.DeedGender,
+							 CareTaker = app.CareTaker,
+							 MortuaryName = gr.Name,
+							 Mortuary = app.Mortuary,
+							 PurchaseOfGrave = app.PurchaseOfGrave,
+							 ReservationOfGrave = app.ReservationOfGrave,
+							 OpenCloseGrave = app.OpenCloseGrave,
+							 WideningOfGrave = app.WideningOfGrave,
+							 UseOfANiche = app.WideningOfGrave,
+							 BurialOfPauper = app.BurialOfPauper,
+							 Amount = app.Amount,
+							 AmountPaidDate = app.AmountPaidDate
+						 }).OrderBy(r => r.DateOfBurial).ThenBy(r => r.DeathAge);
+			return model.ToList();
+		}
 
-        }
+		public ActionResult ApplicationsGridViewPartial()
+		{
+			var model = GetBurialRecords();
+
+			// DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
+			return PartialView("GridViewPartialView", model);
+		}
+
+		public ActionResult ApplicationsEdit(Application item)
+		{
+			var modelRepo = db.Applications;
+			var BurialRecords = GetBurialRecords();
+			var exists = modelRepo.Where(c => c.ObjId == item.ObjId).SingleOrDefault();
+			Application Tosave = new Application();
+			if (exists == null)
+			{
+				modelRepo.Add(item);
+				db.SaveChanges();
+			}
+			if (exists != null)
+			{
+				//Assign Values here
+				//exists.ObjId = item.ObjId;
+				exists.IdNo = item.IdNo;
+				exists.DeedName = item.DeedName;
+				exists.DateOfBirth = item.DateOfBirth;
+				exists.DateOfBurial = item.DateOfBurial;
+				exists.PlaceOfIssue = item.PlaceOfIssue;
+				exists.PlaceOfBurial = item.PlaceOfBurial;
+				exists.ReligionId = item.ReligionId;
+				exists.AgeGroupId = item.AgeGroupId;
+				exists.AgeGroup = item.AgeGroup;
+				exists.ReceiptNo = item.ReceiptNo;
+				exists.GrafNumber = item.GrafNumber;
+				exists.Address = item.Address;
+				exists.Burial_Status = item.Burial_Status;
+				exists.UsualResidence = item.UsualResidence;
+				exists.DeathAge = item.DeathAge;
+				exists.Mortuary = item.Mortuary;
+				exists.DeedGender = item.DeedGender;
+				exists.CareTaker = item.CareTaker;
+				exists.PurchaseOfGrave = item.PurchaseOfGrave;
+				exists.ReservationOfGrave = item.ReservationOfGrave;
+				exists.OpenCloseGrave = item.OpenCloseGrave;
+				exists.WideningOfGrave = item.WideningOfGrave;
+				exists.UseOfANiche = item.WideningOfGrave;
+				exists.BurialOfPauper = item.BurialOfPauper;
+				exists.Amount = item.Amount;
+				exists.AmountPaidDate = item.AmountPaidDate;
+				this.UpdateModel(item);
+				// model.Attach(userRole);
+				db.SaveChanges();
+
+			}
+	
+			// DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
+			return PartialView("GridViewPartialView", BurialRecords);
+
+		}
 
 
-        [HttpPost, ValidateInput(false)]
-        public ActionResult ApplicationsDelete(Guid ObjId)
-        {
+		[HttpPost, ValidateInput(false)]
+		public ActionResult ApplicationsDelete(Guid ObjId)
+		{
 
-            var model = db.Applications;
-            var model2 = db.DualApplications;
-            if (ObjId != null)
-            {
-                try
-                {
-                    var item = model.FirstOrDefault(it => it.ObjId == ObjId);
-                    if (item != null)
-                    {
-                        model.Remove(item);
+			var model = db.Applications;
+			var model2 = db.DualApplications;
+			if (ObjId != null)
+			{
+				try
+				{
+					var item = model.FirstOrDefault(it => it.ObjId == ObjId);
+					if (item != null)
+					{
+						model.Remove(item);
 
-                    }
-                    var item2 = model2.Where(it => it.HeaderApplicationId == ObjId).ToList();
-                    foreach (var record in item2)
-                    {
-                        if (item != null)
-                        {
-                            model2.Remove(record);
+					}
+					var item2 = model2.Where(it => it.HeaderApplicationId == ObjId).ToList();
+					foreach (var record in item2)
+					{
+						if (item != null)
+						{
+							model2.Remove(record);
 
-                        }
-                    }
+						}
+					}
 
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    ViewData["EditError"] = e.Message;
-                }
-            }
-            var BurialRecords = db.Applications.ToList();
-            // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
-            return PartialView("GridViewPartialView", BurialRecords);
-        }
+					db.SaveChanges();
+				}
+				catch (Exception e)
+				{
+					ViewData["EditError"] = e.Message;
+				}
+			}
+			var BurialRecords = GetBurialRecords();
+			// DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
+			return PartialView("GridViewPartialView", BurialRecords);
+		} 
+		#endregion
+
+		#region PrintReport
 
 
-        #endregion
-        #region PrintReport
-
-
-        [HttpGet]
+		[HttpGet]
         public ActionResult ReportViewPartial(string reportParams)
         {
 
@@ -183,7 +279,7 @@ namespace cms.Controllers
         {
 			if (headerObjId == null)
 			{
-				return null;
+				var value = HttpContext.Request.Params["headerObjId"];
 			}
 			var model = db.Applications.Where(c => c.ObjId.ToString() == headerObjId).FirstOrDefault();
 			var RootFolder = @"~\Content\DropBox" + model.IdNo;
@@ -411,7 +507,8 @@ namespace cms.Controllers
 
             return null;
         }
-    }
+
+	}
     public class FileLoadingControllerUploadControlSettings
     {
         public static DevExpress.Web.UploadControlValidationSettings UploadValidationSettings = new DevExpress.Web.UploadControlValidationSettings()
