@@ -19,6 +19,6 @@ namespace cms
         public string Longitude { get; set; }
         public string Latitude { get; set; }
         public Nullable<System.Guid> CemeteryId { get; set; }
-        public Nullable<bool> Status { get; set; }
+        public string Status { get; set; }
     }
 }

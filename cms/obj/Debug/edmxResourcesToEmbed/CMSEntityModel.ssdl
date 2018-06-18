@@ -87,7 +87,7 @@
     <Property Name="Longitude" Type="nvarchar" MaxLength="100" />
     <Property Name="Latitude" Type="nvarchar" MaxLength="100" />
     <Property Name="CemeteryId" Type="uniqueidentifier" />
-    <Property Name="Status" Type="bit" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="GraveOwner">
     <Key>

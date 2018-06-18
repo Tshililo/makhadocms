@@ -255,10 +255,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Makhadocms.mdf" />
-    <Content Include="App_Data\Makhadocms_log.ldf">
-      <DependentUpon>Makhadocms.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\SideMenu.xml" />
     <Content Include="App_Data\TopMenu.xml">
       <SubType>Designer</SubType>

@@ -92,7 +92,7 @@
           <Property Name="Longitude" Type="nvarchar" MaxLength="100" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="100" />
           <Property Name="CemeteryId" Type="uniqueidentifier" />
-          <Property Name="Status" Type="bit" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="GraveOwner">
           <Key>
@@ -168,7 +168,6 @@
         <EntityContainer Name="cmsEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Applications" EntityType="cmsModel.Application" />
           <EntitySet Name="Cemeteries" EntityType="cmsModel.Cemetery" />
-          <EntitySet Name="Graves" EntityType="cmsModel.Grave" />
           <EntitySet Name="GraveOwners" EntityType="cmsModel.GraveOwner" />
           <EntitySet Name="Mortuaries" EntityType="cmsModel.Mortuary" />
           <EntitySet Name="ReportHeaders" EntityType="cmsModel.ReportHeader" />
@@ -176,6 +175,7 @@
           <EntitySet Name="Users" EntityType="cmsModel.User" />
           <EntitySet Name="UserRoles" EntityType="cmsModel.UserRole" />
           <EntitySet Name="DualApplications" EntityType="cmsModel.DualApplication" />
+          <EntitySet Name="Graves" EntityType="cmsModel.Grave" />
         </EntityContainer>
         <EntityType Name="Application">
           <Key>
@@ -218,17 +218,6 @@
           </Key>
           <Property Name="ObjId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Grave">
-          <Key>
-            <PropertyRef Name="ObjId" />
-          </Key>
-          <Property Name="ObjId" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Longitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Latitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CemeteryId" Type="Guid" />
-          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="GraveOwner">
           <Key>
@@ -321,6 +310,17 @@
           <Property Name="PurchaseCapturedDate" Type="DateTime" Precision="3" />
           <Property Name="Burial_Status" Type="Boolean" />
         </EntityType>
+        <EntityType Name="Grave">
+          <Key>
+            <PropertyRef Name="ObjId" />
+          </Key>
+          <Property Name="ObjId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CemeteryId" Type="Guid" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -366,18 +366,6 @@
           <EntitySetMapping Name="Cemeteries">
             <EntityTypeMapping TypeName="cmsModel.Cemetery">
               <MappingFragment StoreEntitySet="Cemetery">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ObjId" ColumnName="ObjId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Graves">
-            <EntityTypeMapping TypeName="cmsModel.Grave">
-              <MappingFragment StoreEntitySet="Grave">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CemeteryId" ColumnName="CemeteryId" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ObjId" ColumnName="ObjId" />
               </MappingFragment>
@@ -477,6 +465,18 @@
                 <ScalarProperty Name="DeedName" ColumnName="DeedName" />
                 <ScalarProperty Name="IdNo" ColumnName="IdNo" />
                 <ScalarProperty Name="HeaderApplicationId" ColumnName="HeaderApplicationId" />
+                <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Graves">
+            <EntityTypeMapping TypeName="cmsModel.Grave">
+              <MappingFragment StoreEntitySet="Grave">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CemeteryId" ColumnName="CemeteryId" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ObjId" ColumnName="ObjId" />
               </MappingFragment>
             </EntityTypeMapping>

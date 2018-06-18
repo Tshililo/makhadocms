@@ -45,18 +45,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Graves">
-      <EntityTypeMapping TypeName="cmsModel.Grave">
-        <MappingFragment StoreEntitySet="Grave">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="CemeteryId" ColumnName="CemeteryId" />
-          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="GraveOwners">
       <EntityTypeMapping TypeName="cmsModel.GraveOwner">
         <MappingFragment StoreEntitySet="GraveOwner">
@@ -151,6 +139,18 @@
           <ScalarProperty Name="DeedName" ColumnName="DeedName" />
           <ScalarProperty Name="IdNo" ColumnName="IdNo" />
           <ScalarProperty Name="HeaderApplicationId" ColumnName="HeaderApplicationId" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Graves">
+      <EntityTypeMapping TypeName="cmsModel.Grave">
+        <MappingFragment StoreEntitySet="Grave">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CemeteryId" ColumnName="CemeteryId" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ObjId" ColumnName="ObjId" />
         </MappingFragment>
       </EntityTypeMapping>

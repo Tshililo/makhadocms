@@ -103,8 +103,34 @@ namespace cms.Controllers
 			if (exists != null)
 			{
 
-				this.UpdateModel(item);
-				// model.Attach(userRole);
+				//this.UpdateModel(item);
+				exists.IdNo = item.IdNo;
+				exists.DeedName = item.DeedName;
+				exists.DateOfBirth = item.DateOfBirth;
+				exists.DateOfBurial = item.DateOfBurial;
+				exists.PlaceOfIssue = item.PlaceOfIssue;
+				exists.PlaceOfBurial = item.PlaceOfBurial;
+				exists.ReligionId = item.ReligionId;
+				exists.AgeGroupId = item.AgeGroupId;
+				exists.AgeGroup = item.AgeGroup;
+				exists.ReceiptNo = item.ReceiptNo;
+				exists.GrafNumber = item.GrafNumber;
+				exists.Address = item.Address;
+				exists.Burial_Status = item.Burial_Status;
+				exists.UsualResidence = item.UsualResidence;
+				exists.DeathAge = item.DeathAge;
+				exists.Mortuary = item.Mortuary;
+				exists.DeedGender = item.DeedGender;
+				exists.CareTaker = item.CareTaker;
+				exists.PurchaseOfGrave = item.PurchaseOfGrave;
+				exists.ReservationOfGrave = item.ReservationOfGrave;
+				exists.OpenCloseGrave = item.OpenCloseGrave;
+				exists.WideningOfGrave = item.WideningOfGrave;
+				exists.UseOfANiche = item.WideningOfGrave;
+				exists.BurialOfPauper = item.BurialOfPauper;
+				exists.Amount = item.Amount;
+				exists.AmountPaidDate = item.AmountPaidDate;
+				modelRepo.Attach(exists);
 				db.SaveChanges();
 			}
 	

@@ -27,7 +27,6 @@ namespace cms
     
         public virtual DbSet<Application> Applications { get; set; }
         public virtual DbSet<Cemetery> Cemeteries { get; set; }
-        public virtual DbSet<Grave> Graves { get; set; }
         public virtual DbSet<GraveOwner> GraveOwners { get; set; }
         public virtual DbSet<Mortuary> Mortuaries { get; set; }
         public virtual DbSet<ReportHeader> ReportHeaders { get; set; }
@@ -35,5 +34,6 @@ namespace cms
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<DualApplication> DualApplications { get; set; }
+        public virtual DbSet<Grave> Graves { get; set; }
     }
 }
