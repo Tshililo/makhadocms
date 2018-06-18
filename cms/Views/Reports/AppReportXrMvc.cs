@@ -32,7 +32,6 @@ namespace cms
         private List<Models.SummaryDto.SummaryLineDto> GetApplicationsDto(string forAttention, DateTime? dateFrom, DateTime? dateTo)
         {
             var model = (from ur in db.Applications
-                         from mor in db.Mortuaries.Where(c => c.ObjId == ur.Mortuary)
                          select new Models.SummaryDto.SummaryLineDto
                          {
                              IdNo = ur.IdNo,
@@ -42,7 +41,7 @@ namespace cms
                              DateOfBurial = ur.DateOfBurial,
                              PlaceOfIssue = ur.PlaceOfIssue,
                              AgeGroup = ur.AgeGroup,
-                             MortuaryName = mor.Name,
+                             MortuaryName = ur.Mortuary,
                              ReligionId = ur.ReligionId,
                              DeedGender = ur.DeedGender,
                              DeathAge = ur.DeathAge,

@@ -113,23 +113,7 @@
     {
         //  itemSettings.FieldName = "DeedGenderDropDown";
         itemSettings.Caption = "Mortuary";
-        itemSettings.SetNestedContent(() =>
-        {
 
-
-            @Html.DevExpress().ComboBox(ComboBoxsettings =>
-            {
-                //  Gsettings.Name = "Id";
-                ComboBoxsettings.Name = "Mortuary";
-                // ComboBoxsettings.Width = 500;
-                // ComboBoxsettings.SelectedIndex = 1;
-                ComboBoxsettings.Properties.TextField = "Name";
-                ComboBoxsettings.Properties.ValueField = "ObjId";
-                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
-                ComboBoxsettings.ShowModelErrors = true;
-            }
-        ).BindList(ViewData["Mortuaries"]).Render();
-        });
     });
 
     infoGroupItem1.Items.Add(i => i.PlaceOfIssue, itemSettings =>
@@ -190,7 +174,7 @@
             @Html.DevExpress().ComboBox(ComboBoxsettings =>
             {
                 ComboBoxsettings.Name = "ReligionId";
-                //  ComboBoxsettings.SelectedIndex = 0;
+                ComboBoxsettings.SelectedIndex = 0;
                 ComboBoxsettings.Properties.Items.Add("African");
                 ComboBoxsettings.Properties.Items.Add("Indian");
                 ComboBoxsettings.Properties.Items.Add("White");

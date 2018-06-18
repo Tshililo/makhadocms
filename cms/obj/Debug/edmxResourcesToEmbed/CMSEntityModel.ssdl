@@ -25,7 +25,7 @@
     <Property Name="GrafNumber" Type="nvarchar" MaxLength="30" />
     <Property Name="ReligionId" Type="nvarchar" MaxLength="30" />
     <Property Name="AgeGroupId" Type="nvarchar" MaxLength="30" />
-    <Property Name="Mortuary" Type="uniqueidentifier" />
+    <Property Name="Mortuary" Type="nvarchar" MaxLength="30" />
     <Property Name="DeedGender" Type="nvarchar" MaxLength="30" />
     <Property Name="DeathAge" Type="nvarchar" MaxLength="30" />
     <Property Name="CauseOfDeath" Type="nvarchar" MaxLength="30" />
@@ -47,6 +47,7 @@
       <PropertyRef Name="ObjId" />
     </Key>
     <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="HeaderApplicationId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="IdNo" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="DeedName" Type="nvarchar" MaxLength="30" />
     <Property Name="DateOfBirth" Type="datetime" />
@@ -67,8 +68,7 @@
     <Property Name="GrafNumber" Type="nvarchar" MaxLength="30" />
     <Property Name="ReligionId" Type="nvarchar" MaxLength="30" />
     <Property Name="AgeGroupId" Type="nvarchar" MaxLength="30" />
-    <Property Name="HeaderApplicationId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Mortuary" Type="uniqueidentifier" />
+    <Property Name="Mortuary" Type="nvarchar" MaxLength="30" />
     <Property Name="DeedGender" Type="nvarchar" MaxLength="30" />
     <Property Name="DeathAge" Type="nvarchar" MaxLength="30" />
     <Property Name="CauseOfDeath" Type="nvarchar" MaxLength="30" />

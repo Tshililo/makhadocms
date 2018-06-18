@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="076a2ffd9d734aecb0c2750e2e7de128" Name="Diagram1">
-        <EntityTypeShape EntityType="cmsModel.Application" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.Cemetery" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.DualApplication" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.Grave" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.GraveOwner" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.Mortuary" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.ReportHeader" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.Role" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.User" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="cmsModel.UserRole" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="076a2ffd9d734aecb0c2750e2e7de128" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="cmsModel.Application" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsModel.Cemetery" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsModel.Grave" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsModel.GraveOwner" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="cmsModel.Mortuary" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsModel.ReportHeader" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="cmsModel.Role" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="cmsModel.User" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="cmsModel.UserRole" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsModel.DualApplication" Width="1.5" PointX="0.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

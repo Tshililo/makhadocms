@@ -65,6 +65,38 @@
     }
 
     function SaveApplication() {
+
+    	var Idno = IdNo.GetValue();
+    	var Deedname = DeedName.GetValue();
+    	var Deedgender = DeedGender.GetValue();
+    	var Agegroup = AgeGroup.GetValue();
+    	var Religionid = ReligionId.GetValue();
+    	
+    	if (Idno == null || Idno == "") {
+    		alert("Please Enter ID No.");
+    		return;
+    	}
+
+    	if (Deedname == null || Deedname == "") {
+    		alert("Please Enter Deed Name.");
+    		return;
+    	}
+
+    	if (Deedgender == null || Deedgender == "") {
+    		alert("Please Select Deed Gender");
+    		return;
+    	}
+
+    	if (Agegroup == null || Agegroup == "") {
+    		alert("Please Select Age group");
+    		return;
+    	}
+
+    	if (Religionid == null || Religionid == "") {
+    		alert("Please Select Religion");
+    		return;
+    	}
+
         ApplicationGridViewPartial.UpdateEdit()
     }
 
@@ -109,7 +141,39 @@
 
     }
 
-    function DualSaveApplication() {
+	function DualSaveApplication() {
+
+		var Idno = IdNo.GetValue();
+		var Deedname = DeedName.GetValue();
+		var Deedgender = DeedGender.GetValue();
+		var Agegroup = AgeGroup.GetValue();
+		var Religionid = ReligionId.GetValue();
+
+		if (Idno == null || Idno == "") {
+			alert("Please Enter ID No.");
+			return;
+		}
+
+		if (Deedname == null || Deedname == "") {
+			alert("Please Enter Deed Name.");
+			return;
+		}
+
+		if (Deedgender == null || Deedgender == "") {
+			alert("Please Select Deed Gender");
+			return;
+		}
+
+		if (Agegroup == null || Agegroup == "") {
+			alert("Please Select Age group");
+			return;
+		}
+
+		if (Religionid == null || Religionid == "") {
+			alert("Please Select Religion");
+			return;
+		}
+
         GVDualApplication.UpdateEdit()
     }
 

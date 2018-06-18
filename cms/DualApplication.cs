@@ -15,6 +15,7 @@ namespace cms
     public partial class DualApplication
     {
         public System.Guid ObjId { get; set; }
+        public System.Guid HeaderApplicationId { get; set; }
         public string IdNo { get; set; }
         public string DeedName { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
@@ -35,8 +36,7 @@ namespace cms
         public string GrafNumber { get; set; }
         public string ReligionId { get; set; }
         public string AgeGroupId { get; set; }
-        public System.Guid HeaderApplicationId { get; set; }
-        public Nullable<System.Guid> Mortuary { get; set; }
+        public string Mortuary { get; set; }
         public string DeedGender { get; set; }
         public string DeathAge { get; set; }
         public string CauseOfDeath { get; set; }
