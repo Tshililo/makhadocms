@@ -87,46 +87,46 @@ namespace cms.Controllers
 			return PartialView("ResetPasswordConfirmation");
 		}
 
-		public ActionResult ForgotPassword(Guid userId)
-		{
-			var model = db.Users;
-			try
-			{
-				// Create a token of a type guid
-				string UserToken = Guid.NewGuid().ToString();
+		//public ActionResult ForgotPassword(Guid userId)
+		//{
+		//	var model = db.Users;
+		//	try
+		//	{
+		//		// Create a token of a type guid
+		//		string UserToken = Guid.NewGuid().ToString();
 
-				//  get user with the userId
+		//		//  get user with the userId
 
-				var user = db.Users.Where(c => c.Id == userId).SingleOrDefault();
+		//		var user = db.Users.Where(c => c.Id == userId).SingleOrDefault();
 
-				//  Get email for that user
+		//		//  Get email for that user
 
 
-				string EmailId = user.Email;
+		//		string EmailId = user.Email;
 
-				//create url with above token
-				var resetLink = "<a href='" + Url.Action("ResetPassword", "users", new { un = userId, rt = UserToken }, "http") + "'>Reset Password</a>";
+		//		//create url with above token
+		//		var resetLink = "<a href='" + Url.Action("ResetPassword", "users", new { un = userId, rt = UserToken }, "http") + "'>Reset Password</a>";
 
-				// send mail
-				string subject = "Palbroker Password Reset Token";
-				string body = "Dear " + user.UserName + " <br/>" + " You recently requested to reset your Password for Palbroker <br/>"
-				+ "Please find the Password Reset Token " + resetLink; //edit it
-				try
-				{
-					SendEMail(EmailId, subject, body);
-					TempData["Message"] = "Mail Sent.";
-				}
-				catch (Exception ex)
-				{
-					TempData["Message"] = "Error occured while sending email." + ex.Message;
-				}
-				// only for testing
-				TempData["Message"] = resetLink;
-			}
-			catch { }
+		//		// send mail
+		//		string subject = "Palbroker Password Reset Token";
+		//		string body = "Dear " + user.UserName + " <br/>" + " You recently requested to reset your Password for Palbroker <br/>"
+		//		+ "Please find the Password Reset Token " + resetLink; //edit it
+		//		try
+		//		{
+		//			SendEMail(EmailId, subject, body);
+		//			TempData["Message"] = "Mail Sent.";
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			TempData["Message"] = "Error occured while sending email." + ex.Message;
+		//		}
+		//		// only for testing
+		//		TempData["Message"] = resetLink;
+		//	}
+		//	catch { }
 
-			return null;
-		}
+		//	return null;
+		//}
 		[HttpPost]
 
 		private void SendEMail(string emailid, string subject, string body)

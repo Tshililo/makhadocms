@@ -331,7 +331,9 @@
     <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
     <Content Include="Views\Home\ApplicationMenu.cshtml" />
     <Content Include="Views\Home\CreateApplicationsEditPartial.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Home\_FileManagerPartial.cshtml" />
     <Content Include="Views\ReportHeaders\Index.cshtml" />
     <Content Include="Views\ReportHeaders\ReportHeaderLandingFormView.cshtml" />

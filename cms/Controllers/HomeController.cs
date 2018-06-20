@@ -204,24 +204,38 @@ namespace cms.Controllers
         #endregion
 
         #region DropBox
-        [ValidateInput(false)]
-        public ActionResult FileManagerPartial(string headerObjId)
+        public ActionResult FileManagerPartial(string reportParams)
         {
-			if (headerObjId == null)
-			{
-				var value = HttpContext.Request.Params["headerObjId"];
-			}
-			var model = db.Applications.Where(c => c.ObjId.ToString() == headerObjId).FirstOrDefault();
-			var RootFolder = @"~\Content\DropBox" + model.IdNo;
-			// Determine whether the directory exists.
-			if (Directory.Exists(RootFolder))
-			{
-				return PartialView("_FileManagerPartial", RootFolder);
-			}
-			Directory.CreateDirectory(RootFolder);
+			//string RootFolder;
+			//if (reportParams == null)
+			//{
+			//	RootFolder = @"C:\DropBox\";
+			//	return PartialView("_FileManagerPartial", RootFolder);
+			//}
 
+			////if (reportParams.Contains("C:"))
+			////{
+			////	return PartialView("_FileManagerPartial", reportParams);
+			////}
+			//var model = db.Applications.Where(c => c.ObjId.ToString() == reportParams).FirstOrDefault();
+			////RootFolder = @"~\Content\" + model.IdNo;
+
+			//RootFolder = @"C:\DropBox\" + model.IdNo;
+			//// Determine whether the directory exists.
+			//if (Directory.Exists(RootFolder))
+			//{
+			//	ViewBag.RootFolder = RootFolder;
+			//	return PartialView("_FileManagerPartial", RootFolder);
+			//}
+			//Directory.CreateDirectory(RootFolder);
+			//ViewBag.RootFolder = RootFolder;
+			//return PartialView("_FileManagerPartial", RootFolder);
+
+			var RootFolder = @"~\Content\DropBox";
 			return PartialView("_FileManagerPartial", RootFolder);
 		}
+
+
 
         public FileStreamResult FileManagerPartialDownload()
         {

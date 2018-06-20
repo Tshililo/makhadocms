@@ -1,21 +1,25 @@
 @model string
 
+@{ Layout = "~/Views/Shared/_mainLayout.cshtml"; }
+
 @Html.DevExpress().FileManager(settings => {
-    settings.Name = "DropBox";
-    settings.CallbackRouteValues = new { Controller = "Home", Action = "FileManagerPartial" };
+	settings.Name = "DropBox";
+	//settings.CallbackRouteValues = new { Controller = "Home", Action = "FileManagerPartial", reportParams = @ViewBag.RootFolder };
+	settings.CallbackRouteValues = new { Controller = "Home", Action = "FileManagerPartial"};
 
-        settings.DownloadRouteValues = new { Controller = "Home", Action = "FileManagerPartialDownload" };
-    settings.SettingsEditing.AllowDownload = true;
 
-    settings.Settings.ThumbnailFolder = Url.Content("~/Content/FileManager/Thumbnails");
+	settings.DownloadRouteValues = new { Controller = "Home", Action = "FileManagerPartialDownload" };
+	settings.SettingsEditing.AllowDownload = true;
 
-        settings.SettingsEditing.AllowCreate = true;
-            settings.SettingsEditing.AllowRename = true;
-            settings.SettingsEditing.AllowMove = true;
-            settings.SettingsEditing.AllowDelete = true;
-            settings.SettingsUpload.Enabled = true;
-            settings.SettingsUpload.UseAdvancedUploadMode = true;
-    settings.SettingsUpload.AdvancedModeSettings.EnableMultiSelect = true;
+	settings.Settings.ThumbnailFolder = Url.Content("~/Content/FileManager/Thumbnails");
 
-    settings.SettingsFileList.View = DevExpress.Web.FileListView.Thumbnails;
+	settings.SettingsEditing.AllowCreate = true;
+	settings.SettingsEditing.AllowRename = true;
+	settings.SettingsEditing.AllowMove = true;
+	settings.SettingsEditing.AllowDelete = true;
+	settings.SettingsUpload.Enabled = true;
+	settings.SettingsUpload.UseAdvancedUploadMode = true;
+	settings.SettingsUpload.AdvancedModeSettings.EnableMultiSelect = true;
+
+	settings.SettingsFileList.View = DevExpress.Web.FileListView.Thumbnails;
 }).BindToFolder(Model).GetHtml()

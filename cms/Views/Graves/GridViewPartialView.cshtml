@@ -1,74 +1,78 @@
 @{
-    var grid = Html.DevExpress().GridView(settings =>
-    {
-        settings.Name = "GravesGridViewPartial";
-        settings.CallbackRouteValues = new { Controller = "Graves", Action = "GravesGridViewPartial" };
-        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Graves", Action = "GravesEdit" };
-        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Graves", Action = "GravesEdit" };
-        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Graves", Action = "GravesDelete" };
+	var grid = Html.DevExpress().GridView(settings =>
+	{
+		settings.Name = "GravesGridViewPartial";
+		settings.CallbackRouteValues = new { Controller = "Graves", Action = "GravesGridViewPartial" };
+		settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Graves", Action = "GravesEdit" };
+		settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Graves", Action = "GravesEdit" };
+		settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Graves", Action = "GravesDelete" };
 
-        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
-        settings.SettingsBehavior.ConfirmDelete = true;
-
-        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
-        settings.SettingsBehavior.ConfirmDelete = true;
-        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
-        settings.SettingsPopup.EditForm.Modal = true;
-        settings.SettingsBehavior.ConfirmDelete = true;
-
-        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
-        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.SettingsPopup.EditForm.ShowHeader = true;
-
-        settings.CommandColumn.Visible = false;
-        settings.CommandColumn.ShowNewButton = false;
-        settings.CommandColumn.ShowDeleteButton = false;
-        settings.CommandColumn.ShowEditButton = false;
-
-        settings.SettingsBehavior.AllowFocusedRow = true;
-        settings.SettingsPager.Visible = true;
-        settings.Settings.ShowGroupPanel = true;
-        settings.Settings.ShowFilterRow = true;
-        settings.SettingsBehavior.AllowSelectByRowClick = true;
-        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
-        settings.CommandColumn.ShowSelectCheckbox = true;
-
-        settings.Width = Unit.Percentage(100);
-
-        settings.KeyFieldName = "ObjId";
+		settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+		settings.SettingsBehavior.ConfirmDelete = true;
 
 
-        settings.SetEditFormTemplateContent(c =>
-        {
+		settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+		settings.Settings.VerticalScrollableHeight = 420;
 
-            ViewContext.Writer.Write((Html.Action("GravesUpdateEntryToForm", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
-        });
+		settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+		settings.SettingsBehavior.ConfirmDelete = true;
+		settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+		settings.SettingsPopup.EditForm.Modal = true;
+		settings.SettingsBehavior.ConfirmDelete = true;
 
-        settings.BeforeGetCallbackResult = (s, e) =>
+		settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+		settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+		settings.SettingsPopup.EditForm.ShowHeader = true;
 
-        {
-            var gridView = s as MVCxGridView;
+		settings.CommandColumn.Visible = false;
+		settings.CommandColumn.ShowNewButton = false;
+		settings.CommandColumn.ShowDeleteButton = false;
+		settings.CommandColumn.ShowEditButton = false;
 
-            var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
-            gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+		settings.SettingsBehavior.AllowFocusedRow = true;
+		settings.SettingsPager.Visible = true;
+		settings.Settings.ShowGroupPanel = true;
+		settings.Settings.ShowFilterRow = true;
+		settings.SettingsBehavior.AllowSelectByRowClick = true;
+		settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+		settings.CommandColumn.ShowSelectCheckbox = true;
 
-            if (gridView.IsNewRowEditing)
-            {
-                gridView.SettingsText.PopupEditFormCaption = "New Grave";
+		settings.Width = Unit.Percentage(100);
 
-            }
-        };
+		settings.KeyFieldName = "ObjId";
 
-        settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Plot"; column.Width = Unit.Pixel(100); });
-        settings.Columns.Add(column => { column.FieldName = "Longitude"; column.Caption = "Longitude"; column.Width = Unit.Pixel(100); });
-        settings.Columns.Add(column => { column.FieldName = "Latitude"; column.Caption = "Latitude"; column.Width = Unit.Pixel(100); });
-        settings.Columns.Add(column => { column.FieldName = "Status"; column.Caption = "Status"; column.Width = Unit.Pixel(100); });
-        settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.Beige;
 
-    });
-    if (ViewData["EditError"] != null)
-    {
-        grid.SetEditErrorText((string)ViewData["EditError"]);
-    }
+		settings.SetEditFormTemplateContent(c =>
+		{
+
+			ViewContext.Writer.Write((Html.Action("GravesUpdateEntryToForm", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
+		});
+
+		settings.BeforeGetCallbackResult = (s, e) =>
+
+		{
+			var gridView = s as MVCxGridView;
+
+			var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
+			gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+
+			if (gridView.IsNewRowEditing)
+			{
+				gridView.SettingsText.PopupEditFormCaption = "New Grave";
+
+			}
+		};
+
+		settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Plot"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "Longitude"; column.Caption = "Longitude"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "Latitude"; column.Caption = "Latitude"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "Status"; column.Caption = "Status"; column.Width = Unit.Pixel(100); });
+		settings.Styles.AlternatingRow.BackColor = System.Drawing.Color.Beige;
+
+	});
+	if (ViewData["EditError"] != null)
+	{
+		grid.SetEditErrorText((string)ViewData["EditError"]);
+	}
 }
 @grid.Bind(Model).GetHtml()

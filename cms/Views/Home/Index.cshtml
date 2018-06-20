@@ -10,7 +10,7 @@
         ApplicationGridViewPartial_ObjiId = values;
         GVDualApplication.PerformCallback();
         GVGraveOwner.PerformCallback();
-  
+
     }
 
     function InitialSetFocus(s, e) {
@@ -71,7 +71,7 @@
     	var Deedgender = DeedGender.GetValue();
     	var Agegroup = AgeGroup.GetValue();
     	var Religionid = ReligionId.GetValue();
-    	
+
     	if (Idno == null || Idno == "") {
     		alert("Please Enter ID No.");
     		return;
@@ -274,7 +274,16 @@
         }
 
         if (e.item.name == "btnLinkToDropBox") {
-            LinkToDropBox.Show();   
+
+        	//LinkToDropBox.Show();
+
+        	var passed_params = ApplicationGridViewPartial.GetRowKey(ApplicationGridViewPartial.GetFocusedRowIndex());
+        	alert(passed_params)
+
+        	@*var link = '@Url.Action("FileManagerPartial", "Home", new { reportParams = "_reportParams_" })';
+
+        	link.replace("_reportParams_", passed_params);
+        	window.open(link.replace("_reportParams_", passed_params), '_blank');*@
         }
 
         if (e.item.name == "btnHeaderDelete") {
@@ -496,12 +505,12 @@
 
 }).GetHtml()
 
-    @Html.DevExpress().PopupControl(settings =>
+    @*@Html.DevExpress().PopupControl(settings =>
 {
 	settings.Name = "LinkToDropBox";
 	settings.CloseAction = CloseAction.CloseButton;
 	settings.CallbackRouteValues = new { Controller = "Home", Action = "FileManagerPartial" };
-	settings.LoadContentViaCallback = LoadContentViaCallback.OnPageLoad;
+	settings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
 	settings.Width = Unit.Pixel(900);
 	settings.Height = Unit.Pixel(250);
 	settings.ShowCloseButton = true;
@@ -524,7 +533,7 @@
 	//	@Html.RenderAction("FileManagerPartial");
 	});
 
-}).GetHtml()
+}).GetHtml()*@
 
 }
 

@@ -2,89 +2,83 @@
 @using DevExpress.Web.Mvc;
 @using cms.Helpers;
 @Html.DevExpress().GridView(
-    settings =>
-    {
+	settings =>
+	{
 
 
-        settings.Name = "CemeteryGridViewPartial";
-        settings.CallbackRouteValues = new { Controller = "Cemeteries", Action = "CemeteryGridViewPartial" };
-        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Cemeteries", Action = "CemeteryEdit" };
-        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Cemeteries", Action = "CemeteryEdit" };
-        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Cemeteries", Action = "CemeteryDelete" };
+		settings.Name = "CemeteryGridViewPartial";
+		settings.CallbackRouteValues = new { Controller = "Cemeteries", Action = "CemeteryGridViewPartial" };
+		settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Cemeteries", Action = "CemeteryEdit" };
+		settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Cemeteries", Action = "CemeteryEdit" };
+		settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Cemeteries", Action = "CemeteryDelete" };
 
-        #region Properties
-        settings.Width = Unit.Percentage(100);
-        Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "CemeteryGridViewPartial");
-        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
-        settings.SettingsPager.PageSize = 15;
-        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+		#region Properties
+		//    settings.Width = Unit.Percentage(100);
+		Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "CemeteryGridViewPartial");
+		//    settings.Settings.ShowStatusBar = GridViewStatusBarMode.Auto;
+		settings.SettingsPager.PageSize = 15;
+		//   settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
 
-        settings.CommandColumn.Visible = true;
-        settings.CommandColumn.ShowSelectCheckbox = true;
-        //   settings.CommandColumn.Width = 40;
-        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+		settings.CommandColumn.Visible = false;
+		settings.CommandColumn.ShowNewButton = false;
+		settings.CommandColumn.ShowDeleteButton = false;
+		settings.CommandColumn.ShowEditButton = false;
 
-        //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+		settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+		settings.Settings.VerticalScrollableHeight = 420;
+		settings.SettingsBehavior.AllowFocusedRow = true;
+		settings.SettingsPager.Visible = true;
+		settings.Settings.ShowGroupPanel = true;
+		settings.Settings.ShowFilterRow = true;
+		settings.SettingsBehavior.AllowSelectByRowClick = true;
+		settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+		settings.CommandColumn.ShowSelectCheckbox = true;
 
-        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
-        settings.Settings.VerticalScrollableHeight = 220;
+		settings.SettingsPopup.EditForm.Width = Unit.Pixel(700);
+		//settings.SettingsPopup.EditForm.Height = Unit.Pixel(1500);
+		settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+		settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+		settings.SettingsPopup.EditForm.ShowHeader = true;
 
-        settings.SettingsPager.PageSizeItemSettings.Visible = true;
-        settings.SettingsPager.AlwaysShowPager = true;
-
-        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
-        settings.SettingsPopup.EditForm.Modal = true;
-        settings.SettingsBehavior.ConfirmDelete = false;
-
-
-        settings.SettingsPopup.EditForm.Width = Unit.Pixel(700);
-        //settings.SettingsPopup.EditForm.Height = Unit.Pixel(1500);
-        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
-        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
-        settings.SettingsPopup.EditForm.ShowHeader = true;
-
-        settings.SettingsBehavior.AllowSelectSingleRowOnly = false; // radio button when true checkbox hen false
-                                                                    //settings.SettingsBehavior.AllowSelectByRowClick = false;
-        settings.SettingsBehavior.AllowFocusedRow = true;
-        //  settings.ClientSideEvents.ColumnResized = "HighlightEllipsis";
-        settings.SettingsBehavior.AllowEllipsisInText = true;
-        #endregion
+		//  settings.ClientSideEvents.ColumnResized = "HighlightEllipsis";
+		settings.SettingsBehavior.AllowEllipsisInText = true;
+		#endregion
 
 
-        settings.KeyFieldName = "ObjId";
+		settings.KeyFieldName = "ObjId";
 
 
-        settings.BeforeGetCallbackResult = (s, e) =>
+		settings.BeforeGetCallbackResult = (s, e) =>
 
-        {
-            var gridView = s as MVCxGridView;
+		{
+			var gridView = s as MVCxGridView;
 
-            var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
-            gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+			var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
+			gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
 
-            if (gridView.IsNewRowEditing)
-            {
-                gridView.SettingsText.PopupEditFormCaption = "New Cemetery";
+			if (gridView.IsNewRowEditing)
+			{
+				gridView.SettingsText.PopupEditFormCaption = "New Cemetery";
 
-            }
-        };
+			}
+		};
 
-        settings.SetEditFormTemplateContent(c =>
-        {
+		settings.SetEditFormTemplateContent(c =>
+		{
 
-            ViewContext.Writer.Write((Html.Action("CemeteryUpdateEntryToForm", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
-        });
+			ViewContext.Writer.Write((Html.Action("CemeteryUpdateEntryToForm", new { ObjId = c.KeyValue != null ? c.KeyValue.ToString() : Guid.NewGuid().ToString() }).ToHtmlString()));
+		});
 
-        settings.ClientSideEvents.FocusedRowChanged = "OnCemeteryHeaderGridFocusedRowChanged";
-        settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
-        settings.ClientSideEvents.EndCallback = "InitialSetFocus";
+		settings.ClientSideEvents.FocusedRowChanged = "OnCemeteryHeaderGridFocusedRowChanged";
+		settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+		settings.ClientSideEvents.EndCallback = "InitialSetFocus";
 
-        settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Name"; column.Width = Unit.Pixel(120); });
+		settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Name"; column.Width = Unit.Pixel(120); });
 
-        settings.Settings.ShowHeaderFilterButton = true;
-        settings.SettingsPopup.HeaderFilter.Height = 250;
-        var headerFilterMode = GridHeaderFilterMode.CheckedList;
-        foreach (GridViewDataColumn column in settings.Columns)
-            column.SettingsHeaderFilter.Mode = headerFilterMode;
+		settings.Settings.ShowHeaderFilterButton = true;
+		settings.SettingsPopup.HeaderFilter.Height = 250;
+		var headerFilterMode = GridHeaderFilterMode.CheckedList;
+		foreach (GridViewDataColumn column in settings.Columns)
+			column.SettingsHeaderFilter.Mode = headerFilterMode;
 
-    }).SetEditErrorText(ViewData["EditError"] != null ? (string)ViewData["EditError"] : string.Empty).Bind(Model).GetHtml()
+	}).SetEditErrorText(ViewData["EditError"] != null ? (string)ViewData["EditError"] : string.Empty).Bind(Model).GetHtml()
