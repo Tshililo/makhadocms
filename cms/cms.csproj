@@ -339,6 +339,7 @@
     <Content Include="Views\ReportHeaders\ReportHeaderLandingFormView.cshtml" />
     <Content Include="Views\ReportHeaders\ReportHeaderMenu.cshtml" />
     <Content Include="Views\ReportHeaders\_ReportHeaderGridViewPartial.cshtml" />
+    <Content Include="Views\DropBox\GridViewPartialView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

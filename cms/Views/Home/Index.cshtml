@@ -273,18 +273,18 @@
 
         }
 
-        if (e.item.name == "btnLinkToDropBox") {
+        @*if (e.item.name == "btnLinkToDropBox") {
 
         	//LinkToDropBox.Show();
 
         	var passed_params = ApplicationGridViewPartial.GetRowKey(ApplicationGridViewPartial.GetFocusedRowIndex());
         	alert(passed_params)
 
-        	@*var link = '@Url.Action("FileManagerPartial", "Home", new { reportParams = "_reportParams_" })';
+        	var link = '@Url.Action("FileManagerPartial", "Home", new { reportParams = "_reportParams_" })';
 
         	link.replace("_reportParams_", passed_params);
-        	window.open(link.replace("_reportParams_", passed_params), '_blank');*@
-        }
+        	window.open(link.replace("_reportParams_", passed_params), '_blank');
+        }*@
 
         if (e.item.name == "btnHeaderDelete") {
                   if (confirm("Confirm Delete?")) {
