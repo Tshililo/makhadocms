@@ -1,6 +1,7 @@
 ﻿using DevExpress.Web.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,12 +17,29 @@ namespace cms.Controllers
             return View();
         }
 
-        [ValidateInput(false)]
+        [HttpPost]
         public ActionResult FileManagerPartial(string headerObjId)
         {
-            var  RootFolder = @"~\Content\DropBox";
-            return PartialView("_FileManagerPartial", RootFolder);
-        }
+			string RootFolder;
+			if (headerObjId == null)
+			{
+				RootFolder = @"C:\DropBox\";
+				return PartialView("_FileManagerPartial", RootFolder);
+			}
+			var model = db.Applications.Where(c => c.ObjId.ToString() == headerObjId).FirstOrDefault();
+			//RootFolder = @"~\Content\" + model.IdNo;
+
+			RootFolder = @"C:\DropBox\" + model.IdNo;
+			// Determine whether the directory exists.
+			if (Directory.Exists(RootFolder))
+			{
+				ViewBag.RootFolder = RootFolder;
+				return PartialView("_FileManagerPartial", RootFolder);
+			}
+			Directory.CreateDirectory(RootFolder);
+			ViewBag.RootFolder = RootFolder;
+			return PartialView("_FileManagerPartial", RootFolder);
+		}
 
 		public ActionResult ApplicationsGridViewPartial()
 		{

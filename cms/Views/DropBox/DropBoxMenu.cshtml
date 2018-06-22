@@ -1,0 +1,12 @@
+@* Menu Header *@
+<div style="padding-bottom: 10px; float: right;">
+    @Html.DevExpress().Menu(settings =>
+{
+    settings.Name = "DropBoxMenu";
+    settings.ShowAsToolbar = true;
+    settings.ShowPopOutImages = DefaultBoolean.True;
+    settings.Items.Add("Files", "btnLinkToDropBox");   
+    settings.ClientSideEvents.ItemClick = "OnDropBoxMenuClick";
+}).GetHtml()
+
+</div>
