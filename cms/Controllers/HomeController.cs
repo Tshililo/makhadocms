@@ -12,12 +12,17 @@ using System.IO;
 using System.Text;
 using System.Web.UI.WebControls;
 
+
 namespace cms.Controllers
 {
-    public class HomeController : Controller
+
+	[Authorize]
+	public class HomeController : Controller
     {
         cmsEntities1 db = new cmsEntities1();
-        public ActionResult Index()
+
+	//	[Authorize(Roles = "Admin")]
+		public ActionResult Index()
         {
             return View();
         }

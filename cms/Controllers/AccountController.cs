@@ -80,7 +80,7 @@ namespace cms.Controllers {
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Home");
+					return RedirectToAction("Index", "Home");
 
             }
 
@@ -88,10 +88,27 @@ namespace cms.Controllers {
             return View(model);
         }
 
-        public SignInStatus PasswordSignIn(string userName, string password, bool rememberMe)
+		private string GetUserRolesDto(string userName)
+		{
+			var model = (from ur in db.UserRoles.Where(c => c.UserId.ToString() == userName)
+						 from roles in db.Roles.Where(c => c.Id.ToString() == ur.RoleId)
+						 from user in db.Users.Where(c => c.Id.ToString() == ur.UserId)
+						 select new UserRolesDto
+						 {
+							 ObjId = ur.ObjId,
+							 RoleName = roles.Name,
+							 RoleId = ur.RoleId,
+							 UserId = user.Id.ToString()
+						 });
+var results = model.FirstOrDefault();
+			return results.RoleName;
+		}
+
+		public SignInStatus PasswordSignIn(string userName, string password, bool rememberMe)
         {
             var user = db.Users.Where(c => c.Email == userName && c.Password == password).FirstOrDefault();
-            if (user == null)
+		
+			if (user == null)
             {
                 return SignInStatus.Failure;
             }
@@ -105,7 +122,20 @@ namespace cms.Controllers {
 
             if (usertextPassword == password)
             {
-                return SignInStatus.Success;
+				//Get User Role
+				string userRole = GetUserRolesDto(user.Id.ToString());
+
+				if (userRole != null)
+				{
+					FormsAuthentication.SetAuthCookie(user.Email, false);
+					var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(20), false, userRole);
+					string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+					var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+					HttpContext.Response.Cookies.Add(authCookie);
+				}
+
+
+				return SignInStatus.Success;
                 
             }
 

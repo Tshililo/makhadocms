@@ -10,9 +10,9 @@ using System.Web.Security;
 namespace cms.Models {
         public class UsersContext : DbContext {
         public UsersContext()
-            : base("DefaultConnection") {
+            : base("cmsEntities1") {
         }
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<UserRole> UserProfiles { get; set; }
     }
     [Table("UserProfile")]
     public class UserProfile {
