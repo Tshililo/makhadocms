@@ -273,6 +273,7 @@
     <Content Include="Content\Images\BlackGlassHeader.jpg" />
     <Content Include="Content\Images\Cemetery.jpg" />
     <Content Include="Content\Images\GlassHeader.jpg" />
+    <Content Include="Content\Images\Logo.jpg" />
     <Content Include="Content\Images\Makhado.jpg" />
     <Content Include="Content\Images\PlasticBlueHeader.jpg" />
     <Content Include="Content\Images\RedWineHeader.jpg" />
@@ -341,6 +342,7 @@
     <Content Include="Views\ReportHeaders\_ReportHeaderGridViewPartial.cshtml" />
     <Content Include="Views\DropBox\GridViewPartialView.cshtml" />
     <Content Include="Views\DropBox\DropBoxMenu.cshtml" />
+    <Content Include="Views\Shared\_LayoutAfterLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

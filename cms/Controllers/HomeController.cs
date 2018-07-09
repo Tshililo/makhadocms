@@ -32,7 +32,226 @@ namespace cms.Controllers
             return db.Mortuaries.ToList();
         }
 
-        public PartialViewResult FileUploadPopUp()
+		private DataSet ReadCsvIntoDataSet(string fileFullPath)
+		{
+			System.Data.DataSet dSet = new System.Data.DataSet("CSV File");
+			try
+			{
+				dSet = GetData(fileFullPath);
+				return dSet;
+
+			}
+			catch (Exception e)
+			{
+			//	"Error Importing CSV File: Error: " + e.InnerException.Message;
+			}
+			return null;
+
+		}
+
+		private static DataSet GetData(string fileName)
+		{
+			string strLine;
+
+			string[] strArray;
+			char[] charArray = new char[] { ',' };
+			DataSet ds = new DataSet();
+			DataTable dt = ds.Tables.Add("TheData");
+			FileStream aFile = new FileStream(fileName, FileMode.Open);
+			StreamReader sr = new StreamReader(aFile);
+
+			strLine = sr.ReadLine();
+
+			strArray = strLine.Split(charArray);
+
+			for (int x = 0; x <= strArray.GetUpperBound(0); x++)
+			{
+				dt.Columns.Add(strArray[x].Trim());
+			}
+
+			strLine = sr.ReadLine();
+			while (strLine != null)
+			{
+				strArray = strLine.Split(charArray);
+				System.Data.DataRow dr = dt.NewRow();
+				for (int i = 0; i <= strArray.GetUpperBound(0); i++)
+				{
+					dr[i] = strArray[i].Trim();
+				}
+				dt.Rows.Add(dr);
+				strLine = sr.ReadLine();
+			}
+			sr.Close();
+			return ds;
+		}
+
+		public string SaveAttachmentToServerCreateBurial(byte[] fileToUpload, string fileName)
+		{
+			// create if does not exist
+			var dir = AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\" + "log";
+			System.IO.Directory.CreateDirectory(dir);
+
+			var filenameErrorlog = dir + "\\BurialImportlogErrors" + DateTime.Now.ToFileTime() + ".txt";
+			var sw = new System.IO.StreamWriter(filenameErrorlog, true);
+
+			try
+			{
+				string localDirectoryToCopyFiles = "C:/ImportCSV";  // this is the actual folder we will store the files
+
+				sw.WriteLine(DateTime.Now.ToString() + " " + "SaveAttachmentToServerCreatePriceBurial." + localDirectoryToCopyFiles);
+
+				// CREATE ORG FOLDER IF IT DOES NOT EXIST
+				if (!Directory.Exists(@localDirectoryToCopyFiles))
+					Directory.CreateDirectory(@localDirectoryToCopyFiles);
+
+				if (string.IsNullOrWhiteSpace(fileName))
+					fileName = "temp" + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".csv";
+
+				var filedesc = @localDirectoryToCopyFiles + "\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + " " + fileName;
+
+
+				sw.WriteLine(DateTime.Now.ToString() + " " + "filedesc." + filedesc);
+				sw.WriteLine(DateTime.Now.ToString() + " " + "fileName." + fileName);
+
+
+
+
+				FileInfo file = new FileInfo(filedesc); // we are in the org folder on the server
+				try
+				{
+					FileStream outStream = file.OpenWrite();
+
+					outStream.Write(fileToUpload, 0, fileToUpload.Length);
+					outStream.Flush();
+					outStream.Close();
+
+					DataSet dt = ReadCsvIntoDataSet(file.FullName);
+					var counterAdd = 0;
+					var counterSkip = 0;
+
+					foreach (DataTable table in dt.Tables)
+					{
+						foreach (DataRow row in table.Rows)
+						{
+
+							var Idno = row["Id No."].ToString();
+
+							//get week code row
+							var mymodel = db.Applications;
+							var ApplicationsInfo = mymodel.Where(s => s.IdNo == Idno).FirstOrDefault();
+							if (ApplicationsInfo == null)
+							{
+								// if any week found to be null, report to the user and skip processing
+								sw.WriteLine(DateTime.Now.ToString() + " " + "One or More of the Idno do not exists. Please create it and Attempt Import Again");
+								return "One or More of the Idno do not exists. Please create it and Attempt Import Again";
+
+							}
+						}
+					}
+
+			
+
+					foreach (DataTable table in dt.Tables)
+					{
+						foreach (DataRow row in table.Rows)
+						{
+							try
+							{
+
+								var IdNo = row["Id No."].ToString();
+								var DeedName = row["Deed Name"].ToString();
+								var DateOfBirth = row["Date Of Birth"].ToString();
+								var DateOfBurial = row["Date Of Burial"].ToString();
+								var PlaceOfIssue = row["Place Of Issue"].ToString();
+								var PlaceOfBurial = row["Place Of Burial"].ToString();
+								var ReligionId = row["Religion"].ToString();
+								var AgeGroupId = row["Age Group"].ToString();
+								var AgeGroup = row["Age Group"].ToString();
+								var ReceiptNo = row["Receipt No"].ToString();
+								var GrafNumber = row["GrafNumber"].ToString();
+								var Burial_Status = row["Buried"].ToString();
+								var Address = row["Address"].ToString();
+
+								var UsualResidence = row["Usual Residence"].ToString();
+								var DeathAge = row["Death Age"].ToString();
+								var Mortuary = row["Mortuary"].ToString();
+								var DeedGender = row["Deed Gender"].ToString();
+								var CareTaker = row["Id No."].ToString();
+								var Amount = row["Amount"].ToString();
+								var AmountPaidDate = row["Amount Paid Date"].ToString();
+
+								Application exists = new Application();
+								//this.UpdateModel(item);
+								exists.IdNo = IdNo;
+								exists.DeedName = DeedName;
+								exists.DateOfBirth = DateTime.Parse(DateOfBirth);
+								exists.DateOfBurial = DateTime.Parse(DateOfBurial);
+								exists.PlaceOfIssue = PlaceOfIssue;
+								exists.PlaceOfBurial = PlaceOfBurial;
+								exists.ReligionId = ReligionId;
+								exists.AgeGroupId = AgeGroupId;
+								exists.AgeGroup = AgeGroup;
+								exists.ReceiptNo = ReceiptNo;
+								exists.GrafNumber = GrafNumber;
+								exists.Address = Address;
+								exists.Burial_Status = Burial_Status == "Yes" ? true : false;
+								exists.UsualResidence = UsualResidence;
+								exists.DeathAge = DeathAge;
+								exists.Mortuary = Mortuary;
+								exists.DeedGender = DeedGender;
+								exists.CareTaker = CareTaker;
+								exists.Amount = decimal.Parse(Amount);
+								exists.AmountPaidDate = DateTime.Parse(AmountPaidDate); 
+								var modelRepo = db.Applications;
+								modelRepo.Attach(exists);
+								db.SaveChanges();
+
+							}
+							catch (Exception e)
+							{
+								sw.WriteLine(DateTime.Now.ToString() + " " + "Error Getting Values from Csv File - Check Column Names:" + e.StackTrace.ToString());
+								sw.WriteLine(DateTime.Now.ToString() + " " + "Error Getting Values from Csv File - Check Column Names:" + e.Message);
+								if (e.InnerException != null)
+								{
+									sw.WriteLine(DateTime.Now.ToString() + " " + "Error Getting Values from Csv File - Check Column Names:" + e.InnerException);
+								}
+								sw.Close();
+
+								return "Error Getting Values from Csv File - Check Column Names: " + e.StackTrace.ToString();
+							}
+						}
+						sw.Close();
+						return "PriceMatrix Created: " + counterAdd;
+					}
+				}
+				catch (Exception e)
+				{
+					//AddException(() => true, "Error copying File to In Folder. Attempt File Uploaded Again. Error: " + e.InnerException.Message.ToString(), throwNow: true);
+					sw.WriteLine(DateTime.Now.ToString() + " " + "Error copying File to In Folder. Attempt File Uploaded Again. Error:  " + e.StackTrace.ToString());
+					sw.WriteLine(DateTime.Now.ToString() + " " + "Error copying File to In Folder. Attempt File Uploaded Again. Error:  " + e.Message);
+					if (e.InnerException != null)
+					{
+						sw.WriteLine(DateTime.Now.ToString() + " " + "Error copying File to In Folder. Attempt File Uploaded Again. Error:" + e.InnerException);
+					}
+					sw.Close();
+					return "Error copying File to In Folder. Attempt File Uploaded Again. Error: ";
+				}
+			}
+			catch (Exception e)
+			{
+
+				sw.WriteLine(DateTime.Now.ToString() + " " + "excep " + e.StackTrace.ToString());
+				sw.WriteLine(DateTime.Now.ToString() + " " + "excep:  " + e.Message);
+				if (e.InnerException != null)
+				{
+					sw.WriteLine(DateTime.Now.ToString() + " " + "excep:" + e.InnerException);
+				}
+				sw.Close();
+			}
+			return "";
+		}
+
+		public PartialViewResult FileUploadPopUp()
         {
             FileUpload data = new FileUpload();
 
@@ -469,9 +688,10 @@ namespace cms.Controllers
         {
             if (e.UploadedFile.IsValid)
             {
-             
 
-            }
+				new HomeController().SaveAttachmentToServerCreateBurial(e.UploadedFile.FileBytes, e.UploadedFile.FileName);
+
+			}
         }
     }
 

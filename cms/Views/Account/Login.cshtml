@@ -48,10 +48,31 @@
     <br />
  @Html.DevExpress().Button(b =>
 {
-    b.Name = "Button";
-    b.Text = "Log On";
-    b.UseSubmitBehavior = true;
+	b.Name = "Button";
+	b.Text = "Log On";
+	b.UseSubmitBehavior = true;
+	b.ControlStyle.CssClass = "butt";
+	b.Width = Unit.Pixel(160);
+	b.Height = Unit.Pixel(35);
+
 }).GetHtml()
+
+	<br />
+	<br />
+
+	@Html.DevExpress().Button(settings =>
+   {
+	   settings.Name = "ButtonForgot";
+	   settings.Text = "Forgot Password";
+	   settings.Styles.Native = true;
+	   settings.RouteValues = new { Controller = "Account", Action = "ForgotPassword" };
+	   settings.UseSubmitBehavior = true;
+	   settings.ControlStyle.CssClass = "butt";
+	   settings.Width = Unit.Pixel(160);
+	   settings.Height = Unit.Pixel(35);
+
+
+   }).GetHtml()
 
 }
     <p style="color:red">@ViewBag.ErrorMessage</p>

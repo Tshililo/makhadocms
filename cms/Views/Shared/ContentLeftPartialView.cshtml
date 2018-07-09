@@ -1,6 +1,8 @@
 <div class="leftPanel">
     @* DXCOMMENT: Configure the left panel's menu *@
-    @Html.DevExpress().NavBar(settings =>
+ 
+	
+	   @Html.DevExpress().NavBar(settings =>
 {
     settings.Name = "LeftNavBar";
     settings.AutoCollapse = true;
@@ -44,3 +46,21 @@
 
 }).GetHtml()
 </div>
+
+<br />
+<div id="text">
+	@*<b>
+		@Html.Raw("best")   <br />
+	</b>*@
+</div>     <div class="imgLogo">
+	<h2>
+		<img src="~/content/Images/Logo.jpg"style="width: 150px; height: 140PX;" />
+	</h2>
+</div>
+
+<b>
+	<br>
+	<br>
+	@Html.Raw(" User:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Session["UserName"])<br />   @*Session["UserName"]*@
+	@Html.Raw(" Time Logged-In:&nbsp;&nbsp;" + Session["LoggedTime"])<br />   @*Session["UserName"]*@
+</b>
