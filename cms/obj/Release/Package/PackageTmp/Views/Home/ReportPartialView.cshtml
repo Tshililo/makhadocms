@@ -1,0 +1,27 @@
+﻿@*@{
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}*@
+@model DevExpress.XtraReports.UI.XtraReport
+
+@section HeadResources {
+    @Html.DevExpress().GetStyleSheets(
+       new StyleSheet { ExtensionType = ExtensionType.Panel },
+       new StyleSheet { ExtensionType = ExtensionType.WebDocumentViewer },
+       new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+       new StyleSheet { ExtensionSuite = ExtensionSuite.Editors }
+
+    )
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionType = ExtensionType.Panel },
+        new Script { ExtensionType = ExtensionType.WebDocumentViewer },
+        new Script { ExtensionSuite = ExtensionSuite.Report },
+        new Script { ExtensionSuite = ExtensionSuite.Editors }
+    )
+}
+
+
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "WebDocumentViewer";
+
+}).Bind(Model).GetHtml()

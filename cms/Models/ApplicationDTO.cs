@@ -41,5 +41,6 @@ namespace cms.Models
 		public Nullable<System.DateTime> CapturedDate { get; set; }
 		public Nullable<System.DateTime> PurchaseCapturedDate { get; set; }
 		public Nullable<bool> Burial_Status { get; set; }
-	}
+        public Guid? MortuaryId { get; set; }
+    }
 }

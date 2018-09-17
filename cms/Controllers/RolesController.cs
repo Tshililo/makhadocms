@@ -9,15 +9,13 @@ using System.Web.Mvc;
 namespace cms.Controllers
 {
    // [Authorize]
-    public class RolesController : Controller
+    public class RolesController : BaseController
     {
         // GET: Roles
         public ActionResult Index()
         {
             return View();
         }
-
-		cmsEntities1 db = new cmsEntities1();
 
         [ValidateInput(false)]
         public ActionResult RolesGridViewPartial()

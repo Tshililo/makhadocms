@@ -13,29 +13,32 @@
         settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Cemeteries", Action = "CemeteryDelete" };
 
         #region Properties
-        settings.Width = Unit.Percentage(100);
+        //    settings.Width = Unit.Percentage(100);
         Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "CemeteryGridViewPartial");
-        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+        //    settings.Settings.ShowStatusBar = GridViewStatusBarMode.Auto;
         settings.SettingsPager.PageSize = 15;
-        settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+        //   settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
 
-        settings.CommandColumn.Visible = true;
-        settings.CommandColumn.ShowSelectCheckbox = true;
-        //   settings.CommandColumn.Width = 40;
-        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
-
-        //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
 
         settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
-        settings.Settings.VerticalScrollableHeight = 220;
+        settings.Settings.VerticalScrollableHeight = 420;
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
 
-        settings.SettingsPager.PageSizeItemSettings.Visible = true;
-        settings.SettingsPager.AlwaysShowPager = true;
-
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
         settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
         settings.SettingsPopup.EditForm.Modal = true;
-        settings.SettingsBehavior.ConfirmDelete = false;
-
+        settings.SettingsBehavior.ConfirmDelete = true;
 
         settings.SettingsPopup.EditForm.Width = Unit.Pixel(700);
         //settings.SettingsPopup.EditForm.Height = Unit.Pixel(1500);
@@ -43,9 +46,6 @@
         settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
         settings.SettingsPopup.EditForm.ShowHeader = true;
 
-        settings.SettingsBehavior.AllowSelectSingleRowOnly = false; // radio button when true checkbox hen false
-                                                                    //settings.SettingsBehavior.AllowSelectByRowClick = false;
-        settings.SettingsBehavior.AllowFocusedRow = true;
         //  settings.ClientSideEvents.ColumnResized = "HighlightEllipsis";
         settings.SettingsBehavior.AllowEllipsisInText = true;
         #endregion

@@ -1,0 +1,53 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "ReportHeader";
+        settings.CallbackRouteValues = new { Controller = "ReportHeaders", Action = "ReportHeadersGridViewPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "ReportHeaders", Action = "ReportHeadersGridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "ReportHeaders", Action = "ReportHeadersGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "ReportHeaders", Action = "ReportHeadersGridViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+
+        settings.SettingsBehavior.AllowFocusedRow = true;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+
+        settings.Width = Unit.Percentage(100);
+
+        settings.KeyFieldName = "ObjId";
+
+        settings.Columns.Add(column => { column.FieldName = "OrganisationName"; column.Caption = "Title"; column.Width = Unit.Pixel(300); });
+        settings.Columns.Add("Address");
+        settings.Columns.Add("TeNo");
+        settings.Columns.Add("Vat");
+        settings.Columns.Add("Fax");
+        settings.Columns.Add("Email");
+
+        settings.KeyFieldName = "ObjId";
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

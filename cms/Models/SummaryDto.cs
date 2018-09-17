@@ -46,10 +46,16 @@ namespace cms.Models
             public string UsualResidence { get; set; }
             public Nullable<System.DateTime> CapturedDate { get; set; }
             public Nullable<System.DateTime> PurchaseCapturedDate { get; set; }
-            public string toCompany { get; internal set; }
-            public string forAttention { get; internal set; }
-            public string MortuaryName { get; internal set; }
-            public bool? Burial_Status { get; internal set; }
+            public string toCompany { get;  set; }
+            public string forAttention { get;  set; }
+            public string MortuaryName { get;  set; }
+            public bool? Burial_Status { get;  set; }
+            public string duIdNo { get;  set; }
+            public string duDeedName { get;  set; }
+            public string duAgeGroup { get;  set; }
+            public string duDeathAge { get;  set; }
+            public decimal? duAmount { get;  set; }
+            public bool? duBurial_Status { get; set; }
         }
 
         public List<SummaryLineDto> Lines

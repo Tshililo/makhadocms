@@ -21,7 +21,7 @@
     settings.Groups.Add(group =>
     {
         group.Text = "Administration";
-        group.Items.Add("Mortuary", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Mortuary", Action = "index" });
+        group.Items.Add("Mortuary", "", "~/Content/Images/Mortuary.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Mortuary", Action = "index" });
 
         //   group.Items.Add("Cemetery", "", "").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Cemeteries", Action = "index" });
         group.Items.Add("Drop Box", "", "~/Content/Images/dropbox.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "DropBox", Action = "index" });
@@ -38,6 +38,7 @@
     settings.Groups.Add(group =>
     {
         group.Text = "System Settings";
+        group.Items.Add("Report Header", "", "~/Content/Images/Report.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "ReportHeaders", Action = "index" });
         group.Items.Add("LogOut", "", "~/Content/Images/logout.jpg").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Account", Action = "LogOff" });
     });
 

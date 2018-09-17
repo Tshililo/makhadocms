@@ -14,6 +14,8 @@ namespace cms.Models
 
         public string Attention { get; set; }
 
+        public bool ShowDual { get; set; }
+
         public DateTime? DateFrom { get; set; }
 
         public DateTime? DateTo { get; set; }

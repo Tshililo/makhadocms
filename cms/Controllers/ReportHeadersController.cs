@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace cms.Controllers
 {
-    public class ReportHeadersController : Controller
+    public class ReportHeadersController : BaseController
     {
         // GET: DropBox
         public ActionResult Index()
@@ -12,7 +12,7 @@ namespace cms.Controllers
             return View();
         }
 
-		cmsEntities1 db = new cmsEntities1();
+      
 
         [ValidateInput(false)]
         public ActionResult ReportHeadersGridViewPartial()

@@ -11,9 +11,9 @@ using cms;
 namespace cms.Controllers
 {
   //  [Authorize]
-    public class CemeteriesController : Controller
+    public class CemeteriesController : BaseController
     {
-        private cmsEntities1 db = new cmsEntities1();
+
 
         // GET: Cemeteries
         public ActionResult Index()
@@ -51,7 +51,7 @@ namespace cms.Controllers
         public ActionResult CemeteryEdit(Cemetery item)
         {
             var model = db.Cemeteries;
-            var exists = model.Where(c => c.Name == item.Name).SingleOrDefault();
+            var exists = model.Where(c => c.ObjId == item.ObjId).SingleOrDefault();
 
             if (exists == null)
             {

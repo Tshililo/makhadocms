@@ -12,7 +12,7 @@ namespace cms
     using System;
     using System.Collections.Generic;
     
-    public partial class User 
+    public partial class User
     {
         public System.Guid Id { get; set; }
         public string Email { get; set; }

@@ -7,7 +7,7 @@ namespace cms
 
     public partial class AppReportXrMvc : DevExpress.XtraReports.UI.XtraReport
     {
-		cmsEntities1 db = new cmsEntities1();
+        cmsEntities db = new cmsEntities();
         public AppReportXrMvc()
 		{
             InitializeComponent();
@@ -22,6 +22,22 @@ namespace cms
             string dateFrom = FromDate.Value.ToString();         
             string dateTo = ToDate.Value.ToString();
 
+            string GetShowdual = ShowDual.Value.ToString();
+
+            bool Showdual = false;
+
+         //   if (!string.IsNullOrWhiteSpace(GetShowdual) || !string.IsNullOrEmpty(GetShowdual) || GetShowdual != "null")
+           // {
+                Showdual = bool.TryParse(GetShowdual, out Showdual);
+           // }
+
+            if (Showdual == true)
+            {
+                this.DetailReport2Dual.Visible = true;
+            }
+              
+
+
             DateTime? searchfrom = DateTime.Parse(dateFrom);
             DateTime? searchto = DateTime.Parse(dateTo);
 
@@ -31,7 +47,13 @@ namespace cms
 
         private List<Models.SummaryDto.SummaryLineDto> GetApplicationsDto(string forAttention, DateTime? dateFrom, DateTime? dateTo)
         {
-            var model = (from ur in db.Applications
+            var Applications = db.Applications;
+            var DualApplications = db.DualApplications;
+            var Mortuaries = db.Mortuaries;
+
+            var model = (from ur in Applications
+                         from mo in Mortuaries.Where(c => c.ObjId == ur.MortuaryId).DefaultIfEmpty()
+                         from du in DualApplications.Where(c => c.HeaderApplicationId == ur.ObjId).DefaultIfEmpty()
                          select new Models.SummaryDto.SummaryLineDto
                          {
                              IdNo = ur.IdNo,
@@ -41,12 +63,19 @@ namespace cms
                              DateOfBurial = ur.DateOfBurial,
                              PlaceOfIssue = ur.PlaceOfIssue,
                              AgeGroup = ur.AgeGroup,
-                             MortuaryName = ur.Mortuary,
+                             MortuaryName = mo.Name,
                              ReligionId = ur.ReligionId,
                              DeedGender = ur.DeedGender,
                              DeathAge = ur.DeathAge,
                              Burial_Status = ur.Burial_Status,
-                             Amount = ur.Amount
+                             Amount = ur.Amount,
+                            ////////////////////////////////////////////////
+                             duIdNo = du.IdNo,
+                             duDeedName = du.DeedName,
+                             duAgeGroup = du.AgeGroup,
+                             duDeathAge = du.DeathAge,
+                             duAmount = du.Amount,
+                             duBurial_Status = du.Burial_Status,
                          }).Where(c => c.DateOfBurial >= dateFrom && c.DateOfBurial <= dateTo).OrderBy(c => c.DateOfBurial);
 
             return model.ToList();

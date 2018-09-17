@@ -7,13 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using cms;
+using cms.Models;
 
 namespace cms.Controllers
 {
    // [Authorize]
-    public class GravesController : Controller
+    public class GravesController : BaseController
     {
-        private cmsEntities1 db = new cmsEntities1();
 
         // GET: Cemeteries
         public ActionResult Index()
@@ -23,18 +23,38 @@ namespace cms.Controllers
 
         #region Graves
 
-        private List<Cemetery> GetCemeteries()
+        private List<CemeteryOwnerDTO> GetCemeteries()
         {
-            return db.Cemeteries.ToList();
+            //return db.Cemeteries.ToList();
+            var Cemeteries = db.Cemeteries.ToList();
+            var Graves = db.Graves.ToList();
+
+            var query = from Gr in Graves
+                        from ap in Cemeteries.Where(c => c.ObjId == Gr.CemeteryId).DefaultIfEmpty()
+                        select new CemeteryOwnerDTO
+                        {
+                            ObjId = Gr.ObjId,
+                            Name = Gr.Name,
+                            Longitude = Gr.Longitude,
+                            Latitude = Gr.Latitude,
+                            Status = Gr.Status,
+                            CemeteryName = ap.Name
+                        };
+
+            var model = query.ToList();
+
+            return model;
         }
 
         public ActionResult GravesUpdateEntryToForm(Guid ObjId)
         {
-            var GravesInfo = db.Graves.Where(s => s.ObjId == ObjId).FirstOrDefault();
+            var GravesInfo = GetCemeteries().Where(s => s.ObjId == ObjId).FirstOrDefault();
 
-            ViewData["GetCemeteries"] = GetCemeteries();
+            var CemeteryInfo = db.Cemeteries.ToList();
 
-            Grave model = new Grave();
+            ViewData["GetCemeteries"] = CemeteryInfo;
+
+            CemeteryOwnerDTO model = new CemeteryOwnerDTO();
 
             if (GravesInfo == null)
             {
@@ -53,30 +73,32 @@ namespace cms.Controllers
 
         public ActionResult GravesGridViewPartial()
         {
-            var GravesRecords = db.Graves.OrderBy(c => c.Name).ToList();
+            var GravesRecords = GetCemeteries();
             // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
             return PartialView("GridViewPartialView", GravesRecords);
         }
 
-        public ActionResult GravesEdit(Grave item)
+        public ActionResult GravesEdit(CemeteryOwnerDTO item)
         {
             var model = db.Graves;
             var exists = model.Where(c => c.Name == item.Name).SingleOrDefault();
 
+            Grave newItem = new Grave();
             if (exists == null)
             {
-                model.Add(item);
+                CopyProperties(item, newItem);
+                model.Add(newItem);
                 db.SaveChanges();
             }
             if (exists != null)
             {
-
+                CopyProperties(item, exists);
                 this.UpdateModel(exists);
                 // model.Attach(userRole);
                 db.SaveChanges();
 
             }
-            var GravesRecords = db.Graves.ToList();
+            var GravesRecords = GetCemeteries();
             // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
             return PartialView("GridViewPartialView", GravesRecords);
 
@@ -102,7 +124,7 @@ namespace cms.Controllers
                     ViewData["EditError"] = e.Message;
                 }
             }
-            var GravesRecords = db.Graves.ToList();
+            var GravesRecords = GetCemeteries();
             // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
             return PartialView("GridViewPartialView", GravesRecords);
         }

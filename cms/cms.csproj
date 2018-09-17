@@ -259,21 +259,20 @@
     <Content Include="App_Data\TopMenu.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="CMSEntityModel.Context.tt">
+    <Content Include="cmsmodel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CMSEntityModel.edmx</DependentUpon>
-      <LastGenOutput>CMSEntityModel.Context.cs</LastGenOutput>
+      <DependentUpon>cmsmodel.edmx</DependentUpon>
+      <LastGenOutput>cmsmodel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CMSEntityModel.tt">
+    <Content Include="cmsmodel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CMSEntityModel.edmx</DependentUpon>
-      <LastGenOutput>CMSEntityModel.cs</LastGenOutput>
+      <DependentUpon>cmsmodel.edmx</DependentUpon>
+      <LastGenOutput>cmsmodel.cs</LastGenOutput>
     </Content>
     <Content Include="Content\Images\AquaHeader.jpg" />
     <Content Include="Content\Images\BlackGlassHeader.jpg" />
     <Content Include="Content\Images\Cemetery.jpg" />
     <Content Include="Content\Images\GlassHeader.jpg" />
-    <Content Include="Content\Images\Logo.jpg" />
     <Content Include="Content\Images\Makhado.jpg" />
     <Content Include="Content\Images\PlasticBlueHeader.jpg" />
     <Content Include="Content\Images\RedWineHeader.jpg" />
@@ -312,14 +311,16 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="CMSEntityModel.edmx">
+    <EntityDeploy Include="cmsmodel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CMSEntityModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>cmsmodel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="CMSEntityModel.edmx.diagram">
-      <DependentUpon>CMSEntityModel.edmx</DependentUpon>
+    <Content Include="cmsmodel.edmx.diagram">
+      <DependentUpon>cmsmodel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CMS.pubxml" />
+    <None Include="Properties\PublishProfiles\cmsmakhkado - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\cmsmakhkado - Web Deploy.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
@@ -342,7 +343,10 @@
     <Content Include="Views\ReportHeaders\_ReportHeaderGridViewPartial.cshtml" />
     <Content Include="Views\DropBox\GridViewPartialView.cshtml" />
     <Content Include="Views\DropBox\DropBoxMenu.cshtml" />
-    <Content Include="Views\Shared\_LayoutAfterLogin.cshtml" />
+    <Content Include="Views\SiteVisitAudit\Index.cshtml" />
+    <Content Include="Views\SiteVisitAudit\CreateSiteVisitAuditEditPartial.cshtml" />
+    <Content Include="Views\SiteVisitAudit\SiteVisitAuditMenu.cshtml" />
+    <Content Include="Views\SiteVisitAudit\GridViewPartialView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -431,7 +435,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -440,27 +444,28 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Cemetery.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CMSEntityModel.Context.cs">
+    <Compile Include="cmsmodel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CMSEntityModel.Context.tt</DependentUpon>
+      <DependentUpon>cmsmodel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CMSEntityModel.cs">
+    <Compile Include="cmsmodel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CMSEntityModel.Designer.cs">
+    <Compile Include="cmsmodel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CMSEntityModel.edmx</DependentUpon>
+      <DependentUpon>cmsmodel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\SiteVisitAuditController.cs" />
     <Compile Include="Controllers\MortuaryController.cs" />
     <Compile Include="Controllers\ReportHeadersController.cs" />
-    <Compile Include="Controllers\TandCsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GraveOwnerController.cs" />
     <Compile Include="Controllers\DropBoxController.cs" />
     <Compile Include="Controllers\DownloadsController.cs" />
@@ -469,18 +474,19 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DualApplication.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Grave.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="GraveOwner.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CemeteryOwnerDTO.cs" />
     <Compile Include="Models\ReportOptionDTO.cs" />
     <Compile Include="Models\EmailSender.cs" />
     <Compile Include="Models\SummaryDto.cs" />
@@ -497,24 +503,28 @@
     <Compile Include="Models\ApplicationModel.cs" />
     <Compile Include="Models\PasswordHelper.cs" />
     <Compile Include="Models\ApplicationDTO.cs" />
+    <Compile Include="Models\OnSiteVisitDto.cs" />
     <Compile Include="Models\UserRolesDto.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Mortuary.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportHeader.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SiteVisitAudit.cs">
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="User.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRole.cs">
-      <DependentUpon>CMSEntityModel.tt</DependentUpon>
+      <DependentUpon>cmsmodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Reports\AppReportXrMvc.cs">
       <SubType>Component</SubType>
@@ -530,6 +540,7 @@
     <Folder Include="Content\Downloads\Thumbnails\" />
     <Folder Include="Content\DropBox\" />
     <Folder Include="Content\FileManager\Thumbnails\" />
+    <Folder Include="Content\ImportApplications\" />
     <Folder Include="System\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,107 @@
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+@using cms.Helpers;
+@Html.DevExpress().GridView(
+	settings =>
+	{
+
+		settings.Name = "ApplicationGridViewPartial";
+
+		settings.CallbackRouteValues = new { Controller = "DropBox", Action = "ApplicationsGridViewPartial" };
+
+		#region Properties
+		settings.Width = Unit.Percentage(100);
+		Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "ApplicationGridViewPartial");
+		settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+		settings.SettingsPager.PageSize = 15;
+		//settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+		//settings.CommandColumn.Visible = true;
+		//settings.CommandColumn.ShowSelectCheckbox = true;
+		//   settings.CommandColumn.Width = 40;
+		settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+
+		//  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+
+		settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+		settings.Settings.VerticalScrollableHeight = 420;
+
+		settings.SettingsPager.PageSizeItemSettings.Visible = true;
+		settings.SettingsPager.AlwaysShowPager = true;
+
+		settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm; // POPUP EDIT FORM
+		settings.SettingsPopup.EditForm.Modal = true;
+		settings.SettingsBehavior.ConfirmDelete = false;
+
+
+		settings.SettingsPopup.EditForm.Width = Unit.Pixel(700);
+		//settings.SettingsPopup.EditForm.Height = Unit.Pixel(1500);
+		settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+		settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+		settings.SettingsPopup.EditForm.ShowHeader = true;
+
+		settings.SettingsBehavior.AllowSelectSingleRowOnly = false; // radio button when true checkbox hen false
+																	//settings.SettingsBehavior.AllowSelectByRowClick = false;
+		settings.SettingsBehavior.AllowFocusedRow = true;
+		//  settings.ClientSideEvents.ColumnResized = "HighlightEllipsis";
+		settings.SettingsBehavior.AllowEllipsisInText = true;
+		#endregion
+
+		settings.KeyFieldName = "ObjId";
+
+
+		settings.BeforeGetCallbackResult = (s, e) =>
+
+		{
+			var gridView = s as MVCxGridView;
+
+			var doc = gridView.EditingRowVisibleIndex > 0 ? gridView.GetRowValues(gridView.EditingRowVisibleIndex, "ObjId").ToString() : "";
+			gridView.SettingsText.PopupEditFormCaption = "Edit : " + doc;
+
+			if (gridView.IsNewRowEditing)
+			{
+				gridView.SettingsText.PopupEditFormCaption = "New Applicant";
+
+			}
+		};
+
+
+		settings.ClientSideEvents.FocusedRowChanged = "OnApplicationHeaderGridFocusedRowChanged";
+		settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+		settings.ClientSideEvents.EndCallback = "InitialSetFocus";
+
+		settings.Columns.Add(column => { column.FieldName = "IdNo"; column.Caption = "Id No."; column.Width = Unit.Pixel(120); });
+		settings.Columns.Add(column => { column.FieldName = "DeedName"; column.Caption = "Deed Name"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "Address"; column.Caption = "Address"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "ReligionId"; column.Caption = "Religion"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "DateOfBirth"; column.Caption = "Date Of Birth"; column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy"; column.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "PlaceOfIssue"; column.Caption = "Place Of Issue"; column.Width = Unit.Pixel(130); });
+		settings.Columns.Add(column => { column.FieldName = "AgeGroup"; column.Caption = "Age Group"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "DeedGender"; column.Caption = "Deed Gender"; column.Width = Unit.Pixel(100); });
+		settings.Columns.Add(column => { column.FieldName = "DeathAge"; column.Caption = "Death Age"; column.Width = Unit.Pixel(100); });
+
+		settings.Columns.Add(columnCheck =>
+		{
+			columnCheck.FieldName = "Burial_Status";
+			columnCheck.Caption = "Buried";
+			columnCheck.ColumnType = MVCxGridViewColumnType.CheckBox;
+			columnCheck.Width = Unit.Pixel(120);
+		});
+
+
+		settings.FormatConditions.AddTopBottom(c =>
+		{
+			c.FieldName = "Amount";
+			c.Rule = GridTopBottomRule.BottomPercent;
+			//   c.Threshold = 20;
+			c.Format = GridConditionHighlightFormat.RedText;
+		});
+
+
+		settings.Settings.ShowHeaderFilterButton = true;
+		settings.SettingsPopup.HeaderFilter.Height = 250;
+		var headerFilterMode = GridHeaderFilterMode.CheckedList;
+		foreach (GridViewDataColumn column in settings.Columns)
+			column.SettingsHeaderFilter.Mode = headerFilterMode;
+
+	}).SetEditErrorText(ViewData["EditError"] != null ? (string)ViewData["EditError"] : string.Empty).Bind(Model).GetHtml()

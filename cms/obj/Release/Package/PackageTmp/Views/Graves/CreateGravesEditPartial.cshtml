@@ -1,5 +1,5 @@
 
-@model cms.Grave
+@model cms.Models.CemeteryOwnerDTO
 
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
@@ -29,20 +29,18 @@
         itemSettings.Caption = "Cemetery";
         itemSettings.SetNestedContent(() =>
         {
-
-
             @Html.DevExpress().ComboBox(ComboBoxsettings =>
             {
                 //  Gsettings.Name = "Id";
                 ComboBoxsettings.Name = "CemeteryId";
-               // ComboBoxsettings.Width = 500;
-               // ComboBoxsettings.SelectedIndex = 1;
+                // ComboBoxsettings.Width = 500;
+                // ComboBoxsettings.SelectedIndex = 1;
                 ComboBoxsettings.Properties.TextField = "Name";
                 ComboBoxsettings.Properties.ValueField = "ObjId";
                 ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
                 ComboBoxsettings.ShowModelErrors = true;
             }
-        ).BindList(ViewData["Cemetery"]).Render();
+            ).BindList(Model.CemeteryId != null? Model.CemeteryId : ViewData["GetCemeteries"]).Render();
         });
     });
 

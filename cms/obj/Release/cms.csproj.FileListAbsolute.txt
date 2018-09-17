@@ -366,3 +366,5 @@ C:\Users\tshililo\Documents\Visual Studio 2015\Projects\cms\cms\obj\Release\cms.
 C:\Users\tshililo\Documents\Visual Studio 2015\Projects\cms\cms\obj\Release\cms.dll.licenses
 C:\Users\tshililo\Documents\Visual Studio 2015\Projects\cms\cms\obj\Release\cms.dll
 C:\Users\tshililo\Documents\Visual Studio 2015\Projects\cms\cms\obj\Release\cms.pdb
+C:\Users\Tshililo\Documents\Visual Studio 2015\Projects\cms\cms\obj\Release\cms.AppReportXrMvc.resources
+C:\Users\Tshililo\Documents\Visual Studio 2015\Projects\cms\cms\obj\Release\cms.csproj.GenerateResource.Cache

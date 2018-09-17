@@ -12,19 +12,19 @@
         #region Properties
         settings.Width = Unit.Percentage(100);
         Html.PalBrokerHtml().GridView.GridDefaultBehavior(settings, "GravesGridViewPartial");
-        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
-        settings.SettingsPager.PageSize = 15;
+        settings.Settings.ShowStatusBar = GridViewStatusBarMode.Visible;
+        settings.SettingsPager.PageSize = 7;
       //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
 
-        settings.CommandColumn.Visible = true;
-        settings.CommandColumn.ShowSelectCheckbox = true;
+      //  settings.CommandColumn.Visible = true;
+     //   settings.CommandColumn.ShowSelectCheckbox = true;
         //   settings.CommandColumn.Width = 40;
         settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
 
         //  settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
 
         settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
-        settings.Settings.VerticalScrollableHeight = 190;
+        settings.Settings.VerticalScrollableHeight = 200;
 
         settings.SettingsPager.PageSizeItemSettings.Visible = true;
         settings.SettingsPager.AlwaysShowPager = true;
@@ -48,9 +48,9 @@
         #endregion
 
 
-        settings.Columns.Add(column => { column.FieldName = "CemeteryId"; column.Caption = "Cemetery"; column.Width = Unit.Pixel(100); });
+     //   settings.Columns.Add(column => { column.FieldName = "CemeteryId"; column.Caption = "Cemetery"; column.Width = Unit.Pixel(100); });
         settings.Columns.Add(column => { column.FieldName = "Name"; column.Caption = "Plot"; column.Width = Unit.Pixel(100); });
-        settings.Columns.Add(column => { column.FieldName = "Longitude"; column.Caption = "Longitude"; column.Width = Unit.Pixel(100); });
+        settings.Columns.Add(column => { column.FieldName = "Longitude"; column.Caption = "Longitude"; column.Width = Unit.Pixel(300); });
         settings.Columns.Add(column => { column.FieldName = "Latitude"; column.Caption = "Latitude"; column.Width = Unit.Pixel(100); });
 
         settings.Settings.ShowHeaderFilterButton = true;

@@ -1,0 +1,126 @@
+
+@model cms.Models.OnSiteVisitDto
+
+@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+
+@Html.HiddenFor(e => e.ObjId)
+
+@Html.DevExpress().FormLayout(formSettings =>
+{
+    @Html.AntiForgeryToken();
+
+    formSettings.Name = "SiteVisitAuditFeatureLayout";
+    formSettings.AlignItemCaptionsInAllGroups = true;
+    formSettings.ColCount = 1;
+
+    var infoGroupItem1 = formSettings.Items.AddGroupItem(settings =>
+    {
+        settings.Caption = "Site Visit Audit Information";
+        //settings.RowSpan = 2;
+        settings.ShowCaption = DefaultBoolean.True;
+        settings.ColCount = 1;
+
+    });
+
+    //infoGroupItem1.Items.Add(e => e.DateOfVisit, itemSettings =>
+    //{
+    //    itemSettings.Caption = "Date Of Visit";
+    //});
+
+    infoGroupItem1.Items.Add(i => i.DateOfVisit, itemSettings =>
+    {
+        itemSettings.Caption = "Date Of Visit";
+        //itemSettings.Name = "DateCaptured";
+        itemSettings.SetNestedContent(() =>
+        {
+            @Html.DevExpress().DateEdit(
+                       settings =>
+                       {
+                           settings.Name = "DateOfVisit";
+
+                           //  settings.Properties.UseMaskBehavior = true;
+                           settings.Properties.EditFormat = EditFormat.Custom;
+                           settings.Properties.EditFormatString = "dd/MM/yyyy hh:mm tt";
+                           settings.Properties.TimeSectionProperties.Visible = true;
+                           settings.Properties.TimeSectionProperties.Adaptive = false;
+                           settings.Properties.TimeSectionProperties.TimeEditProperties.EditFormat = EditFormat.Custom;
+                           settings.Properties.TimeSectionProperties.TimeEditProperties.EditFormatString = "hh:mm tt";
+                           settings.Date = DateTime.Now;
+                           settings.Width = Unit.Percentage(100);
+                           settings.Height = Unit.Percentage(30);
+                           settings.Properties.CalendarProperties.FastNavProperties.DisplayMode = FastNavigationDisplayMode.Inline;
+                       }).Bind(Model.DateOfVisit).Render();
+        });
+    });
+
+    infoGroupItem1.Items.Add(i => i.Purpose, itemSettings =>
+    {
+        //settings.Caption = "Load Reference";
+        //settings.FieldName = "LoadReference";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        MemoSettings textBoxSettings = (MemoSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+    infoGroupItem1.Items.Add(i => i.Officer, itemSettings =>
+    {
+
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+
+    });
+
+
+    infoGroupItem1.Items.Add(e => e.GraveFound, itemSettings =>
+    {
+        //  itemSettings.FieldName = "DeedGenderDropDown";
+        itemSettings.Caption = "Grave Found";
+    });
+
+
+    var ButtonsGroupItem = formSettings.Items.AddGroupItem(Buttonsettings =>
+    {
+        // Buttonsettings.Caption = "";
+        //settings.RowSpan = 2;
+        // Buttonsettings.GroupBoxDecoration = GroupBoxDecoration.None;
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.ColCount = 1;
+    });
+
+    ButtonsGroupItem.Items.Add(Buttonsettings =>
+    {
+        Buttonsettings.ShowCaption = DefaultBoolean.False;
+        Buttonsettings.SetNestedContent(() =>
+        {
+            Html.ViewContext.Writer.Write("<div style='float:right'>");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnSave";
+                btnSettings.Text = "Save";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {SiteVisitAuditGridViewPartial.UpdateEdit();}";
+            }).Render();
+
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.Text = "Cancel";
+                btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                btnSettings.ClientSideEvents.Click = "function (s,e) {SiteVisitAuditGridViewPartial.CancelEdit();}";
+                btnSettings.UseSubmitBehavior = true;
+            }).Render();
+
+            Html.ViewContext.Writer.Write("</div>");
+
+        });
+    });
+
+}).Bind(Model).GetHtml();

@@ -8,9 +8,9 @@ using System.Web.Mvc;
 
 namespace cms.Controllers
 {
-    public class DropBoxController : Controller
+    public class DropBoxController : BaseController
     {
-		cmsEntities1 db = new cmsEntities1();
+ 
 		// GET: DropBox
 		public ActionResult Index()
         {

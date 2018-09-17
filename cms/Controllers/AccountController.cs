@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using System.Net.Mail;
 
 namespace cms.Controllers {
-    public class AccountController : Controller {
-        cmsEntities1 db = new cmsEntities1();
+    public class AccountController : BaseController
+    {
+       
 
         ApplicationSignInManager _signInManager;
         public ApplicationSignInManager SignInManager {
@@ -76,22 +76,29 @@ namespace cms.Controllers {
 
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-			var user = db.Users.Where(c => c.Email == model.UserName && c.Password == model.Password).FirstOrDefault();
-			if (user != null)
-			{
-				var result = PasswordSignIn(model.UserName, model.Password, user.Password, user.Id.ToString(), user.Email, (bool)model.RememberMe);
-				switch (result)
-				{
-					case SignInStatus.Success:
-						Session["UserName"] = user.UserName;
-						Session["LoggedTime"] = DateTime.Now.ToString("HH:mm:ss");
-						return RedirectToAction("Index", "Home");
+            var test = db.Users;
 
-				}
-			}
+            var user = db.Users.Where(c => c.Email == model.UserName).FirstOrDefault();
 
+            if (user != null)
+            {
+                //Get User Role
+                string userRole = GetUserRolesDto(user.Id.ToString());
 
-			ViewBag.ErrorMessage ="Username or Password Incorrect.";
+                var result = PasswordSignIn(model.UserName, model.Password, (bool)model.RememberMe, user.Email, user.Password, userRole);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToAction("Index", "Home");
+
+                }
+
+                ViewBag.ErrorMessage = "Username or Password Incorrect.";
+                return View(model);
+            }
+       
+
+            ViewBag.ErrorMessage ="User Not Found";
             return View(model);
         }
 
@@ -111,34 +118,36 @@ var results = model.FirstOrDefault();
 			return results.RoleName;
 		}
 
-		public SignInStatus PasswordSignIn(string userName, string password, string DBPassword, string DBId, string DBEmail, bool rememberMe)
+		public SignInStatus PasswordSignIn(string userName, string password, bool rememberMe, string ModelUserName, string ModelPassword, string userRole)
         {
 
-
-            var usertextPassword = DBPassword;
+            var usertextPassword = ModelPassword;
             // Match Password
             if (usertextPassword != password)
             {
                 return SignInStatus.Failure;
             }
 
+            if (userRole == null)
+            {
+                return SignInStatus.Failure;
+            }
             if (usertextPassword == password)
             {
-				//Get User Role
-				string userRole = GetUserRolesDto(DBId);
-
-				if (userRole != null)
-				{
-					FormsAuthentication.SetAuthCookie(DBEmail, false);
-					var authTicket = new FormsAuthenticationTicket(1, DBEmail, DateTime.Now, DateTime.Now.AddMinutes(20), false, userRole);
-					string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-					var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-					HttpContext.Response.Cookies.Add(authCookie);
-				}
 
 
-				return SignInStatus.Success;
-                
+                if (userRole != null)
+                {
+                    FormsAuthentication.SetAuthCookie(ModelUserName, false);
+                    var authTicket = new FormsAuthenticationTicket(1, ModelUserName, DateTime.Now, DateTime.Now.AddMinutes(20), false, userRole);
+                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    HttpContext.Response.Cookies.Add(authCookie);
+                }
+
+
+                return SignInStatus.Success;
+
             }
 
             return SignInStatus.Failure;
@@ -324,103 +333,32 @@ var results = model.FirstOrDefault();
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-				var user = db.Users.Where(c => c.Email == model.Email).FirstOrDefault();
-				if (user.Email == null)
-				{
-					ModelState.AddModelError("Email", "The user either does not exist or is not confirmed");
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    ModelState.AddModelError("Email", "The user either does not exist or is not confirmed");
                     return View(model);
                 }
 
-				try
-				{
-					//Create a token of a type guid
-					string UserToken = Guid.NewGuid().ToString();
-
-					if (user != null)
-					{
-						//Get email for that user
-						string EmailId = user.Email;
-
-						//create url with above token
-						var resetLink = "<a href='" + Url.Action("ResetUserPassword", "Account", new { userId = user.Id, tk = UserToken }, "http") + "'>Reset Password</a>";
-
-						//send mail
-						string subject = " Password Reset Token";
-						string body = "Dear " + user.UserName + " <br/>" + " You recently requested to reset your Password for Palbroker <br/>"
-						+ "Please find the Password Reset Token " + resetLink; //edit it
-
-						//Pass Email Address to ResetUserPassword form
-						ViewBag.PassEmail = user.Email;
-						try
-						{
-							SendEMail(EmailId, subject, body);
-
-							//   TempData["Message"] = "Mail Sent.";
-							return PartialView("EmailSuccess");
-						}
-						catch (Exception ex)
-						{
-							ViewBag.ErrorMessage = "Error occured while sending email." + ex.Message;
-						}
-					}
-					else
-					{
-						ViewBag.ErrorMessage = "Error occured while sending email. User does not exit!";
-					}
-
-				}
-				catch (Exception e)
-				{
-					ViewBag.ErrorMessage = e.Message;
-				}
-//				return PartialView("ForgotPasswordView");
-
-				return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);        
+                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-		[AllowAnonymous]
-		public ActionResult ResetUserPassword()
-		{
-
-			return PartialView("ResetPassword");
-
-		}
-
-		private void SendEMail(string emailid, string subject, string body)
-		{
-			System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-			client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-			client.EnableSsl = false;
-			client.Host = "smtp.gmail.com";
-			client.Port = 587;
-
-
-			System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("b.mutheiwana@gmail.com", "Windows8");
-			client.UseDefaultCredentials = false;
-			client.Credentials = credentials;
-
-			System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
-			msg.From = new MailAddress("b.mutheiwana@gmail.com");
-			msg.To.Add(new MailAddress(emailid));
-
-			msg.Subject = subject;
-			msg.IsBodyHtml = true;
-			msg.Body = body;
-
-			client.Send(msg);
-		}
-
-		//
-		// GET: /Account/ForgotPasswordConfirmation
-		[AllowAnonymous]
+        //
+        // GET: /Account/ForgotPasswordConfirmation
+        [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();

@@ -17,10 +17,9 @@ namespace cms.Controllers
 {
 
 	[Authorize]
-	public class HomeController : Controller
+	public class HomeController : BaseController
     {
-        cmsEntities1 db = new cmsEntities1();
-
+     
 	//	[Authorize(Roles = "Admin")]
 		public ActionResult Index()
         {
@@ -32,226 +31,7 @@ namespace cms.Controllers
             return db.Mortuaries.ToList();
         }
 
-		private DataSet ReadCsvIntoDataSet(string fileFullPath)
-		{
-			System.Data.DataSet dSet = new System.Data.DataSet("CSV File");
-			try
-			{
-				dSet = GetData(fileFullPath);
-				return dSet;
-
-			}
-			catch (Exception e)
-			{
-			//	"Error Importing CSV File: Error: " + e.InnerException.Message;
-			}
-			return null;
-
-		}
-
-		private static DataSet GetData(string fileName)
-		{
-			string strLine;
-
-			string[] strArray;
-			char[] charArray = new char[] { ',' };
-			DataSet ds = new DataSet();
-			DataTable dt = ds.Tables.Add("TheData");
-			FileStream aFile = new FileStream(fileName, FileMode.Open);
-			StreamReader sr = new StreamReader(aFile);
-
-			strLine = sr.ReadLine();
-
-			strArray = strLine.Split(charArray);
-
-			for (int x = 0; x <= strArray.GetUpperBound(0); x++)
-			{
-				dt.Columns.Add(strArray[x].Trim());
-			}
-
-			strLine = sr.ReadLine();
-			while (strLine != null)
-			{
-				strArray = strLine.Split(charArray);
-				System.Data.DataRow dr = dt.NewRow();
-				for (int i = 0; i <= strArray.GetUpperBound(0); i++)
-				{
-					dr[i] = strArray[i].Trim();
-				}
-				dt.Rows.Add(dr);
-				strLine = sr.ReadLine();
-			}
-			sr.Close();
-			return ds;
-		}
-
-		public string SaveAttachmentToServerCreateBurial(byte[] fileToUpload, string fileName)
-		{
-			// create if does not exist
-			var dir = AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\" + "log";
-			System.IO.Directory.CreateDirectory(dir);
-
-			var filenameErrorlog = dir + "\\BurialImportlogErrors" + DateTime.Now.ToFileTime() + ".txt";
-			var sw = new System.IO.StreamWriter(filenameErrorlog, true);
-
-			try
-			{
-				string localDirectoryToCopyFiles = "C:/ImportCSV";  // this is the actual folder we will store the files
-
-				sw.WriteLine(DateTime.Now.ToString() + " " + "SaveAttachmentToServerCreatePriceBurial." + localDirectoryToCopyFiles);
-
-				// CREATE ORG FOLDER IF IT DOES NOT EXIST
-				if (!Directory.Exists(@localDirectoryToCopyFiles))
-					Directory.CreateDirectory(@localDirectoryToCopyFiles);
-
-				if (string.IsNullOrWhiteSpace(fileName))
-					fileName = "temp" + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".csv";
-
-				var filedesc = @localDirectoryToCopyFiles + "\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + " " + fileName;
-
-
-				sw.WriteLine(DateTime.Now.ToString() + " " + "filedesc." + filedesc);
-				sw.WriteLine(DateTime.Now.ToString() + " " + "fileName." + fileName);
-
-
-
-
-				FileInfo file = new FileInfo(filedesc); // we are in the org folder on the server
-				try
-				{
-					FileStream outStream = file.OpenWrite();
-
-					outStream.Write(fileToUpload, 0, fileToUpload.Length);
-					outStream.Flush();
-					outStream.Close();
-
-					DataSet dt = ReadCsvIntoDataSet(file.FullName);
-					var counterAdd = 0;
-					var counterSkip = 0;
-
-					foreach (DataTable table in dt.Tables)
-					{
-						foreach (DataRow row in table.Rows)
-						{
-
-							var Idno = row["Id No."].ToString();
-
-							//get week code row
-							var mymodel = db.Applications;
-							var ApplicationsInfo = mymodel.Where(s => s.IdNo == Idno).FirstOrDefault();
-							if (ApplicationsInfo == null)
-							{
-								// if any week found to be null, report to the user and skip processing
-								sw.WriteLine(DateTime.Now.ToString() + " " + "One or More of the Idno do not exists. Please create it and Attempt Import Again");
-								return "One or More of the Idno do not exists. Please create it and Attempt Import Again";
-
-							}
-						}
-					}
-
-			
-
-					foreach (DataTable table in dt.Tables)
-					{
-						foreach (DataRow row in table.Rows)
-						{
-							try
-							{
-
-								var IdNo = row["Id No."].ToString();
-								var DeedName = row["Deed Name"].ToString();
-								var DateOfBirth = row["Date Of Birth"].ToString();
-								var DateOfBurial = row["Date Of Burial"].ToString();
-								var PlaceOfIssue = row["Place Of Issue"].ToString();
-								var PlaceOfBurial = row["Place Of Burial"].ToString();
-								var ReligionId = row["Religion"].ToString();
-								var AgeGroupId = row["Age Group"].ToString();
-								var AgeGroup = row["Age Group"].ToString();
-								var ReceiptNo = row["Receipt No"].ToString();
-								var GrafNumber = row["GrafNumber"].ToString();
-								var Burial_Status = row["Buried"].ToString();
-								var Address = row["Address"].ToString();
-
-								var UsualResidence = row["Usual Residence"].ToString();
-								var DeathAge = row["Death Age"].ToString();
-								var Mortuary = row["Mortuary"].ToString();
-								var DeedGender = row["Deed Gender"].ToString();
-								var CareTaker = row["Id No."].ToString();
-								var Amount = row["Amount"].ToString();
-								var AmountPaidDate = row["Amount Paid Date"].ToString();
-
-								Application exists = new Application();
-								//this.UpdateModel(item);
-								exists.IdNo = IdNo;
-								exists.DeedName = DeedName;
-								exists.DateOfBirth = DateTime.Parse(DateOfBirth);
-								exists.DateOfBurial = DateTime.Parse(DateOfBurial);
-								exists.PlaceOfIssue = PlaceOfIssue;
-								exists.PlaceOfBurial = PlaceOfBurial;
-								exists.ReligionId = ReligionId;
-								exists.AgeGroupId = AgeGroupId;
-								exists.AgeGroup = AgeGroup;
-								exists.ReceiptNo = ReceiptNo;
-								exists.GrafNumber = GrafNumber;
-								exists.Address = Address;
-								exists.Burial_Status = Burial_Status == "Yes" ? true : false;
-								exists.UsualResidence = UsualResidence;
-								exists.DeathAge = DeathAge;
-								exists.Mortuary = Mortuary;
-								exists.DeedGender = DeedGender;
-								exists.CareTaker = CareTaker;
-								exists.Amount = decimal.Parse(Amount);
-								exists.AmountPaidDate = DateTime.Parse(AmountPaidDate); 
-								var modelRepo = db.Applications;
-								modelRepo.Attach(exists);
-								db.SaveChanges();
-
-							}
-							catch (Exception e)
-							{
-								sw.WriteLine(DateTime.Now.ToString() + " " + "Error Getting Values from Csv File - Check Column Names:" + e.StackTrace.ToString());
-								sw.WriteLine(DateTime.Now.ToString() + " " + "Error Getting Values from Csv File - Check Column Names:" + e.Message);
-								if (e.InnerException != null)
-								{
-									sw.WriteLine(DateTime.Now.ToString() + " " + "Error Getting Values from Csv File - Check Column Names:" + e.InnerException);
-								}
-								sw.Close();
-
-								return "Error Getting Values from Csv File - Check Column Names: " + e.StackTrace.ToString();
-							}
-						}
-						sw.Close();
-						return "PriceMatrix Created: " + counterAdd;
-					}
-				}
-				catch (Exception e)
-				{
-					//AddException(() => true, "Error copying File to In Folder. Attempt File Uploaded Again. Error: " + e.InnerException.Message.ToString(), throwNow: true);
-					sw.WriteLine(DateTime.Now.ToString() + " " + "Error copying File to In Folder. Attempt File Uploaded Again. Error:  " + e.StackTrace.ToString());
-					sw.WriteLine(DateTime.Now.ToString() + " " + "Error copying File to In Folder. Attempt File Uploaded Again. Error:  " + e.Message);
-					if (e.InnerException != null)
-					{
-						sw.WriteLine(DateTime.Now.ToString() + " " + "Error copying File to In Folder. Attempt File Uploaded Again. Error:" + e.InnerException);
-					}
-					sw.Close();
-					return "Error copying File to In Folder. Attempt File Uploaded Again. Error: ";
-				}
-			}
-			catch (Exception e)
-			{
-
-				sw.WriteLine(DateTime.Now.ToString() + " " + "excep " + e.StackTrace.ToString());
-				sw.WriteLine(DateTime.Now.ToString() + " " + "excep:  " + e.Message);
-				if (e.InnerException != null)
-				{
-					sw.WriteLine(DateTime.Now.ToString() + " " + "excep:" + e.InnerException);
-				}
-				sw.Close();
-			}
-			return "";
-		}
-
-		public PartialViewResult FileUploadPopUp()
+        public PartialViewResult FileUploadPopUp()
         {
             FileUpload data = new FileUpload();
 
@@ -267,11 +47,176 @@ namespace cms.Controllers
             return null;
         }
 
+
         public PartialViewResult ImportApplication()
         {
-            Application data = new Application();
+            return PartialView("ImportApplication");
+        }
 
-            return PartialView("ImportApplication", data);
+        public string SaveRecordsApplication(byte[] fileToUpload, string fileName)
+        {
+
+            // create if does not exist
+            var dir = AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\" + "log";
+            System.IO.Directory.CreateDirectory(dir);
+
+            var filenameErrorlog = dir + "\\LogImportErrors" + DateTime.Now.ToFileTime() + ".txt";
+            var sw = new System.IO.StreamWriter(filenameErrorlog, true);
+
+            try
+            {
+                string localDirectoryToCopyFiles = "C:/DropBox/ImportApplications";  // this is the actual folder we will store the files
+
+                sw.WriteLine(DateTime.Now.ToString() + " " + "SaveAttachmentToServerCreateBurial." + localDirectoryToCopyFiles);
+
+                // CREATE ORG FOLDER IF IT DOES NOT EXIST
+                if (!Directory.Exists(@localDirectoryToCopyFiles))
+                    Directory.CreateDirectory(@localDirectoryToCopyFiles);
+
+                if (string.IsNullOrWhiteSpace(fileName))
+                    fileName = "temp" + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".csv";
+
+                var filedesc = @localDirectoryToCopyFiles + "\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + " " + fileName;
+
+
+                sw.WriteLine(DateTime.Now.ToString() + " " + "filedesc." + filedesc);
+                sw.WriteLine(DateTime.Now.ToString() + " " + "fileName." + fileName);
+
+
+                FileInfo file = new FileInfo(filedesc); // we are in the org folder on the server
+                try
+                {
+                    FileStream outStream = file.OpenWrite();
+
+                    outStream.Write(fileToUpload, 0, fileToUpload.Length);
+                    outStream.Flush();
+                    outStream.Close();
+
+                    DataSet dt = ReadCsvIntoDataSet(file.FullName);
+
+                    foreach (DataTable table in dt.Tables)
+                    {
+                        foreach (DataRow row in table.Rows)
+                        {
+                            #region GetValues
+                            var Address = row["Address"].ToString();
+                            var IdNo = row["IdNo"].ToString();
+                            var DeedName = row["Deed Name"].ToString();
+                        
+                            var Religion = row["Religion"].ToString();
+                            var DateOfBirth = row["DateOfBirth"].ToString();
+                            var PlaceOfIssue = row["PlaceOfIssue"].ToString();
+                            var AgeGroup = row["AgeGroup"].ToString();
+                            var DeedGender = row["DeedGender"].ToString();
+                            var DeathAge = row["DeathAge"].ToString();
+                            var Buried = row["Buried"].ToString();
+                            var PlaceOfBurial = row["Place Of Burial"].ToString();
+                            var DateOfBurial = row["Date Of Burial"].ToString();
+                            var UsualResidence = row["Usual Residence"].ToString();
+                            var CapturedDate = row["Captured Date"].ToString();
+                            var Capturer = row["Capturer"].ToString();
+                            var Amount = row["Amount"].ToString();
+                            var AmountPaidDate = row["Amount Paid Date"].ToString();
+                            #endregion
+
+                            #region DoValidations
+                            var IdNoisnull = string.IsNullOrWhiteSpace(IdNo) ? null : IdNo;
+                            if (IdNoisnull == null)
+                            {
+                                return "ID No cannot be Empty.";
+                            }
+
+                            var Religionisnull = string.IsNullOrWhiteSpace(Religion) ? null : Religion;
+                            if (Religionisnull == null)
+                            {
+                                return "Religion cannot be Empty.";
+                            }
+
+                            var AgeGroupisnull = string.IsNullOrWhiteSpace(AgeGroup) ? null : AgeGroup;
+                            if (AgeGroupisnull == null)
+                            {
+                                return "Age Group cannot be Empty.";
+                            }
+
+                            var DeedNameisnull = string.IsNullOrWhiteSpace(DeedName) ? null : DeedName;
+                            if (DeedNameisnull == null)
+                            {
+                                return "Deed Name cannot be Empty.";
+                            }
+
+                            bool Isburied = false;
+
+                            var Buriedisnull = string.IsNullOrWhiteSpace(Buried) ? null : Buried;
+                            if (Buriedisnull != null)
+                            {
+                                Isburied = Buriedisnull == "yes" ? true : false;
+                            }
+
+                            decimal? amountpaid = 0;
+
+                            var Amountisnull = string.IsNullOrWhiteSpace(Amount) ? null : Amount;
+                            if (Amountisnull != null)
+                            {
+                                amountpaid = decimal.Parse(Amount);
+                            } 
+                            #endregion
+
+                            DateTime? DateofBirth = null;
+                            DateTime? Dateofburial = null;
+                            DateTime? DateofPayment = null;
+                            var modelRepo = db.Applications;
+                            var exists = modelRepo.Where(c => c.IdNo == IdNo).SingleOrDefault();
+                            Application existsToSave = new Application();
+
+                            #region AssignValues
+                            existsToSave.IdNo = IdNo;
+                            existsToSave.DeedName = DeedName;
+                            existsToSave.DateOfBirth = DateOfBirth != null ? DateTime.Parse(DateOfBirth) : DateofBirth;
+                            existsToSave.DateOfBurial = DateOfBurial != null ? DateTime.Parse(DateOfBurial) : Dateofburial;
+                            existsToSave.PlaceOfIssue = PlaceOfIssue;
+                            existsToSave.PlaceOfBurial = PlaceOfBurial;
+                            existsToSave.ReligionId = Religion;
+                            existsToSave.AgeGroupId = AgeGroup;
+                            existsToSave.AgeGroup = AgeGroup;
+                            //exists.ReceiptNo = rece
+                            // exists.GrafNumber = item.GrafNumber;
+                            existsToSave.Address = Address;
+                            existsToSave.Burial_Status = Isburied;
+                            existsToSave.UsualResidence = UsualResidence;
+                            existsToSave.DeathAge = DeathAge;
+                            //exists.Mortuary = item.Mortuary;
+                            existsToSave.DeedGender = DeedGender;
+                            //exists.CareTaker = care
+                            // exists.PurchaseOfGrave = pur
+                            existsToSave.Amount = amountpaid;
+                            existsToSave.AmountPaidDate = AmountPaidDate != null ? DateTime.Parse(AmountPaidDate) : DateofPayment;
+                            #endregion
+
+                            if (exists == null)
+                            {
+                                modelRepo.Add(existsToSave);
+                                db.SaveChanges();
+                                return "Successfuly Added";
+                            }
+
+                            else
+                            {
+                                return "Record Already Exists";
+                            }
+                           
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.GetBaseException().Message.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+              e.GetBaseException().Message.ToString();
+            }
+            return null;
         }
 
 
@@ -283,83 +228,106 @@ namespace cms.Controllers
         }
 
 		#region BurialRecordApplication
-		public ActionResult ApplicationsUpdateEntryToForm(Guid ObjId, Application model)
+		public ActionResult ApplicationsUpdateEntryToForm(Guid ObjId)
 		{
 			ViewData["Mortuaries"] = GetMortuary();
 
-			var mymodel = db.Applications;
-			var ApplicationsInfo = mymodel.Where(s => s.ObjId == ObjId).FirstOrDefault();
+            var Applications = db.Applications;
 
-			if (ApplicationsInfo == null)
-			{
-				model.ObjId = ObjId;
-				return PartialView("CreateApplicationsEditPartial", model);
-			}
+            var Mortuaries = db.Mortuaries;
 
-			if (ApplicationsInfo != null)
-			{
+            ViewData["Mortuaries"] = Mortuaries.ToList();
 
-				return PartialView("CreateApplicationsEditPartial", ApplicationsInfo);
-			}
 
-			return null;
+           var mymodel = ReadApplication();
+
+            if (mymodel != null)
+            {
+                var ApplicationsInfo = mymodel.Where(s => s.ObjId == ObjId).FirstOrDefault();
+                ApplicationsDTO model = new ApplicationsDTO();
+                if (ApplicationsInfo == null)
+                {
+
+                    model.ObjId = ObjId;
+                    return PartialView("CreateApplicationsEditPartial", model);
+                }
+
+                if (ApplicationsInfo != null)
+                {
+                    return PartialView("CreateApplicationsEditPartial", ApplicationsInfo);
+                }
+
+            }
+
+
+            return null;
 
 		}
 
-		public ActionResult ApplicationsGridViewPartial()
-		{
-			var model = db.Applications;
 
-			// DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
-			return PartialView("GridViewPartialView", model.ToList());
-		}
 
-		public ActionResult ApplicationsEdit(Application item)
+        public ActionResult ApplicationsGridViewPartial()
+        {
+            var query = ReadApplication();
+            // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
+            return PartialView("GridViewPartialView", query);
+        }
+
+        private List<ApplicationsDTO> ReadApplication()
+        {
+            var model = db.Applications;
+            var Mortuaries = db.Mortuaries;
+
+            var query =  from ap in model
+                   from mo in Mortuaries.Where(c => c.ObjId == ap.MortuaryId).DefaultIfEmpty()
+                   select new ApplicationsDTO
+                   {
+                       IdNo = ap.IdNo,
+                       ObjId = ap.ObjId,
+                       DeedName = ap.DeedName,
+                       Address = ap.Address,
+                       DateOfBirth = ap.DateOfBirth,
+                       DateOfBurial = ap.DateOfBurial,
+                       PlaceOfIssue = ap.PlaceOfIssue,
+                       AgeGroup = ap.AgeGroup,
+                       MortuaryName = mo.Name,
+                       MortuaryId = mo.ObjId,
+                       ReligionId = ap.ReligionId,
+                       DeedGender = ap.DeedGender,
+                       DeathAge = ap.DeathAge,
+                       CapturedDate = ap.CapturedDate,
+                       Burial_Status = ap.Burial_Status,
+                       UsualResidence = ap.UsualResidence,
+                       ReceiptNo = ap.ReceiptNo,
+                       CareTaker = ap.CareTaker,
+                       Amount = ap.Amount,
+                       AmountPaidDate = ap.AmountPaidDate
+                   };
+
+            return query.ToList();
+        }
+
+        public ActionResult ApplicationsEdit(ApplicationsDTO item)
 		{
 			var modelRepo = db.Applications;
 			var exists = modelRepo.Where(c => c.ObjId == item.ObjId).SingleOrDefault();
 			Application Tosave = new Application();
 			if (exists == null)
 			{
-				modelRepo.Add(item);
+                CopyProperties(item, Tosave);
+				modelRepo.Add(Tosave);
 				db.SaveChanges();
 			}
 			if (exists != null)
 			{
-
-				//this.UpdateModel(item);
-				exists.IdNo = item.IdNo;
-				exists.DeedName = item.DeedName;
-				exists.DateOfBirth = item.DateOfBirth;
-				exists.DateOfBurial = item.DateOfBurial;
-				exists.PlaceOfIssue = item.PlaceOfIssue;
-				exists.PlaceOfBurial = item.PlaceOfBurial;
-				exists.ReligionId = item.ReligionId;
-				exists.AgeGroupId = item.AgeGroupId;
-				exists.AgeGroup = item.AgeGroup;
-				exists.ReceiptNo = item.ReceiptNo;
-				exists.GrafNumber = item.GrafNumber;
-				exists.Address = item.Address;
-				exists.Burial_Status = item.Burial_Status;
-				exists.UsualResidence = item.UsualResidence;
-				exists.DeathAge = item.DeathAge;
-				exists.Mortuary = item.Mortuary;
-				exists.DeedGender = item.DeedGender;
-				exists.CareTaker = item.CareTaker;
-				exists.PurchaseOfGrave = item.PurchaseOfGrave;
-				exists.ReservationOfGrave = item.ReservationOfGrave;
-				exists.OpenCloseGrave = item.OpenCloseGrave;
-				exists.WideningOfGrave = item.WideningOfGrave;
-				exists.UseOfANiche = item.WideningOfGrave;
-				exists.BurialOfPauper = item.BurialOfPauper;
-				exists.Amount = item.Amount;
-				exists.AmountPaidDate = item.AmountPaidDate;
+                CopyProperties(item, exists);
 				modelRepo.Attach(exists);
 				db.SaveChanges();
 			}
-	
-			// DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
-			return PartialView("GridViewPartialView", modelRepo.ToList());
+
+            var BurialRecords = ReadApplication();
+            // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
+            return PartialView("GridViewPartialView", BurialRecords);
 
 		}
 
@@ -397,9 +365,9 @@ namespace cms.Controllers
 					ViewData["EditError"] = e.Message;
 				}
 			}
-			var BurialRecords = db.Applications.ToList();
-			// DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
-			return PartialView("GridViewPartialView", BurialRecords);
+			var BurialRecords =  ReadApplication();
+            // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter
+            return PartialView("GridViewPartialView", BurialRecords);
 		} 
 		#endregion
 
@@ -423,6 +391,7 @@ namespace cms.Controllers
             rep.Attention.Value = p[1];
             rep.FromDate.Value = p[2];
             rep.ToDate.Value = p[4];
+            rep.ShowDual.Value = p[6];
             return rep;
         }
         #endregion
@@ -514,8 +483,13 @@ namespace cms.Controllers
 
         private List<GraveOwnerDto> GetGraveOwnerDto(string headerObjId)
         {
-            var model = (from go in db.GraveOwners.Where(c => c.ApplicationId.ToString() == headerObjId)
-                         from gr in db.Graves.Where(c => c.ObjId == go.GraveId)
+            var GraveOwners = db.GraveOwners.ToList();
+            var Graves = db.Graves.ToList();
+            var Cemeteries = db.Cemeteries.ToList();
+
+            var model = (from go in GraveOwners.Where(c => c.ApplicationId.ToString() == headerObjId)
+                         from gr in Graves.Where(c => c.ObjId == go.GraveId)
+                         from cm in Cemeteries.Where(c => c.ObjId == gr.CemeteryId)
                          from app in db.Applications.Where(c => c.ObjId == go.ApplicationId)
                          select new GraveOwnerDto
                          {
@@ -523,7 +497,7 @@ namespace cms.Controllers
                              ApplicationId = app.ObjId,
                              GraveId = gr.ObjId,
                              GraveName = gr.Name,
-                             CemeteryId = gr.CemeteryId,
+                             CemeteryName = cm.Name,
                              ReceiptNo = app.ReceiptNo,
                              GrafNumber = app.GrafNumber,
                              CareTaker = app.CareTaker,
@@ -686,12 +660,24 @@ namespace cms.Controllers
         };
         public static void FileUploadComplete(object sender, DevExpress.Web.FileUploadCompleteEventArgs e)
         {
+
             if (e.UploadedFile.IsValid)
             {
 
-				new HomeController().SaveAttachmentToServerCreateBurial(e.UploadedFile.FileBytes, e.UploadedFile.FileName);
+                try
+                {
+                    var ToUpload = new cms.Controllers.HomeController().SaveRecordsApplication(e.UploadedFile.FileBytes, e.UploadedFile.FileName);
+                    e.UploadedFile.IsValid = false;
+                    e.ErrorText = ToUpload;
+                }
+                catch (Exception ex)
+                {
+                    e.UploadedFile.IsValid = false;
+                    e.ErrorText = "Custom Error Text " + ex.Message;
+                }
 
-			}
+            }
+
         }
     }
 

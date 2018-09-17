@@ -10,6 +10,7 @@
         ApplicationGridViewPartial_ObjiId = values;
         GVDualApplication.PerformCallback();
         GVGraveOwner.PerformCallback();
+
     }
 
     function InitialSetFocus(s, e) {
@@ -27,7 +28,7 @@
      //   e.customArgs["HeaderId"] = ApplicationGridViewPartial_ObjiId; gvContainerBookingHeader.GetRowKey(gvContainerBookingHeader.GetFocusedRowIndex());
     }
 
-   
+
     function OnLinkToGraveMenuClick(s, e) {
 
         if (e.item.name == "btnHeaderLink") {
@@ -37,8 +38,6 @@
 
             //get id of grave  table
             var GraveId = GravesGridViewPartial.GetRowKey(GravesGridViewPartial.GetFocusedRowIndex());
-
-            
             $.ajax({
                 url: '@Url.Action("LinkToGraveAdd", "Home")',
                 type: "POST",
@@ -50,7 +49,7 @@
                 success: function (data) {
                     GVGraveOwner.PerformCallback();
                     LinkToGravePopUp.Hide();
-        
+
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert('Request Status: ' + xhr.status + '; Status Text: ' + textStatus + '; Error: ' + errorThrown);
@@ -60,24 +59,124 @@
         }
     }
 
-    @*function ApproveLinking() {
-
-
-       // alert(OwnershipObjId);
-    }*@
     function InitialSetFocus(s, e) {
         if (s.GetFocusedRowIndex() < 0)
             s.SetFocusedRowIndex(0);
     }
 
     function SaveApplication() {
+
+    	var Idno = IdNo.GetValue();
+    	var Deedname = DeedName.GetValue();
+    	var Deedgender = DeedGender.GetValue();
+    	var Agegroup = AgeGroup.GetValue();
+    	var Religionid = ReligionId.GetValue();
+
+    	if (Idno == null || Idno == "") {
+    		alert("Please Enter ID No.");
+    		return;
+    	}
+
+    	if (Deedname == null || Deedname == "") {
+    		alert("Please Enter Deed Name.");
+    		return;
+    	}
+
+    	if (Deedgender == null || Deedgender == "") {
+    		alert("Please Select Deed Gender");
+    		return;
+    	}
+
+    	if (Agegroup == null || Agegroup == "") {
+    		alert("Please Select Age group");
+    		return;
+    	}
+
+    	if (Religionid == null || Religionid == "") {
+    		alert("Please Select Religion");
+    		return;
+    	}
+
         ApplicationGridViewPartial.UpdateEdit()
     }
 
-    function DualSaveApplication() {
+    function PrintReport() {
+        //Get Header
+        var ObjId = ApplicationGridViewPartial.GetRowKey(ApplicationGridViewPartial.GetFocusedRowIndex());
+        //Get values
+        var attention = Attention.GetValue();
+        var datefrom = DateFrom.GetValue();
+        var dateto = DateTo.GetValue();
+
+        var myDate = new Date(datefrom);
+        var from = myDate.toLocaleString()
+
+        var myDate1 = new Date(dateto);
+        var to = myDate1.toLocaleString()
+
+        var passed_params = ObjId + "," + attention + "," + from + "," + to;
+
+        if (attention == null) {
+            alert('Please Enter Attention to!');
+            return;
+        }
+
+        if (datefrom == null)
+        {
+            alert('Please enter Date From');
+            return;
+        }
+        if (dateto == null) {
+            alert('Please enter Date To');
+            return;
+        }
+
+
+     //   alert(passed_params);
+
+        var link = '@Url.Action("ReportViewPartial", "Home", new { reportParams = "_reportParams_" })';
+
+        link.replace("_reportParams_", passed_params);
+        window.open(link.replace("_reportParams_", passed_params), '_blank');
+
+    }
+
+	function DualSaveApplication() {
+
+		var Idno = IdNo.GetValue();
+		var Deedname = DeedName.GetValue();
+		var Deedgender = DeedGender.GetValue();
+		var Agegroup = AgeGroup.GetValue();
+		var Religionid = ReligionId.GetValue();
+
+		if (Idno == null || Idno == "") {
+			alert("Please Enter ID No.");
+			return;
+		}
+
+		if (Deedname == null || Deedname == "") {
+			alert("Please Enter Deed Name.");
+			return;
+		}
+
+		if (Deedgender == null || Deedgender == "") {
+			alert("Please Select Deed Gender");
+			return;
+		}
+
+		if (Agegroup == null || Agegroup == "") {
+			alert("Please Select Age group");
+			return;
+		}
+
+		if (Religionid == null || Religionid == "") {
+			alert("Please Select Religion");
+			return;
+		}
+
         GVDualApplication.UpdateEdit()
     }
-    
+
     function OnDualApplicationMenuClick(s, e) {
 
         if (e.item.name == "btnHeaderNew") {
@@ -120,20 +219,12 @@
             ApplicationGridViewPartial.AddNewRow(index);
         }
 
-        if (e.item.name == "btnPrintOut") {
+      if (e.item.name == "btnPrintReport") {
 
-            //Get Header
-            var HeaderObjId = ApplicationGridViewPartial.GetRowKey(ApplicationGridViewPartial.GetFocusedRowIndex());
+          ReportOptions.Show();
+      }
 
 
-
-            var link = '@Url.Action("ReportViewPartial", "Home")';
-
-            link.replace("_reportParams_", HeaderObjId);
-            window.open(link.replace("_reportParams_", HeaderObjId), '_blank');
-        }
-
-        
 
         if (e.item.name == "btnHeaderImport") {
             ImportCSV.Show();
@@ -166,7 +257,7 @@
 
             DualRecordPopUp.Show();
         }
-        
+
         if (e.item.name == "btnHeaderEdit") {
 
             var index = ApplicationGridViewPartial.GetFocusedRowIndex();
@@ -181,6 +272,19 @@
             LinkToGravePopUp.Show();
 
         }
+
+        @*if (e.item.name == "btnLinkToDropBox") {
+
+        	//LinkToDropBox.Show();
+
+        	var passed_params = ApplicationGridViewPartial.GetRowKey(ApplicationGridViewPartial.GetFocusedRowIndex());
+        	alert(passed_params)
+
+        	var link = '@Url.Action("FileManagerPartial", "Home", new { reportParams = "_reportParams_" })';
+
+        	link.replace("_reportParams_", passed_params);
+        	window.open(link.replace("_reportParams_", passed_params), '_blank');
+        }*@
 
         if (e.item.name == "btnHeaderDelete") {
                   if (confirm("Confirm Delete?")) {
@@ -286,8 +390,8 @@
     settings.Name = "DualRecordPopUp";
     settings.CloseAction = CloseAction.CloseButton;
     settings.ShowOnPageLoad = false;
-    settings.Width = Unit.Pixel(600);
-    settings.Height = Unit.Pixel(400);
+    settings.Width = Unit.Pixel(800);
+    settings.Height = Unit.Pixel(500);
     settings.ShowCloseButton = true;
     settings.ShowHeader = true;
     settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
@@ -316,8 +420,8 @@
     settings.Name = "LinkToGravePopUp";
     settings.CloseAction = CloseAction.CloseButton;
     settings.ShowOnPageLoad = false;
-    settings.Width = Unit.Pixel(600);
-    settings.Height = Unit.Pixel(400);
+    settings.Width = Unit.Pixel(800);
+    settings.Height = Unit.Pixel(570);
     settings.ShowCloseButton = true;
     settings.ShowHeader = true;
     settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
@@ -370,6 +474,67 @@
     });
 
 }).GetHtml()
+
+    @Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "ReportOptions";
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Width = Unit.Pixel(200);
+    settings.Height = Unit.Pixel(250);
+    settings.ShowCloseButton = true;
+    settings.ShowHeader = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.AllowDragging = true;
+    settings.DragElement = DragElement.Header;
+    settings.AllowResize = true;
+    settings.Modal = true;
+    settings.ResizingMode = ResizingMode.Live;
+    settings.ShowSizeGrip = ShowSizeGrip.True;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.PopupAction = PopupAction.LeftMouseClick;
+    settings.HeaderText = "Report Options";
+    settings.ShowCloseButton = true;
+
+    settings.SetContent(() =>
+    {
+
+        @Html.RenderPartial("ReportOptions");
+
+    });
+
+}).GetHtml()
+
+    @*@Html.DevExpress().PopupControl(settings =>
+{
+	settings.Name = "LinkToDropBox";
+	settings.CloseAction = CloseAction.CloseButton;
+	settings.CallbackRouteValues = new { Controller = "Home", Action = "FileManagerPartial" };
+	settings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+	settings.Width = Unit.Pixel(900);
+	settings.Height = Unit.Pixel(250);
+	settings.ShowCloseButton = true;
+	settings.ShowHeader = true;
+	settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+	settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+	settings.AllowDragging = true;
+	settings.DragElement = DragElement.Header;
+	settings.AllowResize = true;
+	settings.Modal = true;
+	settings.ResizingMode = ResizingMode.Live;
+	settings.ShowSizeGrip = ShowSizeGrip.True;
+	settings.CloseAction = CloseAction.CloseButton;
+	settings.PopupAction = PopupAction.LeftMouseClick;
+	settings.HeaderText = "DropBox";
+	settings.ShowCloseButton = true;
+
+	settings.SetContent(() =>
+	{
+	//	@Html.RenderAction("FileManagerPartial");
+	});
+
+}).GetHtml()*@
+
 }
 
 

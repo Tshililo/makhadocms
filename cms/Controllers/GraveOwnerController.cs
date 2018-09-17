@@ -12,10 +12,9 @@ using cms.Models;
 namespace cms.Controllers
 {
   //  [Authorize]
-    public class GraveOwnerController : Controller
+    public class GraveOwnerController : BaseController
     {
-        private cmsEntities1 db = new cmsEntities1();
-
+     
         // GET: Cemeteries
         public ActionResult Index()
         {

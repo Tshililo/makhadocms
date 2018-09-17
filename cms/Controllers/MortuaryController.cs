@@ -11,9 +11,8 @@ using cms;
 namespace cms.Controllers
 {
   //  [Authorize]
-    public class MortuaryController : Controller
+    public class MortuaryController : BaseController
     {
-        private cmsEntities1 db = new cmsEntities1();
 
         // GET: Cemeteries
         public ActionResult Index()
@@ -53,7 +52,7 @@ namespace cms.Controllers
         public ActionResult MortuaryEdit(Mortuary item)
         {
             var model = db.Mortuaries;
-            var exists = model.Where(c => c.Name == item.Name).SingleOrDefault();
+            var exists = model.Where(c => c.ObjId == item.ObjId).SingleOrDefault();
 
             if (exists == null)
             {
@@ -62,11 +61,10 @@ namespace cms.Controllers
             }
             if (exists != null)
             {
-
+                CopyProperties(item, exists);
                 this.UpdateModel(exists);
                 // model.Attach(userRole);
                 db.SaveChanges();
-
             }
             var MortuaryRecords = db.Mortuaries.ToList();
             // DXCOMMENT: Pass a data model for GridView in the PartialView method's second parameter

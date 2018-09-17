@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="cmsmakhkado" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="Add write permission to App_Data Folder" description="Add write permission to App_Data folder" value="cmsmakhkado/App_Data" tags="Hidden">
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\App_Data$" />
+  </parameter>
+  <parameter name="ApplicationServices-Web.config Connection String" description="" value="Data Source=prsolution.database.windows.net;Initial Catalog=cms;Persist Security Info=True;User ID=prs;Password=Mutheiwana27;Application Name=EntityFramework" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationServices']/@connectionString" />
+  </parameter>
+  <parameter name="cms.Models.NorthwindContext-Web.config Connection String" description="" value="cms.Models.NorthwindContext_ConnectionString" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cms.Models.NorthwindContext']/@connectionString" />
+  </parameter>
+  <parameter name="cmsEntities1-Web.config Connection String" description="" value="metadata=res://*/CMSEntityModel.csdl|res://*/CMSEntityModel.ssdl|res://*/CMSEntityModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=BEST-DELL\PALTRACK;initial catalog=cms;persist security info=True;user id=sa;password=P@ltr@ck;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cmsEntities1']/@connectionString" />
+  </parameter>
+  <parameter name="NWindConnectionString-Web.config Connection String" description="" value="data source=(localdb)\mssqllocaldb;attachdbfilename=|DataDirectory|\NWind.mdf;integrated security=True;connect timeout=120" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='NWindConnectionString']/@connectionString" />
+  </parameter>
+</parameters>

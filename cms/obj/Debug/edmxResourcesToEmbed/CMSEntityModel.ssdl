@@ -25,7 +25,7 @@
     <Property Name="GrafNumber" Type="nvarchar" MaxLength="30" />
     <Property Name="ReligionId" Type="nvarchar" MaxLength="30" />
     <Property Name="AgeGroupId" Type="nvarchar" MaxLength="30" />
-    <Property Name="Mortuary" Type="nvarchar" MaxLength="30" />
+    <Property Name="MortuaryId" Type="uniqueidentifier" />
     <Property Name="DeedGender" Type="nvarchar" MaxLength="30" />
     <Property Name="DeathAge" Type="nvarchar" MaxLength="30" />
     <Property Name="CauseOfDeath" Type="nvarchar" MaxLength="30" />
@@ -124,6 +124,16 @@
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="50" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'cms.dbo.SiteVisitAudit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SiteVisitAudit">
+    <Key>
+      <PropertyRef Name="ObjId" />
+    </Key>
+    <Property Name="ObjId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DateOfVisit" Type="datetime" />
+    <Property Name="Purpose" Type="nvarchar" MaxLength="500" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
@@ -155,5 +165,12 @@
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SiteVisitAudit" EntityType="Self.SiteVisitAudit" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SiteVisitAudit].[ObjId] AS [ObjId], 
+    [SiteVisitAudit].[DateOfVisit] AS [DateOfVisit], 
+    [SiteVisitAudit].[Purpose] AS [Purpose]
+    FROM [dbo].[SiteVisitAudit] AS [SiteVisitAudit]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

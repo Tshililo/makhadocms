@@ -1,8 +1,11 @@
 
-@model cms.Application
+@model cms.Models.ApplicationsDTO
 
 @using DevExpress.Web;
 @using DevExpress.Web.Mvc;
+@using cms.Models;
+
+@Html.HiddenFor(e => e.ObjId)
 
 @Html.HiddenFor(e => e.ObjId)
 
@@ -10,7 +13,7 @@
 {
     @Html.AntiForgeryToken();
 
-    formSettings.Name = "ApplicationsFeatureLayout";
+    formSettings.Name = "BarialFeatureLayout";
     formSettings.AlignItemCaptionsInAllGroups = true;
     formSettings.ColCount = 1;
 
@@ -26,8 +29,8 @@
     #region GeneralInfo
     infoGroupItem1.Items.Add(i => i.IdNo, itemSettings =>
     {
-        //settings.Caption = "Load Reference";
-        //settings.FieldName = "LoadReference";
+        itemSettings.Caption = "Id No";
+        itemSettings.FieldName = "IdNo";
         itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
         itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
         TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
@@ -39,8 +42,6 @@
 
     infoGroupItem1.Items.Add(i => i.DeedName, itemSettings =>
     {
-        //settings.Caption = "Load Reference";
-        //settings.FieldName = "LoadReference";
         itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
         itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
         TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
@@ -58,6 +59,12 @@
 
     infoGroupItem1.Items.Add(e => e.DeedGender, itemSettings =>
     {
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
         //  itemSettings.FieldName = "DeedGenderDropDown";
         itemSettings.Caption = "Deed Gender";
         itemSettings.SetNestedContent(() =>
@@ -82,7 +89,8 @@
 
     infoGroupItem1.Items.Add(i => i.Address, itemSettings =>
     {
-
+        itemSettings.Caption = "Address";
+        itemSettings.FieldName = "Address";
 
     });
     #endregion
@@ -109,26 +117,28 @@
         itemSettings.Name = "CapturedDate";
     });
 
-    infoGroupItem1.Items.Add(e => e.Mortuary, itemSettings =>
+
+    infoGroupItem1.Items.Add(e => e.MortuaryId, itemSettings =>
     {
-        //  itemSettings.FieldName = "DeedGenderDropDown";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
         itemSettings.Caption = "Mortuary";
         itemSettings.SetNestedContent(() =>
         {
-
-
             @Html.DevExpress().ComboBox(ComboBoxsettings =>
             {
-                //  Gsettings.Name = "Id";
-                ComboBoxsettings.Name = "Mortuary";
-                // ComboBoxsettings.Width = 500;
-                // ComboBoxsettings.SelectedIndex = 1;
+
+                ComboBoxsettings.Name = "MortuaryId";
+                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
                 ComboBoxsettings.Properties.TextField = "Name";
                 ComboBoxsettings.Properties.ValueField = "ObjId";
-                ComboBoxsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                //   ComboBoxsettings.SelectedIndex = 1;
                 ComboBoxsettings.ShowModelErrors = true;
-            }
-        ).BindList(ViewData["Mortuaries"]).Render();
+            }).BindList(ViewData["Mortuaries"]).Render();
         });
     });
 
@@ -139,7 +149,12 @@
 
     infoGroupItem1.Items.Add(e => e.AgeGroup, itemSettings =>
     {
-        // itemSettings.FieldName = "AgeGroupDropDown";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
         itemSettings.Caption = "Age Group";
         itemSettings.SetNestedContent(() =>
         {
@@ -182,7 +197,12 @@
     #region Payments
     infoGroupItem1.Items.Add(e => e.ReligionId, itemSettings =>
     {
-        // itemSettings.FieldName = "ReligionIdDropDown";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettings.NestedExtensionSettings;
+        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
         itemSettings.Caption = "Race";
         itemSettings.SetNestedContent(() =>
         {
@@ -190,7 +210,7 @@
             @Html.DevExpress().ComboBox(ComboBoxsettings =>
             {
                 ComboBoxsettings.Name = "ReligionId";
-                //  ComboBoxsettings.SelectedIndex = 0;
+                ComboBoxsettings.SelectedIndex = 0;
                 ComboBoxsettings.Properties.Items.Add("African");
                 ComboBoxsettings.Properties.Items.Add("Indian");
                 ComboBoxsettings.Properties.Items.Add("White");
@@ -233,9 +253,6 @@
     #region Buttons
     var ButtonsGroupItem = formSettings.Items.AddGroupItem(Buttonsettings =>
     {
-        // Buttonsettings.Caption = "";
-        //settings.RowSpan = 2;
-        // Buttonsettings.GroupBoxDecoration = GroupBoxDecoration.None;
         Buttonsettings.ShowCaption = DefaultBoolean.False;
         Buttonsettings.ColCount = 1;
     });

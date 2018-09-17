@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ApplicationServices-Web.config Connection String" description="ApplicationServices Connection String used in web.config by the application to access the database." defaultValue="data source=(localdb)\mssqllocaldb;integrated security=SSPI;attachdbfilename=|DataDirectory|\aspnetdb.mdf" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationServices']/@connectionString" />
+  </parameter>
+  <parameter name="NWindConnectionString-Web.config Connection String" description="NWindConnectionString Connection String used in web.config by the application to access the database." defaultValue="data source=(localdb)\mssqllocaldb;attachdbfilename=|DataDirectory|\NWind.mdf;integrated security=True;connect timeout=120" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='NWindConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="MakhadoCms-Web.config Connection String" description="MakhadoCms Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/MakhadoCMS.csdl|res://*/MakhadoCMS.ssdl|res://*/MakhadoCMS.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=prsolution.database.windows.net;initial catalog=cms;user id=prs;password=Mutheiwana27;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MakhadoCms']/@connectionString" />
+  </parameter>
+  <parameter name="cmsEntities1-Web.config Connection String" description="cmsEntities1 Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/CMSEntityModel.csdl|res://*/CMSEntityModel.ssdl|res://*/CMSEntityModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=BEST-DELL\PALTRACK;initial catalog=cms;persist security info=True;user id=sa;password=P@ltr@ck;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cmsEntities1']/@connectionString" />
+  </parameter>
+  <parameter name="cms.Models.NorthwindContext-Web.config Connection String" description="cms.Models.NorthwindContext Connection String used in web.config by the application to access the database." defaultValue="cms.Models.NorthwindContext_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Tshililo\\Documents\\Visual\ Studio\ 2015\\Projects\\cms\\cms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cms.Models.NorthwindContext']/@connectionString" />
+  </parameter>
+</parameters>

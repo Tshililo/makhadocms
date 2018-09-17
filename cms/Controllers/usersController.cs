@@ -18,15 +18,14 @@ using cms.Models;
 namespace cms.Controllers
 {
 	//   [Authorize]
-	public class usersController : Controller
-	{
+	public class usersController : BaseController
+    {
 		// GET: users
 		public ActionResult Index()
 		{
 			return View();
 		}
 
-		cmsEntities1 db = new cmsEntities1();
 
 		#region list users
 		//  edit method called on grid view edittemplatecontent - will create new object or get existing object
@@ -133,17 +132,17 @@ namespace cms.Controllers
 		{
 			System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
 			client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-			client.EnableSsl = false;
+			client.EnableSsl = true;
 			client.Host = "smtp.gmail.com";
 			client.Port = 587;
 
 
-			System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("b.mutheiwana@gmail.com", "Windows8");
+			System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("prsappreply@gmail.com", "Mutheiwana27");
 			client.UseDefaultCredentials = false;
 			client.Credentials = credentials;
 
 			System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
-			msg.From = new MailAddress("b.mutheiwana@gmail.com");
+			msg.From = new MailAddress("prsappreply@gmail.com");
 			msg.To.Add(new MailAddress(emailid));
 
 			msg.Subject = subject;
@@ -491,9 +490,9 @@ namespace cms.Controllers
 				var resetLink = "<a href='" + Url.Action("ResetPassword", "users", new { un = userId, rt = UserToken }, "http") + "'>Reset Password</a>";
 
 				// send mail
-				string subject = "Palbroker Password Reset Token";
-				string body = "Dear " + user.UserName + " <br/>" + " You recently requested to reset your Password for Palbroker <br/>"
-				+ "Please find the Password Reset Token " + resetLink; //edit it
+				string subject = "CMS Password Reset Token";
+				string body = "Dear " + user.UserName + " <br/>" + " You recently requested to reset your Password for CMS <br/>"
+                + "Please find the Password Reset Token " + resetLink; //edit it
 				try
 				{
 					SendEMail(EmailId, subject, body);

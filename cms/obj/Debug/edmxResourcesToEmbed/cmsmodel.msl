@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cmsModelStoreContainer" CdmEntityContainer="cmsEntities">
+    <EntitySetMapping Name="Applications">
+      <EntityTypeMapping TypeName="cmsModel.Application">
+        <MappingFragment StoreEntitySet="Application">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="IdNo" ColumnName="IdNo" />
+          <ScalarProperty Name="DeedName" ColumnName="DeedName" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="DateOfBurial" ColumnName="DateOfBurial" />
+          <ScalarProperty Name="PlaceOfIssue" ColumnName="PlaceOfIssue" />
+          <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+          <ScalarProperty Name="PurchaseOfGrave" ColumnName="PurchaseOfGrave" />
+          <ScalarProperty Name="ReservationOfGrave" ColumnName="ReservationOfGrave" />
+          <ScalarProperty Name="OpenCloseGrave" ColumnName="OpenCloseGrave" />
+          <ScalarProperty Name="WideningOfGrave" ColumnName="WideningOfGrave" />
+          <ScalarProperty Name="UseOfANiche" ColumnName="UseOfANiche" />
+          <ScalarProperty Name="BurialOfPauper" ColumnName="BurialOfPauper" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="AmountPaidDate" ColumnName="AmountPaidDate" />
+          <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+          <ScalarProperty Name="PlaceOfBurial" ColumnName="PlaceOfBurial" />
+          <ScalarProperty Name="CareTaker" ColumnName="CareTaker" />
+          <ScalarProperty Name="GrafNumber" ColumnName="GrafNumber" />
+          <ScalarProperty Name="ReligionId" ColumnName="ReligionId" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="MortuaryId" ColumnName="MortuaryId" />
+          <ScalarProperty Name="DeedGender" ColumnName="DeedGender" />
+          <ScalarProperty Name="DeathAge" ColumnName="DeathAge" />
+          <ScalarProperty Name="CauseOfDeath" ColumnName="CauseOfDeath" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="UsualResidence" ColumnName="UsualResidence" />
+          <ScalarProperty Name="CapturedDate" ColumnName="CapturedDate" />
+          <ScalarProperty Name="PurchaseCapturedDate" ColumnName="PurchaseCapturedDate" />
+          <ScalarProperty Name="Burial_Status" ColumnName="Burial_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cemeteries">
+      <EntityTypeMapping TypeName="cmsModel.Cemetery">
+        <MappingFragment StoreEntitySet="Cemetery">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DualApplications">
+      <EntityTypeMapping TypeName="cmsModel.DualApplication">
+        <MappingFragment StoreEntitySet="DualApplication">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="HeaderApplicationId" ColumnName="HeaderApplicationId" />
+          <ScalarProperty Name="IdNo" ColumnName="IdNo" />
+          <ScalarProperty Name="DeedName" ColumnName="DeedName" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="DateOfBurial" ColumnName="DateOfBurial" />
+          <ScalarProperty Name="PlaceOfIssue" ColumnName="PlaceOfIssue" />
+          <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+          <ScalarProperty Name="PurchaseOfGrave" ColumnName="PurchaseOfGrave" />
+          <ScalarProperty Name="ReservationOfGrave" ColumnName="ReservationOfGrave" />
+          <ScalarProperty Name="OpenCloseGrave" ColumnName="OpenCloseGrave" />
+          <ScalarProperty Name="WideningOfGrave" ColumnName="WideningOfGrave" />
+          <ScalarProperty Name="UseOfANiche" ColumnName="UseOfANiche" />
+          <ScalarProperty Name="BurialOfPauper" ColumnName="BurialOfPauper" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="AmountPaidDate" ColumnName="AmountPaidDate" />
+          <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+          <ScalarProperty Name="PlaceOfBurial" ColumnName="PlaceOfBurial" />
+          <ScalarProperty Name="CareTaker" ColumnName="CareTaker" />
+          <ScalarProperty Name="GrafNumber" ColumnName="GrafNumber" />
+          <ScalarProperty Name="ReligionId" ColumnName="ReligionId" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="Mortuary" ColumnName="Mortuary" />
+          <ScalarProperty Name="DeedGender" ColumnName="DeedGender" />
+          <ScalarProperty Name="DeathAge" ColumnName="DeathAge" />
+          <ScalarProperty Name="CauseOfDeath" ColumnName="CauseOfDeath" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="UsualResidence" ColumnName="UsualResidence" />
+          <ScalarProperty Name="CapturedDate" ColumnName="CapturedDate" />
+          <ScalarProperty Name="PurchaseCapturedDate" ColumnName="PurchaseCapturedDate" />
+          <ScalarProperty Name="Burial_Status" ColumnName="Burial_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Graves">
+      <EntityTypeMapping TypeName="cmsModel.Grave">
+        <MappingFragment StoreEntitySet="Grave">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="CemeteryId" ColumnName="CemeteryId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GraveOwners">
+      <EntityTypeMapping TypeName="cmsModel.GraveOwner">
+        <MappingFragment StoreEntitySet="GraveOwner">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="GraveId" ColumnName="GraveId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mortuaries">
+      <EntityTypeMapping TypeName="cmsModel.Mortuary">
+        <MappingFragment StoreEntitySet="Mortuary">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportHeaders">
+      <EntityTypeMapping TypeName="cmsModel.ReportHeader">
+        <MappingFragment StoreEntitySet="ReportHeader">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="OrganisationName" ColumnName="OrganisationName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="TeNo" ColumnName="TeNo" />
+          <ScalarProperty Name="Vat" ColumnName="Vat" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="cmsModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SiteVisitAudits">
+      <EntityTypeMapping TypeName="cmsModel.SiteVisitAudit">
+        <MappingFragment StoreEntitySet="SiteVisitAudit">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="DateOfVisit" ColumnName="DateOfVisit" />
+          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+          <ScalarProperty Name="Officer" ColumnName="Officer" />
+          <ScalarProperty Name="GraveFound" ColumnName="GraveFound" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="cmsModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="TempPassword" ColumnName="TempPassword" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="cmsModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
